@@ -1,0 +1,9 @@
+{
+	"$schema": "https://json.schemastore.org/web-manifest-combined.json",
+	"name": "Dominiks Blog",
+	"short_name": "derdomee_",
+	"start_url": ".",
+	"display": "standalone",
+	"background_color": "#000",
+	"description": "Dominik Riedigs blog and article store"
+}

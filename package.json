@@ -1,0 +1,46 @@
+{
+	"name": "express-blog",
+	"version": "1.0.0",
+	"description": "",
+	"main": "dist/server.js",
+	"scripts": {
+		"clean": "rimraf dist/*",
+		"copy-assets": "ts-node tools/copyAssets",
+		"lint": "tslint -c tslint.json -p tsconfig.json --fix",
+		"tsc": "tsc",
+		"build": "npm-run-all clean lint tsc tailwind copy-assets webpack",
+		"start": "export NODE_ENV=production; node .",
+		"tailwind": "tailwindcss -i ./main.css -o ./dist/public/styles.css --minify",
+		"webpack": "webpack-cli --devtool source-map",
+		"dev:serve": "NODE_ENV=development nodemon --watch src -e ts --exec ts-node src/server",
+		"dev:js-webpack": "webpack-cli --devtool eval-source-map --watch",
+		"dev:tailwind": "tailwindcss -i ./main.css -o ./dist/public/styles.css --watch",
+		"dev": "npm-run-all --parallel dev:serve dev:js-webpack dev:tailwind"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"dotenv": "^16.0.0",
+		"ejs": "^3.1.6",
+		"express": "^4.17.3",
+		"helmet": "^5.0.2",
+		"npm-run-all": "^4.1.5",
+		"winston": "^3.6.0"
+	},
+	"devDependencies": {
+		"@types/express": "^4.17.13",
+		"@types/node": "^16.11.26",
+		"@types/shelljs": "^0.8.11",
+		"@types/tailwindcss": "^3.0.9",
+		"nodemon": "^2.0.15",
+		"rimraf": "^3.0.2",
+		"shelljs": "^0.8.5",
+		"tailwindcss": "^3.0.23",
+		"ts-node": "^10.7.0",
+		"tslint": "^6.1.3",
+		"typescript": "^4.6.2",
+		"webpack": "^5.70.0",
+		"webpack-cli": "^4.9.2"
+	}
+}
