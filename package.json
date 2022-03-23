@@ -2,7 +2,7 @@
 	"name": "express-blog",
 	"version": "1.0.0",
 	"description": "",
-	"main": "dist/server.js",
+	"main": "dist/main.js",
 	"scripts": {
 		"clean": "rimraf dist/*",
 		"copy-assets": "ts-node tools/copyAssets",
@@ -12,7 +12,7 @@
 		"start": "export NODE_ENV=production; node .",
 		"tailwind": "tailwindcss -i ./main.css -o ./dist/public/styles.css --minify",
 		"webpack": "webpack-cli --devtool source-map",
-		"dev:serve": "NODE_ENV=development nodemon --watch src -e ts --exec ts-node src/server",
+		"dev:serve": "NODE_ENV=development nodemon --watch src -e ts --exec ts-node src/main",
 		"dev:js-webpack": "webpack-cli --devtool eval-source-map --watch",
 		"dev:tailwind": "tailwindcss -i ./main.css -o ./dist/public/styles.css --watch",
 		"dev": "npm-run-all --parallel dev:serve dev:js-webpack dev:tailwind"
@@ -25,7 +25,9 @@
 		"ejs": "^3.1.6",
 		"express": "^4.17.3",
 		"helmet": "^5.0.2",
+		"mysql2": "^2.3.3",
 		"npm-run-all": "^4.1.5",
+		"sequelize": "^6.17.0",
 		"winston": "^3.6.0"
 	},
 	"devDependencies": {
@@ -36,6 +38,7 @@
 		"nodemon": "^2.0.15",
 		"rimraf": "^3.0.2",
 		"shelljs": "^0.8.5",
+		"sqlite3": "^4.2.0",
 		"tailwindcss": "^3.0.23",
 		"ts-node": "^10.7.0",
 		"tslint": "^6.1.3",
