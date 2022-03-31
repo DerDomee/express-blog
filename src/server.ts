@@ -18,11 +18,13 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// Create nonce for helmet CSP script-src using nonce
 app.use((_req, res, next) => {
 	res.locals.cspNonce = crypto.randomBytes(16).toString('hex');
 	next();
 });
 
+// Helmet itself
 app.use(helmet({
 	contentSecurityPolicy: {
 		useDefaults: true,
