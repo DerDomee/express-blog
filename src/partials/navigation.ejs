@@ -6,25 +6,19 @@
 					<%- heroicon({icon: 'academic-cap', classes: 'self-center inline h-6 mr-2'}) %> 
 					<span class="text-xl font-semibold tracking-tight">Dominik Riedig</span>
 				</a>
+				
 				<ul class="flex items-center h-full align-middle">
+
+				<% for (let item of navigation) { %>
+
 					<li class="relative flex h-full z-[1] before:absolute before:bottom-auto
 					before:m-auto before:w-full before:h-0 before:transparent
 					before:-z-[1] motion-safe:before:transition-all before:duration-[0ms] motion-safe:before:duration-[400ms]
 					hover:before:h-full hover:before:bg-gray-700">
-						<a href="/" class="h-full items-center align-middle flex px-4">Home</a>
+						<a href="<%-item.route%>" class="h-full items-center align-middle flex px-4"><%- item.name %> </a>
 					</li>
-					<li class="relative flex h-full z-[1] before:absolute before:bottom-auto
-					before:m-auto before:w-full before:h-0 before:transparent
-					before:-z-[1] motion-safe:before:transition-all before:duration-[0ms] motion-safe:before:duration-[400ms]
-					hover:before:h-full hover:before:bg-gray-700">
-						<a href="/about" class="h-full items-center align-middle flex px-4">About me</a>
-					</li>
-					<li class="relative flex h-full z-[1] before:absolute before:bottom-auto
-					before:m-auto before:w-full before:h-0 before:transparent
-					before:-z-[1] motion-safe:before:transition-all before:duration-[0ms] motion-safe:before:duration-[400ms]
-					hover:before:h-full hover:before:bg-gray-700">
-						<a href="/settings" class="h-full items-center align-middle flex px-4">Settings</a>
-					</li>
+
+				<% } %>
 				</ul>
 			</div>
 			<div class="flex items-center h-full">

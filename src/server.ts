@@ -7,6 +7,7 @@ import crypto from 'crypto';
 import helmet from 'helmet';
 import cheerio from 'cheerio';
 import logger from './logger';
+import navigation from './navigation';
 
 dotenv.config();
 
