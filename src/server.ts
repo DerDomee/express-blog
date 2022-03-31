@@ -72,22 +72,38 @@ app.use(express.static('./dist/public'));
 
 app.get('/', (_req, res, _next) => {
 	res.locals.pageTitle = "Home Page /";
+	res.locals.htmlTitle = "Dominik Riedig - Blog und Projekte";
 	res.render('index', res.locals);
 });
 
-app.get('/about', (_req, res, _next) => {
-	res.locals.pageTitle = "About me /about";
+app.get('/articles', (_req, res, _next) => {
+	res.locals.pageTitle = "Artikel";
+	res.locals.htmlTitle = "Dominik Riedig - Blog und Projekte";
 	res.render('index', res.locals);
 });
 
-app.get('/settings', (_req, res, _next) => {
-	res.locals.pageTitle = "Settings Page /settings";
+app.get('/articles/:articleurl', (req, res, _next) => {
+	const articleurl = req.params.articleurl;
+	res.locals.pageTitle = `"${articleurl}" Blogview`;
+	res.locals.htmlTitle = `${articleurl} - Dominik Riedig`;
+	res.render('index', res.locals);
+});
+
+app.get('/projects', (_req, res, _next) => {
+	res.locals.pageTitle = "Meine Projekte";
+	res.locals.htmlTitle = "Projekte - Dominik Riedig";
+	res.render('index', res.locals);
+});
+
+app.get('/projects/:projecturl', (req, res, _next) => {
+	const projecturl = req.params.projecturl;
+	res.locals.pageTitle = `"${projecturl}" Projectview`;
+	res.locals.htmlTitle = `${projecturl} - Dominik Riedig`;
 	res.render('index', res.locals);
 });
 
 app.get('*', (_req, res, _next) => {
-	res.locals.pageTitle = "Undefined Page *"
-	res.render('index', res.locals);
+	res.render('404', res.locals);
 });
 
 app.locals.httpInstance = app.listen(port, () => {
