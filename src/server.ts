@@ -5,6 +5,7 @@ import cluster from 'cluster';
 import express from 'express';
 import crypto from 'crypto';
 import helmet from 'helmet';
+import cheerio from 'cheerio';
 import logger from './logger';
 
 dotenv.config();
@@ -29,6 +30,39 @@ app.use(helmet({
 		}
 	}
 }));
+
+// Heroicons function in renderer
+app.use((_req, res, next) => {
+	interface Icon {
+		icon: string,
+		style: 'outline' | 'solid',
+		classes: string,
+	}
+	/**
+	 * Import a heroicon svg and render it as html with any given classes or parameters
+	 * @param param0 Icon
+	 * @returns svg
+	 */
+	res.locals.heroicon = ({icon = "exclamation-circle", style = 'outline', classes = ""}: Icon): string => {
+		const filepath = path.join('node_modules', 'heroicons', style, `${icon}.svg`);
+		let svg = "";
+		try {
+			svg = fs.readFileSync(filepath).toString();
+		}
+		catch (err) {}
+		const $ = cheerio.load(svg, {}, false);
+		$('svg').addClass(classes)
+		return $.html();
+	}
+	res.locals.heroicon("academic-cap", "outline");
+	next();
+});
+
+app.use((_req, res, next) => {
+	res.locals.navigation = navigation
+	next();
+})
+
 
 // Static routes
 app.use(express.static('./dist/public'));
