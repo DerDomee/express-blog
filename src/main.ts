@@ -7,14 +7,14 @@ if (cluster.isPrimary) {
 	const cpuCount = process.env.NODE_ENV==='production' ? Math.floor(os.cpus().length/2) : 1;
 
 	for (let i = 0; i < cpuCount; ++i) {
-		let spawnedworker = cluster.fork();
+		const spawnedworker = cluster.fork();
 		logger.info(`New worker created: ${spawnedworker.id} (pid: ${spawnedworker.process.pid})`);
 	}
 
 	cluster.on("exit", (worker, exitcode, signal) => {
 		logger.info(`Worker ${worker.id} died with exit code ${exitcode}${signal ? ` and signal ${signal}` : ""} (pid: ${worker.process.pid})`);
 
-		let newworker = cluster.fork();
+		const newworker = cluster.fork();
 		logger.info(`Worker respawned with id ${newworker.id} (pid: ${newworker.process.pid})`);
 	});
 } else {
