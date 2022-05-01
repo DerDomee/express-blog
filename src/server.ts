@@ -30,6 +30,7 @@ app.use(helmet({
 		useDefaults: true,
 		directives: {
 			scriptSrc: ["'self'", process.env.NODE_ENV === 'development' ? "'unsafe-eval'": "" , (_req, res: any) => `'nonce-${res.locals.cspNonce}'`],
+			workerSrc: ["'self'"],
 		}
 	}
 }));
