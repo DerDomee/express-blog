@@ -52,17 +52,19 @@ app.use((_req, res, next) => {
 		try {
 			svg = fs.readFileSync(filepath).toString();
 		}
-		catch (err) {}
+		catch (err) {
+			return `{{heroicon:${style}/${icon}${classes ? `; ${classes}` : ''}}}`
+		}
 		const $ = cheerio.load(svg, {}, false);
 		$('svg').addClass(classes)
 		return $.html();
 	}
-	res.locals.heroicon("academic-cap", "outline");
 	next();
 });
 
 app.use((_req, res, next) => {
 	res.locals.navigation = navigation
+	res.locals.currentyear = new Date().getUTCFullYear();
 	next();
 })
 
@@ -75,39 +77,90 @@ app.use(express.static('./dist/public'));
 app.get('/', (_req, res) => {
 	res.locals.pageTitle = "Home Page /";
 	res.locals.htmlTitle = "Dominik Riedig - Blog und Projekte";
-	res.render('index', res.locals);
+	res.render('home', res.locals);
 });
 
+// Main Route (and canonical route) for the article browser
 app.get('/articles', (_req, res) => {
-	res.locals.pageTitle = "Artikel";
-	res.locals.htmlTitle = "Dominik Riedig - Blog und Projekte";
-	res.render('index', res.locals);
+	res.locals.pageTitle = "Artikelbrowser";
+	res.locals.htmlTitle = "Blog - Dominik Riedig";
+	res.render('articlebrowser', res.locals);
 });
 
-app.get('/articles/:articleurl', (req, res) => {
+// Fallback route if the user manually edits URL and deletes current
+// articleurl, redirect to articlebrowser
+app.get('/a', (req, res) => {
+	res.redirect(301, '/articles');
+})
+
+// Main route (and canonical route) for a specific article;
+app.get('/a/:articleurl', (req, res) => {
 	const articleurl = req.params.articleurl;
 	res.locals.pageTitle = `"${articleurl}" Blogview`;
 	res.locals.htmlTitle = `${articleurl} - Dominik Riedig`;
-	res.render('index', res.locals);
+	res.render('article', res.locals);
 });
 
+// Fallback routes if the user manually edits URL and does not
+// use /a/:articleurl canonical route. Redirect to article
+app.get('/article/:articleurl', (req, res) => {
+	res.redirect(301, `/a/${req.params.articleurl}`);
+});
+app.get('/articles/:articleurl', (req, res) => {
+	res.redirect(301, `/a/${req.params.articleurl}`);
+});
+
+
+// Main Route (and canonical route) for the projects browser
 app.get('/projects', (_req, res) => {
 	res.locals.pageTitle = "Meine Projekte";
 	res.locals.htmlTitle = "Projekte - Dominik Riedig";
-	res.render('index', res.locals);
+	res.render('projectbrowser', res.locals);
 });
 
-app.get('/projects/:projecturl', (req, res) => {
+// Fallback route if the user manually edits URL and deletes current
+// projecturl, redirect to projectbrowser
+app.get('/p', (_req, res) => {
+	res.redirect(301, '/projects');
+});
+
+// Main route (and canonical route) for a specific project
+app.get('/p/:projecturl', (req, res) => {
 	const projecturl = req.params.projecturl;
 	res.locals.pageTitle = `"${projecturl}" Projectview`;
 	res.locals.htmlTitle = `${projecturl} - Dominik Riedig`;
-	res.render('index', res.locals);
+	res.render('project', res.locals);
 });
 
+// Fallback routes if the user manually edits URL and does not
+// use /p/:projecturl canonical route. Redirect to project
+app.get('/project/:projecturl', (req, res) => {
+	res.redirect(301, `/p/${req.params.projecturl}`);
+});
+app.get('/projects/:projecturl', (req, res) => {
+	res.redirect(301, `/p/${req.params.projecturl}`);
+});
+
+app.get('/aboutme', (_req, res) => {
+	res.locals.pageTitle = "Über mich";
+	res.locals.htmlTitle = "Über mich - Dominik Riedig";
+	res.render('aboutme', res.locals);
+});
+
+// Main route for page settings (client side)
+app.get('/settings', (_req, res) => {
+	res.locals.pageTitle = "Website-Einstellungen";
+	res.locals.htmlTitle = "Einstellungen - Dominik Riedig";
+	res.render('settings', res.locals);
+});
+
+// All other GET routes return a 404
 app.get('*', (_req, res) => {
 	res.render('404', res.locals);
 });
 
+
+// Start listening with this instance on specified port (cluster worker mode)
 app.locals.httpInstance = app.listen(port, () => {
 	logger.info(`w${cluster.worker.id} | Listening on port ${port}`);
 });
