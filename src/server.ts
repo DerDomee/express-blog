@@ -5,7 +5,7 @@ import cluster from 'cluster';
 import express from 'express';
 import crypto from 'crypto';
 import helmet from 'helmet';
-import cheerio from 'cheerio';
+import {load as cheerioLoad} from 'cheerio';
 import logger from './logger';
 import navigation from './navigation';
 
@@ -55,7 +55,7 @@ app.use((_req, res, next) => {
 		catch (err) {
 			return `{{heroicon:${style}/${icon}${classes ? `; ${classes}` : ''}}}`
 		}
-		const $ = cheerio.load(svg, {}, false);
+		const $ = cheerioLoad(svg, {}, false);
 		$('svg').addClass(classes)
 		return $.html();
 	}
