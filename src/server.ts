@@ -159,6 +159,7 @@ app.get('/settings', (_req, res) => {
 
 // All other GET routes return a 404
 app.get('*', (_req, res) => {
+	res.status(404);
 	res.render('404', res.locals);
 });
 
