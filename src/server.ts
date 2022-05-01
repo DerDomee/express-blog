@@ -38,25 +38,27 @@ app.use(helmet({
 app.use((_req, res, next) => {
 	interface Icon {
 		icon: string,
-		style: 'outline' | 'solid',
-		classes: string,
+		style?: 'outline' | 'solid',
+		classes?: string,
 	}
 	/**
 	 * Import a heroicon svg and render it as html with any given classes or parameters
 	 * @param param0 Icon
 	 * @returns svg
 	 */
-	res.locals.heroicon = ({icon = "exclamation-circle", style = 'outline', classes = ""}: Icon): string => {
-		const filepath = path.join('node_modules', 'heroicons', style, `${icon}.svg`);
+	res.locals.heroicon = (icon: Icon): string => {
+		icon.style = icon.style ?? 'outline';
+		icon.classes = icon.classes ?? '';
+		const filepath = path.join('node_modules', 'heroicons', icon.style, `${icon.icon}.svg`);
 		let svg = "";
 		try {
 			svg = fs.readFileSync(filepath).toString();
 		}
 		catch (err) {
-			return `{{heroicon:${style}/${icon}${classes ? `; ${classes}` : ''}}}`
+			return `{{heroicon:${icon.style}/${icon.icon}${icon.classes ? `; ${icon.classes}` : ''}}}`;
 		}
 		const $ = cheerioLoad(svg, {}, false);
-		$('svg').addClass(classes)
+		$('svg').addClass(icon.classes)
 		return $.html();
 	}
 	next();
