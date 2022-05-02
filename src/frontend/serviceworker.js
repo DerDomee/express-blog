@@ -1,1 +1,1 @@
-import "./serviceworker/workboxes"
+import './serviceworker/workboxes';

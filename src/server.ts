@@ -12,6 +12,7 @@ import navigation from './navigation';
 dotenv.config();
 
 const port = process.env.SERVER_PORT ?? 3000;
+const workerId = cluster?.worker?.id ?? 'DEV';
 
 const app = express();
 
@@ -29,10 +30,14 @@ app.use(helmet({
 	contentSecurityPolicy: {
 		useDefaults: true,
 		directives: {
-			scriptSrc: ["'self'", process.env.NODE_ENV === 'development' ? "'unsafe-eval'": "" , (_req, res: any) => `'nonce-${res.locals.cspNonce}'`],
-			workerSrc: ["'self'"],
-		}
-	}
+			scriptSrc: [
+				'\'self\'',
+				process.env.NODE_ENV === 'development' ? '\'unsafe-eval\'': '',
+				(_req, res: any) => `'nonce-${res.locals.cspNonce}'`,
+			],
+			workerSrc: ['\'self\''],
+		},
+	},
 }));
 
 // Heroicons function in renderer
@@ -42,34 +47,37 @@ app.use((_req, res, next) => {
 		style?: 'outline' | 'solid',
 		classes?: string,
 	}
+
 	/**
-	 * Import a heroicon svg and render it as html with any given classes or parameters
-	 * @param param0 Icon
-	 * @returns svg
+	 * Import a heroicon svg and render it as html with any given
+	 * classes or parameters
+	 * @param {Icon} icon Icon
+	 * @return {String} SVG
 	 */
 	res.locals.heroicon = (icon: Icon): string => {
 		icon.style = icon.style ?? 'outline';
 		icon.classes = icon.classes ?? '';
-		const filepath = path.join('node_modules', 'heroicons', icon.style, `${icon.icon}.svg`);
-		let svg = "";
+		const filepath = path
+			.join('node_modules', 'heroicons', icon.style, `${icon.icon}.svg`);
+		let svg = '';
 		try {
 			svg = fs.readFileSync(filepath).toString();
-		}
-		catch (err) {
-			return `{{heroicon:${icon.style}/${icon.icon}${icon.classes ? `; ${icon.classes}` : ''}}}`;
+		} catch (err) {
+			return `{{heroicon:${icon.style}/${icon.icon}\
+			        ${icon.classes ? `; ${icon.classes}` : ''}}}`;
 		}
 		const $ = cheerioLoad(svg, {}, false);
-		$('svg').addClass(icon.classes)
+		$('svg').addClass(icon.classes);
 		return $.html();
-	}
+	};
 	next();
 });
 
 app.use((_req, res, next) => {
-	res.locals.navigation = navigation
+	res.locals.navigation = navigation;
 	res.locals.currentyear = new Date().getUTCFullYear();
 	next();
-})
+});
 
 
 // Static routes
@@ -78,15 +86,15 @@ app.use(express.static('./dist/public'));
 // Code and dynamic routes
 
 app.get('/', (_req, res) => {
-	res.locals.pageTitle = "Home Page /";
-	res.locals.htmlTitle = "Dominik Riedig - Blog und Projekte";
+	res.locals.pageTitle = 'Home Page /';
+	res.locals.htmlTitle = 'Dominik Riedig - Blog und Projekte';
 	res.render('home', res.locals);
 });
 
 // Main Route (and canonical route) for the article browser
 app.get('/articles', (_req, res) => {
-	res.locals.pageTitle = "Artikelbrowser";
-	res.locals.htmlTitle = "Blog - Dominik Riedig";
+	res.locals.pageTitle = 'Artikelbrowser';
+	res.locals.htmlTitle = 'Blog - Dominik Riedig';
 	res.render('articlebrowser', res.locals);
 });
 
@@ -94,7 +102,7 @@ app.get('/articles', (_req, res) => {
 // articleurl, redirect to articlebrowser
 app.get('/a', (req, res) => {
 	res.redirect(301, '/articles');
-})
+});
 
 // Main route (and canonical route) for a specific article;
 app.get('/a/:articleurl', (req, res) => {
@@ -116,8 +124,8 @@ app.get('/articles/:articleurl', (req, res) => {
 
 // Main Route (and canonical route) for the projects browser
 app.get('/projects', (_req, res) => {
-	res.locals.pageTitle = "Meine Projekte";
-	res.locals.htmlTitle = "Projekte - Dominik Riedig";
+	res.locals.pageTitle = 'Meine Projekte';
+	res.locals.htmlTitle = 'Projekte - Dominik Riedig';
 	res.render('projectbrowser', res.locals);
 });
 
@@ -145,15 +153,15 @@ app.get('/projects/:projecturl', (req, res) => {
 });
 
 app.get('/aboutme', (_req, res) => {
-	res.locals.pageTitle = "Über mich";
-	res.locals.htmlTitle = "Über mich - Dominik Riedig";
+	res.locals.pageTitle = 'Über mich';
+	res.locals.htmlTitle = 'Über mich - Dominik Riedig';
 	res.render('aboutme', res.locals);
 });
 
 // Main route for page settings (client side)
 app.get('/settings', (_req, res) => {
-	res.locals.pageTitle = "Website-Einstellungen";
-	res.locals.htmlTitle = "Einstellungen - Dominik Riedig";
+	res.locals.pageTitle = 'Website-Einstellungen';
+	res.locals.htmlTitle = 'Einstellungen - Dominik Riedig';
 	res.render('settings', res.locals);
 });
 
@@ -166,5 +174,5 @@ app.get('*', (_req, res) => {
 
 // Start listening with this instance on specified port (cluster worker mode)
 app.locals.httpInstance = app.listen(port, () => {
-	logger.info(`w${cluster.worker.id} | Listening on port ${port}`);
+	logger.info(`w${workerId} | Listening on port ${port}`);
 });

@@ -1,3 +1,3 @@
-import "./mainscript/theming";
-// import "./mainscript/smoothrouting"
-import "./mainscript/swutils"
+import './mainscript/theming';
+// import './mainscript/smoothrouting';
+import './mainscript/swutils';

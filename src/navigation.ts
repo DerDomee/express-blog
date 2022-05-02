@@ -1,18 +1,18 @@
 export default [
 	{
-		name: "Home",
-		route: "/",
+		name: 'Home',
+		route: '/',
 	},
 	{
-		name: "Über mich",
-		route: "/aboutme",
+		name: 'Über mich',
+		route: '/aboutme',
 	},
 	{
-		name: "Blog",
-		route: "/articles",
+		name: 'Blog',
+		route: '/articles',
 	},
 	{
-		name: "Projekte",
-		route: "/projects",
-	}
-]
+		name: 'Projekte',
+		route: '/projects',
+	},
+];

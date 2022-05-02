@@ -1,10 +1,10 @@
-import winston from "winston";
+import winston from 'winston';
 
 const logger = winston.createLogger({
 	level: 'debug',
 	format: winston.format.combine(
 		winston.format.timestamp(),
-		winston.format.json()
+		winston.format.json(),
 	),
 	transports: [
 		new winston.transports.File({
@@ -23,8 +23,7 @@ if (process.env.NODE_ENV !== 'production') {
 		format: winston.format.cli(),
 		level: 'debug',
 	}));
-}
-else {
+} else {
 	logger.add(new winston.transports.Console({
 		format: winston.format.cli(),
 		level: 'info',
