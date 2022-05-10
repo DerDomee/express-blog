@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require('path');
 
 module.exports = {
 	entry: {
@@ -9,5 +9,5 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist', 'public'),
 		filename: '[name].js',
 	},
-	mode: process.env.NODE_ENV === 'development' ? 'development' : 'production'
-}
+	mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
+};

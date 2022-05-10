@@ -4,7 +4,9 @@ import logger from './logger';
 
 if (cluster.isPrimary) {
 	const cpuCount = process.env.NODE_ENV==='production' ? Math
-		.floor(os.cpus().length/2) : 1;
+		.floor(os.cpus().length/2) : 4;
+
+	logger.verbose(`Using ${cpuCount} processes`);
 
 	for (let i = 0; i < cpuCount; ++i) {
 		const spawnedworker = cluster.fork();

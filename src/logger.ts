@@ -18,15 +18,15 @@ const logger = winston.createLogger({
 	],
 });
 
-if (process.env.NODE_ENV !== 'production') {
-	logger.add(new winston.transports.Console({
-		format: winston.format.cli(),
-		level: 'debug',
-	}));
-} else {
+if (process.env.NODE_ENV === 'production') {
 	logger.add(new winston.transports.Console({
 		format: winston.format.cli(),
 		level: 'info',
+	}));
+} else if (process.env.NODE_ENV === 'development') {
+	logger.add(new winston.transports.Console({
+		format: winston.format.cli(),
+		level: 'debug',
 	}));
 }
 

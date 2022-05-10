@@ -6,9 +6,21 @@
 	</head>
 	<body>
 		<%- include('../partials/navigation') %>
-		<div class="pagecontainer px-4 mx-auto text-lg max-w-[75ch]">
+		<div class="px-4 mx-auto text-lg max-w-[75ch]">
 			<h1 class="text-4xl border-b border-gray-600 mb-4 pb-3"><%- pageTitle %></h1>
-			<p>Rendered view: articlebrowser.ejs</p>
+			<ul>
+				<% for (let article of allArticles) { %>
+					<li class="list-disc">
+						<a href="/a/<%- article.article_url_id %>">
+							<span class="text-blue-600 dark:text-blue-400 hover:decoration-blue-600 dark:hover:decoration-blue-400 hover:underline font-bold">
+								<%- article.revision_pointer.revision_content.title %>
+							</span>
+							vom <%- moment(article.article_original_publication_time).format('DD.MM.YYYY, hh:mmZ')%> Uhr<br>
+							<%- article.revision_pointer.revision_content.blurb %>
+						</a>
+					</li>
+				<% } %>
+			</ul>
 		</div>
 		<%- include('../partials/footer') %>
 	</body>
