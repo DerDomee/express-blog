@@ -15,6 +15,7 @@ import {Revision} from './dbmodels/revision.model';
 import {Op} from 'sequelize';
 import showdown from 'showdown';
 import hljs from 'highlight.js';
+import * as PImage from 'pureimage';
 
 dotenv.config();
 const showdownInstance = new showdown.Converter({
@@ -253,6 +254,51 @@ app.get('/settings', (_req, res) => {
 	res.locals.pageTitle = 'Website-Einstellungen';
 	res.locals.htmlTitle = 'Einstellungen - Dominik Riedig';
 	res.render('settings', {...app.locals, ...res.locals});
+});
+
+app.get('/image.jpeg', async (req, res, next) => {
+	console.time('requestLength');
+	res.header('Content-Type', 'image/jpeg');
+
+	let height = +req.query.h ?? 300;
+	let width = +req.query.w ?? 400;
+	if (isNaN(height) || height > 1080) height = 300;
+	if (isNaN(width) || width > 1920) width = 400;
+
+	const createImage = async () => {
+		console.log('Creating a new image');
+
+		const image = PImage.make(width, height, {});
+		const ctx = image.getContext('2d');
+		ctx.fillStyle = 'red';
+		ctx.fillRect(0, 0, width, height);
+		ctx.fillStyle = 'green';
+		ctx.fillRect(0, 0, width, 3);
+		ctx.fillRect(0, 0, 3, height);
+		ctx.fillRect(width-3, 0, width, height);
+		ctx.fillRect(0, height-3, width, height);
+		await fs.promises.mkdir('data/images', {recursive: true});
+		await PImage.encodeJPEGToStream(
+			image,
+			fs.createWriteStream(`data/images/placeholder-${width}x${height}.jpeg`),
+		);
+	};
+
+	try {
+		const image = await fs.promises.readFile(
+			`data/images/placeholder-${width}x${height}.jpeg`,
+		);
+		res.end(image);
+		console.timeEnd('requestLength');
+	} catch (err) {
+		console.log(err);
+		await createImage();
+		const image = await fs.promises.readFile(
+			`data/images/placeholder-${width}x${height}.jpeg`,
+		);
+		res.end(image);
+		console.timeEnd('requestLength');
+	}
 });
 
 // All other GET routes return a 404
