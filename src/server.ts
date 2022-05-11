@@ -256,15 +256,33 @@ app.get('/settings', (_req, res) => {
 	res.render('settings', {...app.locals, ...res.locals});
 });
 
-app.get('/image.jpeg', async (req, res, next) => {
-	res.header('Content-Type', 'image/jpeg');
+app.get('/images/:pictureid.:type', async (req, res, next) => {
+	// Supported filetypes
+	const fileExtToMimeSubtype = {
+		bmp: 'bmp',
+		svg: 'svg+xml',
+		png: 'png',
+		jpeg: 'jpeg',
+		jpg: 'jpeg',
+		avif: 'avif',
+		gif: 'gif',
+		webp: 'webp',
+	};
 
-	let height = +req.query.h ?? 300;
-	let width = +req.query.w ?? 400;
-	if (isNaN(height) || height > 1080) height = 300;
-	if (isNaN(width) || width > 1920) width = 400;
+	const pictureid = req.params.pictureid;
+	const type = req.params.type as keyof typeof fileExtToMimeSubtype;
+	const mimetype = fileExtToMimeSubtype[type];
 
-	const createImage = async () => {
+	if (mimetype == undefined) {
+		res.status(415);
+		res.end();
+		return;
+	}
+	console.log(type, mimetype);
+
+	const createPlaceholderImage = async () => {
+		const width = 400;
+		const height = 300;
 		const image = PImage.make(width, height, {});
 		const ctx = image.getContext('2d');
 		ctx.fillStyle = 'red';
@@ -277,21 +295,28 @@ app.get('/image.jpeg', async (req, res, next) => {
 		await fs.promises.mkdir('data/images', {recursive: true});
 		await PImage.encodeJPEGToStream(
 			image,
-			fs.createWriteStream(`data/images/placeholder-${width}x${height}.jpeg`),
+			fs.createWriteStream(`data/images/${pictureid}.jpeg`),
 		);
 	};
 
 	try {
 		const image = await fs.promises.readFile(
-			`data/images/placeholder-${width}x${height}.jpeg`,
+			`data/images/${pictureid}.${type}`,
 		);
+		res.setHeader('Content-Type', `image/${mimetype}`);
 		res.end(image);
 	} catch (err) {
-		await createImage();
-		const image = await fs.promises.readFile(
-			`data/images/placeholder-${width}x${height}.jpeg`,
-		);
-		res.end(image);
+		if (type === 'jpeg') {
+			await createPlaceholderImage();
+			const image = await fs.promises.readFile(
+				`data/images/${pictureid}.${type}`,
+			);
+			res.setHeader('Content-Type', `image/${mimetype}`);
+			res.end(image);
+		}
+		res.setHeader('Content-Type', 'application/json');
+		res.status(404);
+		res.end();
 	}
 });
 
