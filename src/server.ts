@@ -257,7 +257,6 @@ app.get('/settings', (_req, res) => {
 });
 
 app.get('/image.jpeg', async (req, res, next) => {
-	console.time('requestLength');
 	res.header('Content-Type', 'image/jpeg');
 
 	let height = +req.query.h ?? 300;
@@ -266,8 +265,6 @@ app.get('/image.jpeg', async (req, res, next) => {
 	if (isNaN(width) || width > 1920) width = 400;
 
 	const createImage = async () => {
-		console.log('Creating a new image');
-
 		const image = PImage.make(width, height, {});
 		const ctx = image.getContext('2d');
 		ctx.fillStyle = 'red';
@@ -289,15 +286,12 @@ app.get('/image.jpeg', async (req, res, next) => {
 			`data/images/placeholder-${width}x${height}.jpeg`,
 		);
 		res.end(image);
-		console.timeEnd('requestLength');
 	} catch (err) {
-		console.log(err);
 		await createImage();
 		const image = await fs.promises.readFile(
 			`data/images/placeholder-${width}x${height}.jpeg`,
 		);
 		res.end(image);
-		console.timeEnd('requestLength');
 	}
 });
 
