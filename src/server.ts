@@ -28,16 +28,13 @@ const showdownInstance = new showdown.Converter({
 	disableForced4SpacesIndentedSublists: true,
 	extensions: [
 		{
-			// This starts a scrollable table inside a tailwind prose, wraps around.
+			// This wraps an overflow container around tables
+			// to allow for scrolling on small screens
 			type: 'output',
-			regex: /{{starttable}}/g,
-			replace: '<div class="overflow-x-auto">',
-		},
-		{
-			// This ends a scrollable table inside a tailwind prose, wraps around.
-			type: 'output',
-			regex: /{{endtable}}/g,
-			replace: '</div>',
+			regex: /<table>(.*\n)*<\/table>/gm,
+			replace: (text: any, _converter: any, _options: any) => {
+				return `<div class="overflow-x-auto">${text}</div>`;
+			},
 		},
 		{
 			// This uses highlight.js for codeblocks
