@@ -278,7 +278,6 @@ app.get('/images/:pictureid.:type', async (req, res, next) => {
 		res.end();
 		return;
 	}
-	console.log(type, mimetype);
 
 	const createPlaceholderImage = async () => {
 		const width = 400;
