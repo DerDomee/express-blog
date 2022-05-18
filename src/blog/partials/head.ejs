@@ -1,0 +1,8 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="/blog.css" rel="stylesheet">
+<script src="/blog.js" nonce="<%=cspNonce%>" defer></script>
+<% if (locals.metaDescription ?? false) { %>
+	<meta name="description" content="<%- metaDescription %>">
+	<% } %>
+		<link href="/app.webmanifest" rel="manifest">

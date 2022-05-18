@@ -1,66 +1,16 @@
-import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
-import cluster from 'cluster';
 import express from 'express';
 import crypto from 'crypto';
-import helmet from 'helmet';
-import {load as cheerioLoad} from 'cheerio';
-import logger from './logger';
 import navigation from './navigation';
 import moment from 'moment';
-import dbInit, {allowedEnvs} from './dbmanager';
-import {BlogArticle} from './dbmodels/blogarticle.model';
-import {Revision} from './dbmodels/revision.model';
 import {Op} from 'sequelize';
-import showdown from 'showdown';
-import hljs from 'highlight.js';
 import * as PImage from 'pureimage';
-
-dotenv.config();
-const showdownInstance = new showdown.Converter({
-	headerLevelStart: 2,
-	ghCompatibleHeaderId: true,
-	strikethrough: true,
-	tables: true,
-	tasklists: true,
-	requireSpaceBeforeHeadingText: true,
-	splitAdjacentBlockquotes: true,
-	disableForced4SpacesIndentedSublists: true,
-	extensions: [
-		{
-			// This wraps an overflow container around tables
-			// to allow for scrolling on small screens
-			type: 'output',
-			regex: /<table>(.*\n)*<\/table>/gm,
-			replace: (text: any, _converter: any, _options: any) => {
-				return `<div class="overflow-x-auto">${text}</div>`;
-			},
-		},
-		{
-			// This uses highlight.js for codeblocks
-			type: 'output',
-			filter: (text, converter, options) => {
-				const left = '<pre><code\\b[^>]*>';
-				const right = '</code></pre>';
-				const flags = 'g';
-				const repl = (_wholeMatch: any, match: any, left: any, right: any) => {
-					match = match
-						.replace(/&amp;/g, '&')
-						.replace(/&lt;/g, '<')
-						.replace(/&gt;/g, '>');
-					return left + hljs.highlightAuto(match).value + right;
-				};
-				return showdown.helper.replaceRecursiveRegExp(
-					text, repl, left, right, flags);
-			},
-		},
-	],
-});
-
-
-const port = process.env.SERVER_PORT ?? 3000;
-const workerId = cluster?.worker?.id ?? 'DEV';
+import showdownInstance from '../mean/showdown';
+import helmet from '../mean/helmet';
+import heroicon from '../mean/heroicon';
+import {BlogArticle} from '../database/dbmodels/blogarticle.model';
+import {Revision} from '../database/dbmodels/revision.model';
 
 const app = express();
 
@@ -79,59 +29,9 @@ app.use((_req, res, next) => {
 	next();
 });
 
-// Helmet itself
-app.use(helmet({
-	contentSecurityPolicy: {
-		useDefaults: true,
-		directives: {
-			scriptSrc: [
-				'\'self\'',
-				process.env.NODE_ENV === 'development' ? '\'unsafe-eval\'': '',
-				(_req, res: any) => `'nonce-${res.locals.cspNonce}'`,
-			],
-			workerSrc: ['\'self\''],
-			styleSrc: ['\'self\'', 'https: \'unsafe-inline\''],
-			upgradeInsecureRequests: [],
-		},
-	},
-}));
-
-// Heroicons function in renderer
-app.use((_req, res, next) => {
-	interface Icon {
-		icon: string,
-		style?: 'outline' | 'solid',
-		classes?: string,
-	}
-
-	/**
-	 * Import a heroicon svg and render it as html with any given
-	 * classes or parameters
-	 * @param {Icon} icon Icon
-	 * @return {String} SVG
-	 */
-	res.locals.heroicon = (icon: Icon): string => {
-		icon.style = icon.style ?? 'outline';
-		icon.classes = icon.classes ?? '';
-		const filepath = path
-			.join('node_modules', 'heroicons', icon.style, `${icon.icon}.svg`);
-		let svg = '';
-		try {
-			svg = fs.readFileSync(filepath).toString();
-		} catch (err) {
-			return `{{heroicon:${icon.style}/${icon.icon}\
-			        ${icon.classes ? `; ${icon.classes}` : ''}}}`;
-		}
-		const $ = cheerioLoad(svg, {}, false);
-		$('svg').addClass(icon.classes);
-		return $.html();
-	};
-	next();
-});
-
-
-// Static routes
-app.use(express.static('./dist/public'));
+app.use(helmet);
+app.use(heroicon);
+app.use(express.static('./dist/blog/public'));
 
 // Code and dynamic routes
 
@@ -142,23 +42,25 @@ app.get('/', (_req, res) => {
 });
 
 // Main Route (and canonical route) for the article browser
-app.get('/articles', async (_req, res) => {
+app.get('/articles', async (req, res) => {
 	res.locals.pageTitle = 'Artikelbrowser';
 	res.locals.htmlTitle = 'Blog - Dominik Riedig';
 	res.locals.allArticles = [] as BlogArticle[];
-	(await BlogArticle.findAll({
-		order: [['article_original_publication_time', 'DESC']],
-		where: {
-			article_is_published: true,
-			article_original_publication_time: {
-				[Op.lte]: Date.now(),
+	(
+		await BlogArticle.findAll({
+			order: [['article_original_publication_time', 'DESC']],
+			where: {
+				article_is_published: true,
+				article_original_publication_time: {
+					[Op.lte]: Date.now(),
+				},
 			},
-		},
-		include: {
-			model: Revision,
-			as: 'revision_pointer',
-		},
-	})).forEach((element) => {
+			include: {
+				model: Revision,
+				as: 'revision_pointer',
+			},
+		})
+	).forEach((element) => {
 		try {
 			const plainElem = element.get({plain: true});
 			plainElem.revision_pointer.revision_content = JSON.parse(
@@ -180,15 +82,17 @@ app.get('/a', (req, res) => {
 // Main route (and canonical route) for a specific article;
 app.get('/a/:articleurl', async (req, res) => {
 	const articleurl = req.params.articleurl;
-	const article = (await BlogArticle.findOne({
-		where: {
-			article_url_id: articleurl,
-		},
-		include: {
-			model: Revision,
-			as: 'revision_pointer',
-		},
-	})).get({plain: true});
+	const article = (
+		await BlogArticle.findOne({
+			where: {
+				article_url_id: articleurl,
+			},
+			include: {
+				model: Revision,
+				as: 'revision_pointer',
+			},
+		})
+	).get({plain: true});
 	res.locals.article = article;
 	try {
 		res.locals.revision = JSON.parse(article.revision_pointer.revision_content);
@@ -211,7 +115,6 @@ app.get('/article/:articleurl', (req, res) => {
 app.get('/articles/:articleurl', (req, res) => {
 	res.redirect(301, `/a/${req.params.articleurl}`);
 });
-
 
 // Main Route (and canonical route) for the projects browser
 app.get('/projects', (_req, res) => {
@@ -287,10 +190,13 @@ app.get('/images/:pictureid.:type', async (req, res, next) => {
 		ctx.fillStyle = 'red';
 		ctx.fillRect(0, 0, width, height);
 		ctx.fillStyle = 'green';
-		ctx.fillRect(0, 0, width, 3);
+		ctx.strokeStyle = 'green';
+		/* ctx.fillRect(0, 0, width, 3);
 		ctx.fillRect(0, 0, 3, height);
 		ctx.fillRect(width-3, 0, width, height);
-		ctx.fillRect(0, height-3, width, height);
+		ctx.fillRect(0, height-3, width, height);*/
+		ctx.lineWidth = 15;
+		ctx.strokeRect(0, 0, width - 4, height - 4);
 		await fs.promises.mkdir('data/images', {recursive: true});
 		await PImage.encodeJPEGToStream(
 			image,
@@ -312,6 +218,7 @@ app.get('/images/:pictureid.:type', async (req, res, next) => {
 			);
 			res.setHeader('Content-Type', `image/${mimetype}`);
 			res.end(image);
+			return;
 		}
 		res.setHeader('Content-Type', 'application/json');
 		res.status(404);
@@ -325,12 +232,4 @@ app.get('*', (_req, res) => {
 	res.render('404', {...app.locals, ...res.locals});
 });
 
-dbInit(process.env.NODE_ENV as allowedEnvs).then((sequelize) => {
-	app.set('sequelizeInstance', sequelize);
-	// Start listening with this instance on specified port (cluster worker mode)
-	app.locals.httpInstance = app.listen(port, () => {
-		logger.info(`w${workerId} | Listening on port ${port}`);
-	});
-});
-
-
+export default app;

@@ -1,8 +1,10 @@
 import {Sequelize} from 'sequelize';
-import logger from './logger';
+import logger from '../logger';
 import crypto from 'crypto';
 
-import {Revision, initModel as revisionInit} from './dbmodels/revision.model';
+import {
+	Revision,
+	initModel as revisionInit} from './dbmodels/revision.model';
 import {
 	BlogArticle,
 	initModel as blogarticleInit} from './dbmodels/blogarticle.model';
@@ -58,6 +60,63 @@ export const syncModels = async (sequelizeInstance: Sequelize,
 };
 
 const doSomeTests = async (sequelize: Sequelize) => {
+	try {
+		const rev3 = await Revision.create({
+			revision_id: crypto.pseudoRandomBytes(8).toString('hex'),
+			revision_prev_revision: null,
+			revision_content: JSON.stringify({
+				title: 'Blogtitel',
+				htmlTitle: 'HTML-Titel des Blogs',
+				blurb: 'Vorschautext (zu Testzwecken)',
+				content:
+`
+# First Markdown content
+
+Testing the integrated markdown parser
+
+| col1          |   col2       |    col3       |    col4         |    col5 |
+|:-----:        |:-------:     |:-------:      |:-------:        |:-------:|
+| 100           | [a][1]       | ![b][2]       | ![b][2]         | ![b][2] |
+| *Langer Text* | **Fooooooo** | ~~Baaaaaaar~~ | ~~Bazzzzzzzzz~~ | YIKES   |
+
+## Integrated code block renderer with code highlighting
+
+\`\`\`python
+#!/bin/python3
+
+# This is a very important comment.
+this = 'Hello, world!'
+print(this, end='')
+result = foo(start=None, end={key1:'value1', key2: [0, 1, 2, 3], key3: 2})
+if result == bar('test'):
+    baz()
+
+def main():
+    baz();
+
+if __name__ == "__main__":
+    main()
+
+\`\`\`
+
+\`\`\`bash
+npm i
+npm run build
+npm start
+\`\`\`
+`,
+			}),
+		});
+		await BlogArticle.create({
+			article_url_id: 'first-blog-hello-world',
+			article_current_revision: rev3.revision_id,
+			article_original_publication_time: Date.now() - (60 * 1000),
+			article_last_update_time: Date.now(),
+			article_is_published: true,
+		});
+	} catch (err) {
+		throw err;
+	}
 };
 
 export default async (NODE_ENV: allowedEnvs) => {

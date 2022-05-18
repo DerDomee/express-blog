@@ -1,0 +1,9 @@
+{
+	"$schema": "https://json.schemastore.org/web-manifest-combined.json",
+	"name": "Dominiks CMS",
+	"short_name": "DomeCMS",
+	"start_url": ".",
+	"display": "standalone",
+	"background_color": "#000",
+	"description": "Dominik Riedigs CMS"
+}
