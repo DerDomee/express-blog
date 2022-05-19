@@ -19,7 +19,7 @@ dbInit(process.env.NODE_ENV as allowedEnvs).then((sequelize) => {
 	if (blogEnabled) {
 		blog.set('sequelizeInstance', sequelize);
 		blog.locals.httpInstance = blog.listen(blogPort, () => {
-			logger.info(`blog  | Listening on port ${blogPort}`);
+			logger.info(`blog | Listening on port ${blogPort}`);
 		});
 	}
 
