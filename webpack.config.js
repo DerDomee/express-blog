@@ -4,6 +4,7 @@ module.exports = {
 	entry: {
 		blog: './src/browser/blog.js',
 		cms: './src/browser/cms.js',
+		cloudcenter: './src/browser/cloudcenter.js',
 		serviceworker: './src/browser/serviceworker.js',
 	},
 	output: {

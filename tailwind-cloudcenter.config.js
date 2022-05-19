@@ -1,5 +1,5 @@
 module.exports = {
-	content: ['./src/blog/**/*.ejs', './src/browser/**/*.js'],
+	content: ['./src/cloudcenter/**/*.ejs', './src/browser/**/*.js'],
 	safelist: [{
 		pattern: /hljs+/,
 	}],

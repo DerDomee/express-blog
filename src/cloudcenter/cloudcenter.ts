@@ -28,7 +28,7 @@ app.use((_req, res, next) => {
 
 app.use(helmet);
 app.use(heroicon);
-app.use(express.static('./dist/cms/public'));
+app.use(express.static('./dist/cloudcenter/public'));
 
 // Code and dynamic routes
 

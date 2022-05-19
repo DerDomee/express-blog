@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-redgray-900 bg-redgray-200 dark:bg-redgray-800 dark:text-redgray-100 print:bg-white print:text-black dark:print:bg-white dark:print:text-black overflow-y-scroll overflow-x-hidden;
+  }
+}
