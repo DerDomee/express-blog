@@ -3,9 +3,17 @@ module.exports = {
 		`./src/${process.env.TW_COMPILE_SUBAPP_NAME ?? '*'}/**/*.ejs`,
 		'./src/browser/**/*.js',
 	],
-	safelist: [{
-		pattern: /hljs+/,
-	}],
+	safelist: function(environment) {
+		switch (environment) {
+		case 'blog':
+		case 'cms':
+			return [{
+				pattern: /hljs+/,
+			}];
+		default:
+			return [];
+		}
+	}(process.env.TW_COMPILE_SUBAPP_NAME),
 	theme: {
 		hljs: {
 			theme: 'night-owl',
@@ -27,8 +35,21 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [
-		require('@tailwindcss/typography'),
-		require('tailwind-highlightjs'),
-	],
+	plugins: function(environment) {
+		switch (environment) {
+		case 'blog':
+			return [
+				require('@tailwindcss/typography'),
+				require('tailwind-highlightjs'),
+			];
+		case 'cms':
+			return [
+				require('@tailwindcss/typography'),
+				require('@tailwindcss/forms'),
+				require('tailwind-highlightjs'),
+			];
+		default:
+			return [];
+		}
+	}(process.env.TW_COMPILE_SUBAPP_NAME),
 };

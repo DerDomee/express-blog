@@ -11,6 +11,17 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist', 'public'),
 		filename: '[name].js',
 	},
+	optimization: {
+		minimize: process.env.NODE_ENV === 'development' ? false : true,
+	},
+	module: {
+		rules: [
+			{
+				test: /\.ts$/,
+				use: 'ts-loader',
+			},
+		],
+	},
 
 	mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
 };

@@ -18,9 +18,9 @@
 		"js-webpack": "webpack-cli --devtool source-map",
 		"js-move": "ts-node tools/jsBrowserAfterCompile",
 		"dev:serve": "NODE_ENV=development nodemon --watch src -e ts --exec ts-node src/wrapper",
-		"dev:assets": "nodemon --watch src/blog/public --watch src/cms/public --watch src/cloudcenter/public --exec ts-node tools/copyAssets",
-		"dev:js-webpack": "webpack-cli --devtool eval-source-map --watch",
-		"dev:js-move": "nodemon --watch dist/public --exec ts-node tools/jsBrowserAfterCompile",
+		"dev:assets": "nodemon --watch ./src/blog/public --watch ./src/cms/public --watch ./src/cloudcenter/public --exec ts-node tools/copyAssets",
+		"dev:js-webpack": "NODE_ENV=development webpack-cli --devtool inline-source-map --watch",
+		"dev:js-move": "nodemon --watch ./dist/public --exec ts-node tools/jsBrowserAfterCompile",
 		"dev:tailwind-blog": "TW_COMPILE_SUBAPP_NAME=blog tailwindcss -i ./src/blog/blog.css -o ./dist/blog/public/blog.css --watch",
 		"dev:tailwind-cms": "TW_COMPILE_SUBAPP_NAME=cms tailwindcss -i ./src/cms/cms.css -o ./dist/cms/public/cms.css --watch",
 		"dev:tailwind-cloudcenter": "TW_COMPILE_SUBAPP_NAME=cloudcenter tailwindcss -i ./src/cloudcenter/cloudcenter.css -o ./dist/cloudcenter/public/cloudcenter.css --watch",
@@ -46,6 +46,7 @@
 		"winston": "^3.6.0"
 	},
 	"devDependencies": {
+		"@tailwindcss/forms": "^0.5.2",
 		"@tailwindcss/typography": "^0.5.2",
 		"@types/express": "^4.17.13",
 		"@types/jest": "^27.5.0",
@@ -68,6 +69,7 @@
 		"tailwind-highlightjs": "^2.0.0",
 		"tailwindcss": "^3.0.23",
 		"ts-jest": "^28.0.1",
+		"ts-loader": "^9.3.0",
 		"ts-node": "^10.7.0",
 		"typescript": "^4.6.2",
 		"webpack": "^5.70.0",

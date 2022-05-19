@@ -6,9 +6,20 @@
 	</head>
 	<body>
 		<%- include('../partials/navigation') %>
-		<div class="px-4 mx-auto text-lg max-w-[75ch]">
+		<div class="px-4 mx-auto text-lg w-full">
 			<h1 class="text-4xl border-b border-gray-600 mb-4 pb-3"><%- pageTitle %></h1>
-			<p>Rendered view: index.ejs</p>
+			<div class="flex gap-4 justify-center px-auto mx-auto">
+				<textarea class="text-redgray-900 font-mono w-[40%] max-w-[40%]" name="blogedit-textarea-container" id="blogedit-textarea-container"></textarea>
+				<article
+				  class="overflow-x-clip w-[100%] max-w-[75ch]
+				         border-l-green ml-1
+				         prose prose-lg dark:prose-invert prose-headings:font-normal
+				         prose-p:my-1 prose-headings:my-2
+				         prose-h1:text-4xl prose-h1:border-b prose-h1:pb-3
+				         prose-h1:mb-4 prose-h1:border-gray-600"
+				  id="blogedit-preview-container">
+				</article>
+			</div>
 		</div>
 		<%- include('../partials/footer') %>
 	</body>

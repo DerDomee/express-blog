@@ -1,4 +1,4 @@
 import './mainscript/theming';
 import './mainscript/navbar';
-// import './mainscript/smoothrouting';
+import './mainscript/cmsblogedit';
 import './mainscript/swutils';

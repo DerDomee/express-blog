@@ -10,7 +10,6 @@ import heroicon from '../mean/heroicon';
 import {BlogArticle} from '../database/dbmodels/blogarticle.model';
 import {Revision} from '../database/dbmodels/revision.model';
 import dynamicImage from '../mean/dynamicImage';
-import logger from '../logger';
 
 const app = express();
 
