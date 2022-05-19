@@ -18,7 +18,7 @@
 		"js-webpack": "webpack-cli --devtool source-map",
 		"js-move": "ts-node tools/jsBrowserAfterCompile",
 		"dev:serve": "NODE_ENV=development nodemon --watch src -e ts --exec ts-node src/wrapper",
-		"dev:assets": "nodemon --watch src/blog/public --watch src/cms/public --exec ts-node tools/copyAssets",
+		"dev:assets": "nodemon --watch src/blog/public --watch src/cms/public --watch src/cloudcenter/public --exec ts-node tools/copyAssets",
 		"dev:js-webpack": "webpack-cli --devtool eval-source-map --watch",
 		"dev:js-move": "nodemon --watch dist/public --exec ts-node tools/jsBrowserAfterCompile",
 		"dev:tailwind-blog": "TW_COMPILE_SUBAPP_NAME=blog tailwindcss -i ./src/blog/blog.css -o ./dist/blog/public/blog.css --watch",
