@@ -1,6 +1,6 @@
 # All of dominikriedig.de
 
-This is the repository with all code for my express-managed webpages.
+This is the repository with all code for my express-managed webpages using a monolithic master process.
 
 ## Table of Contents
 
@@ -23,3 +23,4 @@ Here is a list of all impacting environment variables that can be used.
 | DD\_**CLOUDCENTER**\_ENABLED |    `true`     |               boolean               | Enables/disables the express sub-app for the cloudcenter                                                                                                 |
 |    DD\_**CLOUDCENTER**\_PORT |    `3002`     |                Port                 | Sets the port for the cloudcenter                                                                                                                        |
 |    DD\_**CLOUDCENTER**\_HOST |       -       |               String                | If `NODE_ENV` is `production`, prefixes all cross-app links pointing to the cloudcenter with the set host. Else prefix them with `http://localhost:port` |
+|       TW_COMPILE_SUBAPP_NAME |       -       |               String                | Only used internally within tailwind-compiling npm scripts. **Do never set this!**                                                                       |
