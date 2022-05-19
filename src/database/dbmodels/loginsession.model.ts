@@ -1,5 +1,4 @@
 import {DataTypes, Model, Sequelize} from 'sequelize';
-import {User} from './user.model';
 
 /**
  *
@@ -11,7 +10,7 @@ export class LoginSession extends Model {
 	declare session_user_id: String;
 };
 
-export const initModel = async (sequelize: Sequelize) => {
+export const initModel = (sequelize: Sequelize) => {
 	LoginSession.init({
 
 		group_user_id: {
@@ -19,7 +18,6 @@ export const initModel = async (sequelize: Sequelize) => {
 			autoIncrement: false,
 			primaryKey: true,
 			allowNull: false,
-			comment: '',
 		},
 
 		group_groupname: {
@@ -27,13 +25,7 @@ export const initModel = async (sequelize: Sequelize) => {
 			unique: true,
 			primaryKey: true,
 			allowNull: false,
-			comment: '',
 		},
 
 	}, {sequelize});
-
-	LoginSession.belongsTo(User, {
-		foreignKey: 'session_for_user',
-		as: 'user_pointer',
-	});
 };

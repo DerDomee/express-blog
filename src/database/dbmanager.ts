@@ -8,9 +8,15 @@ import {
 import {
 	BlogArticle,
 	initModel as blogarticleInit} from './dbmodels/blogarticle.model';
-import {initModel as userInit, User} from './dbmodels/user.model';
-import {initModel as userGroupInit} from './dbmodels/usergroup.model';
-import {initModel as loginSessionInit} from './dbmodels/loginsession.model';
+import {
+	User,
+	initModel as userInit} from './dbmodels/user.model';
+import {
+	UserGroup,
+	initModel as userGroupInit} from './dbmodels/usergroup.model';
+import {
+	LoginSession,
+	initModel as loginSessionInit} from './dbmodels/loginsession.model';
 
 export type allowedEnvs = 'development' | 'test' | 'production'
 
@@ -49,11 +55,26 @@ export const createInstance = async (NODE_ENV: allowedEnvs) => {
 
 export const loadModels = async (sequelizeInstance: Sequelize,
 	NODE_ENV: allowedEnvs) => {
-	await revisionInit(sequelizeInstance);
-	await blogarticleInit(sequelizeInstance);
-	await userInit(sequelizeInstance);
-	await userGroupInit(sequelizeInstance);
-	await loginSessionInit(sequelizeInstance);
+	revisionInit(sequelizeInstance);
+	blogarticleInit(sequelizeInstance);
+	userInit(sequelizeInstance);
+	userGroupInit(sequelizeInstance);
+	loginSessionInit(sequelizeInstance);
+
+	// Blog Article points to its latest revision (and back)
+	BlogArticle.belongsTo(Revision);
+	Revision.hasOne(BlogArticle);
+
+	// Revision points to its prior revision (but not back to prevent cyclic deps)
+	Revision.hasOne(Revision);
+
+	// User points to all of his groups (and group points back)
+	User.hasMany(UserGroup);
+	UserGroup.belongsTo(User);
+
+	// User points to all of his login sessions (and sessions point back to him)
+	User.hasMany(LoginSession);
+	LoginSession.belongsTo(User);
 };
 
 export const syncModels = async (sequelizeInstance: Sequelize,
@@ -67,7 +88,7 @@ export const syncModels = async (sequelizeInstance: Sequelize,
 
 const doSomeTests = async (sequelize: Sequelize) => {
 	try {
-		const rev3 = await Revision.create({
+		const revision = await Revision.create({
 			revision_id: crypto.pseudoRandomBytes(8).toString('hex'),
 			revision_prev_revision: null,
 			revision_content: JSON.stringify({
@@ -115,7 +136,7 @@ npm start
 		});
 		await BlogArticle.create({
 			article_url_id: 'first-blog-hello-world',
-			article_current_revision: rev3.revision_id,
+			RevisionRevisionId: revision.revision_id,
 			article_original_publication_time: Date.now() - (60 * 1000),
 			article_last_update_time: Date.now(),
 			article_is_published: true,

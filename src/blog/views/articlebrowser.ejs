@@ -13,10 +13,10 @@
 					<li class="list-disc">
 						<a href="/a/<%- article.article_url_id %>">
 							<span class="text-blue-600 dark:text-blue-400 hover:decoration-blue-600 dark:hover:decoration-blue-400 hover:underline font-bold">
-								<%- article.revision_pointer.revision_content.title %>
+								<%- article.Revision.revision_content.title %>
 							</span>
 							vom <%- moment(article.article_original_publication_time).format('DD.MM.YYYY, hh:mmZ')%> Uhr<br>
-							<%- article.revision_pointer.revision_content.blurb %>
+							<%- article.Revision.revision_content.blurb %>
 						</a>
 					</li>
 				<% } %>

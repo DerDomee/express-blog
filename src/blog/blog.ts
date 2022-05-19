@@ -10,6 +10,7 @@ import heroicon from '../mean/heroicon';
 import {BlogArticle} from '../database/dbmodels/blogarticle.model';
 import {Revision} from '../database/dbmodels/revision.model';
 import dynamicImage from '../mean/dynamicImage';
+import logger from '../logger';
 
 const app = express();
 
@@ -54,16 +55,13 @@ app.get('/articles', async (req, res) => {
 					[Op.lte]: Date.now(),
 				},
 			},
-			include: {
-				model: Revision,
-				as: 'revision_pointer',
-			},
+			include: Revision,
 		})
 	).forEach((element) => {
 		try {
 			const plainElem = element.get({plain: true});
-			plainElem.revision_pointer.revision_content = JSON.parse(
-				plainElem.revision_pointer.revision_content,
+			plainElem.Revision.revision_content = JSON.parse(
+				plainElem.Revision.revision_content,
 			);
 			res.locals.allArticles.push(plainElem);
 		} catch (err) {}
@@ -86,15 +84,12 @@ app.get('/a/:articleurl', async (req, res) => {
 			where: {
 				article_url_id: articleurl,
 			},
-			include: {
-				model: Revision,
-				as: 'revision_pointer',
-			},
+			include: Revision,
 		})
 	).get({plain: true});
 	res.locals.article = article;
 	try {
-		res.locals.revision = JSON.parse(article.revision_pointer.revision_content);
+		res.locals.revision = JSON.parse(article.Revision.revision_content);
 		res.locals.metaDescription = res.locals.revision.blurb;
 	} catch (err) {
 		res.status(404);

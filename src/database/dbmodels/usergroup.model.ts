@@ -1,5 +1,4 @@
 import {DataTypes, Model, Sequelize} from 'sequelize';
-import {User} from './user.model';
 
 /**
  *
@@ -9,7 +8,7 @@ export class UserGroup extends Model {
 	declare group_groupname: String;
 };
 
-export const initModel = async (sequelize: Sequelize) => {
+export const initModel = (sequelize: Sequelize) => {
 	UserGroup.init({
 
 		group_user_id: {
@@ -17,7 +16,6 @@ export const initModel = async (sequelize: Sequelize) => {
 			autoIncrement: false,
 			primaryKey: true,
 			allowNull: false,
-			comment: '',
 		},
 
 		group_groupname: {
@@ -25,11 +23,7 @@ export const initModel = async (sequelize: Sequelize) => {
 			unique: true,
 			primaryKey: true,
 			allowNull: false,
-			comment: '',
 		},
 
 	}, {sequelize});
-
-	UserGroup.belongsTo(User);
-	User.hasMany(UserGroup);
 };
