@@ -8,6 +8,9 @@ import {
 import {
 	BlogArticle,
 	initModel as blogarticleInit} from './dbmodels/blogarticle.model';
+import {initModel as userInit, User} from './dbmodels/user.model';
+import {initModel as userGroupInit} from './dbmodels/usergroup.model';
+import {initModel as loginSessionInit} from './dbmodels/loginsession.model';
 
 export type allowedEnvs = 'development' | 'test' | 'production'
 
@@ -46,8 +49,11 @@ export const createInstance = async (NODE_ENV: allowedEnvs) => {
 
 export const loadModels = async (sequelizeInstance: Sequelize,
 	NODE_ENV: allowedEnvs) => {
-	revisionInit(sequelizeInstance);
-	blogarticleInit(sequelizeInstance);
+	await revisionInit(sequelizeInstance);
+	await blogarticleInit(sequelizeInstance);
+	await userInit(sequelizeInstance);
+	await userGroupInit(sequelizeInstance);
+	await loginSessionInit(sequelizeInstance);
 };
 
 export const syncModels = async (sequelizeInstance: Sequelize,
