@@ -1,5 +1,4 @@
 import {DataTypes, Model, Sequelize} from 'sequelize';
-import {BlogArticle} from './blogarticle.model';
 
 /**
  *
@@ -11,7 +10,7 @@ export class Revision extends Model {
 	declare revision_content?: any;
 }
 
-export const initModel = (sequelize: Sequelize) => {
+export const initModel = async (sequelize: Sequelize) => {
 	Revision.init({
 		revision_id: {
 			type: DataTypes.STRING(128),
@@ -30,8 +29,4 @@ export const initModel = (sequelize: Sequelize) => {
 	Revision.belongsTo(Revision, {
 		foreignKey: 'revision_prev_revision',
 	});
-
-	/* Revision.hasOne(Revision, {
-		foreignKey: 'revision_prev_revision',
-	});*/
 };

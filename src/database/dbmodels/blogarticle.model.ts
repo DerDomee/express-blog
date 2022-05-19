@@ -13,7 +13,7 @@ export class BlogArticle extends Model {
 	declare article_is_published: Boolean;
 }
 
-export const initModel = (sequelize: Sequelize) => {
+export const initModel = async (sequelize: Sequelize) => {
 	BlogArticle.init({
 
 		article_id: {
@@ -21,34 +21,37 @@ export const initModel = (sequelize: Sequelize) => {
 			autoIncrement: true,
 			primaryKey: true,
 			allowNull: false,
-			comment: '',
+			comment: 'Incrementing and unique identifying id number for this article',
 		},
 
 		article_url_id: {
 			type: DataTypes.STRING,
 			unique: true,
 			allowNull: false,
-			comment: '',
+			comment: 'Unique identifying url id pointing to this article',
 		},
 
 		article_original_publication_time: {
 			type: DataTypes.DATE,
 			allowNull: false,
-			comment: '',
+			comment: 'Datetime of first publication. If this is in the future, the ' +
+			         'article becomes a scheduled pre-release article',
 		},
 
 		article_last_update_time: {
 			type: DataTypes.DATE,
 			allowNull: true,
 			defaultValue: null,
-			comment: '',
+			comment: 'Datetime of last update or content change',
 		},
 
 		article_is_published: {
 			type: DataTypes.BOOLEAN,
 			defaultValue: false,
 			allowNull: false,
-			comment: '',
+			comment: 'If this article is published. If false, it does not appear ' +
+			         'in the article browser, but still can be accessed via direct ' +
+			         'link.',
 		},
 
 	}, {sequelize});
@@ -57,8 +60,4 @@ export const initModel = (sequelize: Sequelize) => {
 		foreignKey: 'article_current_revision',
 		as: 'revision_pointer',
 	});
-
-	/* Revision.hasOne(BlogArticle, {
-		foreignKey: 'article_current_revision',
-	});*/
 };
