@@ -1,5 +1,8 @@
 module.exports = {
-	content: ['./src/blog/**/*.ejs', './src/browser/**/*.js'],
+	content: [
+		`./src/${process.env.TW_COMPILE_SUBAPP_NAME ?? '*'}/**/*.ejs`,
+		'./src/browser/**/*.js',
+	],
 	safelist: [{
 		pattern: /hljs+/,
 	}],
