@@ -3,6 +3,7 @@ import express from 'express';
 import crypto from 'crypto';
 import navigation from './navigation';
 import moment from 'moment';
+import bodyParser from 'body-parser';
 import {Op} from 'sequelize';
 import showdownInstance from '../mean/showdown';
 import helmet from '../mean/helmet';
@@ -10,6 +11,9 @@ import heroicon from '../mean/heroicon';
 import {BlogArticle} from '../database/dbmodels/blogarticle.model';
 import {Revision} from '../database/dbmodels/revision.model';
 import dynamicImage from '../mean/dynamicImage';
+import login from '../mean/auth/login';
+import logout from '../mean/auth/logout';
+import register from '../mean/auth/register';
 
 const app = express();
 
@@ -28,6 +32,8 @@ app.use((_req, res, next) => {
 	next();
 });
 
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(helmet);
 app.use(heroicon);
 app.use(express.static('./dist/blog/public'));
@@ -153,6 +159,14 @@ app.get('/settings', (_req, res) => {
 });
 
 app.get('/images/:pictureid.:type', dynamicImage);
+
+app.get('/register', register.get);
+app.post('/register', register.post);
+
+app.get('/login', login.get);
+app.post('/login', login.post);
+
+app.get('/logout', logout.get);
 
 // All other GET routes return a 404
 app.get('*', (_req, res) => {

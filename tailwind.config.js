@@ -38,10 +38,6 @@ module.exports = {
 	plugins: function(environment) {
 		switch (environment) {
 		case 'blog':
-			return [
-				require('@tailwindcss/typography'),
-				require('tailwind-highlightjs'),
-			];
 		case 'cms':
 			return [
 				require('@tailwindcss/typography'),
