@@ -20,3 +20,5 @@ inputContainer.addEventListener('keydown', (ev) => {
 		'end',
 	);
 });
+
+previewContainer.innerHTML = showdownConverter(inputContainer.value);
