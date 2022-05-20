@@ -4,21 +4,19 @@ import {DataTypes, Model, Sequelize} from 'sequelize';
  *
  */
 export class User extends Model {
-	declare user_id: String;
-	declare user_username: String;
-	declare user_email: String;
+	declare user_id: string;
+	declare user_username: string;
 	declare user_creation_time: Date;
 	declare user_disabled: boolean;
-	declare user_password_hash: String;
-	declare user_password_salt: String;
-	declare user_groups: String[];
+	declare user_password_hash: string;
+	declare user_email?: string;
 };
 
 export const initModel = (sequelize: Sequelize) => {
 	User.init({
 
 		user_id: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.STRING,
 			autoIncrement: false,
 			primaryKey: true,
 			allowNull: false,
@@ -47,12 +45,6 @@ export const initModel = (sequelize: Sequelize) => {
 		},
 
 		user_password_hash: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			defaultValue: true,
-		},
-
-		user_password_salt: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			defaultValue: true,
