@@ -1,5 +1,7 @@
 import * as shell from 'shelljs';
 
+console.log('Running copyAssets ...');
+
 shell.cp('-R', 'src/blog/views', 'dist/blog/');
 shell.cp('-R', 'src/blog/partials', 'dist/blog/');
 shell.cp('-R', 'src/blog/public', 'dist/blog/');
