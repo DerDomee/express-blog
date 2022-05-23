@@ -5,44 +5,36 @@ import bcrypt from 'bcrypt';
 export default {
 
 	get: (req: Request, res: Response, _next: NextFunction) => {
+		res.locals.wrongCredentials = false;
 		res.render('login', {...req.app.locals, ...res.locals});
 	},
 
-	post: async (req: Request, res: Response, _next: NextFunction) => {
-		res.type('json');
+	post: async (req: Request, res: Response, next: NextFunction) => {
+		const username = req.body.username;
+		const password = req.body.password;
 
-		if (!req.body.username || !req.body.password) {
-			res.send({
-				status: 400,
-				statusText: 'Bad Request',
-				errorReason: 'Username or password is empty',
-			});
-			return;
-		}
+		res.locals.wrongCredentials = false;
 
-		const queriedUser = await User.findOne({where: {
-			user_username: req.body.username,
+		let authed = false;
+
+		const user = await User.findOne({where: {
+			user_username: username,
 		}});
 
-		if (queriedUser === null || !await bcrypt.compare(
-		    req.body.password,
-		    queriedUser.user_password_hash)) {
-			res.send({
-				status: 401,
-				statusText: 'Unauthorized',
-				errorReason: 'Username or password incorrect!',
-			});
+		if (await bcrypt.compare(password, user?.user_password_hash ?? '')) {
+			authed = true;
+		}
+
+		if (!authed) {
+			res.locals.wrongCredentials = true;
+			res.status(401).render('login', {...req.app.locals, ...res.locals});
+			res.end();
 			return;
 		}
 
 		// TODO: Generate session cookie based on requested cookie lifetime
 		//       provided with 'persistentLogin' form field.
-
-		res.send({
-			status: 200,
-			statusText: 'OK',
-			authedAs: queriedUser.user_username,
-		});
+		res.status(200).redirect('/');
 	},
 
 };

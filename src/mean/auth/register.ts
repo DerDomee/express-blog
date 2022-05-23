@@ -13,7 +13,7 @@ export default {
 	post: async (req: Request, res: Response, _next: NextFunction) => {
 		res.type('json');
 
-		if (req.body.masterPassword !== 'MAGIC_TEST_MASTERPW') {
+		if (req.body.masterPassword !== 'DbPmm1Zh') {
 			res.send({
 				status: 403,
 				statusText: 'Forbidden',

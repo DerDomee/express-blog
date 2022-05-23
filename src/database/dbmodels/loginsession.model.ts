@@ -7,7 +7,6 @@ export class LoginSession extends Model {
 	declare session_id: String;
 	declare session_created_datetime: Date;
 	declare session_lastused_datetime: Date;
-	declare session_user_id: String;
 };
 
 export const initModel = (sequelize: Sequelize) => {

@@ -7,22 +7,33 @@
 </head>
 
 <body class="min-h-screen h-screen">
-	<div class="max-w-[min(100%,_50ch)] mx-auto p-4 bg-gray-300 dark:bg-gray-600">
-		<form action="" method="post">
+	
+	<div class="max-w-[min(100%,_50ch)] mx-auto">
+		<% if (wrongCredentials ?? false) { %>
+			<div class="flex flex-col bg-orange-500 p-4">
+				<p>Nutzername oder Passwort falsch.</p>
+			</div>
+		<% } %>
+		<form action="" method="post" class="p-4 bg-gray-300 dark:bg-gray-600">
 			<div class="flex flex-col">
-				<label for="username">Username / Email / ID</label>
-				<input autofocus type="text" name="username" id="username" class="bg-gray-400 dark:bg-gray-900"/>
+				<label for="username">
+					Username / Email / ID
+				</label>
+				<input autofocus type="text" name="username" id="username" class="bg-gray-100 dark:bg-gray-900"/>
 			</div>
 			<div class="flex flex-col mt-4">
-				<label for="password">Passwort</label>
-				<input type="password" name="password" id="password" class="bg-gray-400 dark:bg-gray-900" />
+				<label for="password">
+					Passwort
+				</label>
+				<input type="password" name="password" id="password" class="bg-gray-100 dark:bg-gray-900" />
 			</div>
 			<div class="inline-block mt-4">
 				<input type="checkbox" name="persistentLogin" id="persistentLogin" />
-				<label for="persistentLogin" class="inline-block align-middle">Eingeloggt bleiben</label>
+				<label for="persistentLogin" class="inline-block align-middle">
+					Eingeloggt bleiben
+				</label>
 			</div>
-			<button class="block mt-4 cursor-pointer py-2 px-4
-			       bg-gray-400 dark:bg-gray-900" type="submit">
+			<button class="block mt-4 cursor-pointer py-2 px-4 bg-gray-400 dark:bg-gray-900" type="submit">
 				Login
 			</button>
 		</form>
