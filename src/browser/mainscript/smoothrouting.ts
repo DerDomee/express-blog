@@ -1,17 +1,25 @@
-const getAnchorParent = (element) => {
+/**
+ *
+ * @param {Node} element
+ * @return {HTMLAnchorElement | null}
+ */
+function getAnchorParent(element: Node) {
 	while (element.parentNode &&
 				 element.parentNode.nodeName.toLowerCase() !== 'body') {
-		if (element.nodeName.toLowerCase() === 'a') return element;
-		element = element.parentNode;
+		if (element.nodeName.toLowerCase() !== 'a') {
+			element = element.parentNode;
+			continue;
+		}
+		return element as HTMLAnchorElement;
 	}
-	return false;
+	return null;
 };
 
 // Anchor hijacking for smooth routing in forward direction
-document.addEventListener('click', async (e) => {
+document.addEventListener('click', async (ev) => {
 	// If the clicked target is an anchor or child of an anchor,
 	// get this anchor element or return
-	const anchorParent = getAnchorParent(e.target);
+	const anchorParent = getAnchorParent((ev.target as Node));
 	if (!anchorParent) return;
 
 	// Only do smoothrouting if anchor points to same host but different path
@@ -19,7 +27,7 @@ document.addEventListener('click', async (e) => {
 	// reload document from server)
 	if (anchorParent.hostname !== window.location.hostname ||
 		  anchorParent.pathname === window.location.pathname) return;
-	e.preventDefault();
+	ev.preventDefault();
 
 	// Get the new body contents
 	const response = await fetch(anchorParent.href);
@@ -38,8 +46,8 @@ document.addEventListener('click', async (e) => {
 });
 
 // Smooth routing in backward direction (aka. history-back button in browser UI)
-window.addEventListener('popstate', async (e) => {
-	e.preventDefault();
+window.addEventListener('popstate', async (ev) => {
+	ev.preventDefault();
 	// Hard reload the requested page
-	window.location = e.explicitOriginalTarget.location;
+	window.location = (ev.target as Document).location;
 });

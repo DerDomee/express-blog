@@ -1,24 +1,28 @@
-import showdownInstance from '../../mean/showdown.ts';
+import showdownInstance from '../../mean/showdown';
 const showdownConverter = showdownInstance.makeHtml.bind(showdownInstance);
 
 const inputContainer = document.getElementById('blogedit-textarea-container');
 const previewContainer = document.getElementById('blogedit-preview-container');
 
 inputContainer.addEventListener('input', (ev) => {
-	previewContainer.innerHTML = showdownConverter(ev.target.value);
+	const target = (ev.target as HTMLTextAreaElement);
+	previewContainer.innerHTML = showdownConverter(target.value);
 });
 
 inputContainer.addEventListener('keydown', (ev) => {
+	const target = (ev.target as HTMLTextAreaElement);
 	if (ev.key !== 'Tab') return;
 
 	ev.preventDefault();
 
-	ev.target.setRangeText(
+	target.setRangeText(
 		'\t',
-		ev.target.selectionStart,
-		ev.target.selectionEnd,
+		target.selectionStart,
+		target.selectionEnd,
 		'end',
 	);
 });
 
-previewContainer.innerHTML = showdownConverter(inputContainer.value);
+previewContainer.innerHTML = showdownConverter(
+	(inputContainer as HTMLTextAreaElement).value,
+);

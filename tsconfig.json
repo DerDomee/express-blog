@@ -6,6 +6,12 @@
 		"noImplicitAny": true,
 		"moduleResolution": "node",
 		"sourceMap": true,
+		"lib": [
+			"ES2021",
+			"DOM",
+			"DOM.Iterable",
+			"ESNext",
+		],
 		"outDir": "dist",
 		"baseUrl": ".",
 		"paths": {

@@ -8,7 +8,6 @@ const toggleNavbar = () => {
 	navbarToggled = !navbarToggled;
 	navbar.classList.toggle('h-16');
 	console.log(navbarToggled);
-	requestAnimationFrame();
 };
 
 navbarToggleButton?.addEventListener('click', (ev) => {
