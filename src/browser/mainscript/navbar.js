@@ -4,13 +4,14 @@ const navbarToggleButton = document.getElementById('main_navbar_toggle');
 let navbarToggled = false;
 
 const toggleNavbar = () => {
+	if (!navbar) return;
 	navbarToggled = !navbarToggled;
 	navbar.classList.toggle('h-16');
 	console.log(navbarToggled);
 	requestAnimationFrame();
 };
 
-navbarToggleButton.addEventListener('click', (ev) => {
+navbarToggleButton?.addEventListener('click', (ev) => {
 	toggleNavbar();
 });
 
