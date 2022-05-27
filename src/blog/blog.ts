@@ -71,11 +71,9 @@ app.get('/articles', async (req, res) => {
 		})
 	).forEach((element) => {
 		try {
-			const plainElem = element.get({plain: true});
-			plainElem.Revision.revision_content = JSON.parse(
-				plainElem.Revision.revision_content,
-			);
-			res.locals.allArticles.push(plainElem);
+			element.Revision.revision_content = JSON.parse(
+				element.Revision.revision_content);
+			res.locals.allArticles.push(element);
 		} catch (err) {}
 	});
 
@@ -91,14 +89,12 @@ app.get('/a', (req, res) => {
 // Main route (and canonical route) for a specific article;
 app.get('/a/:articleurl', async (req, res) => {
 	const articleurl = req.params.articleurl;
-	const article = (
-		await BlogArticle.findOne({
-			where: {
-				article_url_id: articleurl,
-			},
-			include: Revision,
-		})
-	).get({plain: true});
+	const article = await BlogArticle.findOne({
+		where: {
+			article_url_id: articleurl,
+		},
+		include: Revision,
+	});
 	res.locals.article = article;
 	try {
 		res.locals.revision = JSON.parse(article.Revision.revision_content);
