@@ -14,20 +14,22 @@
 					Masterpasswort (Admin)
 				</label>
 				<input type="password" name="masterPassword" id="masterPassword" class="bg-gray-200 dark:bg-gray-900" />
-				<span class="text-gray-600 dark:text-gray-400">Test</span>
+				<span class="text-gray-600 dark:text-gray-400">Das Masterpasswort wird gebraucht, damit nur vom Admin verifizierte Personen einen Account erstellen können, ohne ihre Email-Adresse angeben zu müssen.</span>
 			</div>
-			<div class="flex flex-col mt-16 ">
+			<div class="flex flex-col mt-4">
 				<label for="userUsername"><span class="text-red-500">*</span>
 					Gewünschter Username (Kann geändert werden)
 				</label>
 				<input autofocus type="text" name="userUsername" id="userUsername" class="bg-gray-200 dark:bg-gray-900" />
 			</div>
+
 			<div class="flex flex-col mt-4">
 				<label for="userPassword"><span class="text-red-500">*</span>
 					Passwort 
 				</label>
 				<input type="password" name="userPassword" id="userPassword" class="bg-gray-200 dark:bg-gray-900" />
 			</div>
+
 			<div class="flex flex-row">
 				<div id="pwStrengthWrapper"
 					class="relative flex mt-1 py-0.5 px-1 w-full h-2 gap-1 bg-gray-400 dark:bg-gray-500 transition-transform scale-y-0">
@@ -37,12 +39,12 @@
 					<div class="w-full h-1 transition-transform origin-left bg-orange-600 scale-x-0"></div>
 					<div class="w-full h-1 transition-transform origin-left bg-yellow-500 scale-x-0"></div>
 					<div class="w-full h-1 transition-transform origin-left bg-green-600 scale-x-0"></div>
-					<div data-infoIcon="true" class="absolute right-0 top-2 p-0.5 rounded-full hover:bg-black/20 cursor-pointer transition-colors">
+					<div data-infoIcon="true" class="absolute right-0 top-2 p-0.5 rounded-full hover:bg-black/20 cursor-pointer transition-colors"
+					     aria->
 						<%- heroicon({ icon: 'information-circle' , classes: 'self-center inline w-6' }); %>
 					</div>
 					<div data-infoWrapper="true" class="absolute left-0 right-0 top-2 text-xs border text-gray-700 dark:text-gray-400 bg-gray-400 border-gray-700 dark:bg-gray-700 dark:border-gray-300 p-4 invisible"></div>
 				</div>
-				
 			</div>
 			
 			<div class="flex flex-col mt-4">

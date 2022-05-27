@@ -3,6 +3,8 @@ import express from 'express';
 import crypto from 'crypto';
 import navigation from './navigation';
 import moment from 'moment';
+import useragent from 'express-useragent';
+import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import {Op} from 'sequelize';
 import showdownInstance from '../mean/showdown';
@@ -14,6 +16,7 @@ import dynamicImage from '../mean/dynamicImage';
 import login from '../mean/auth/login';
 import logout from '../mean/auth/logout';
 import register from '../mean/auth/register';
+import checkauth from '../mean/auth/checkauth';
 
 const app = express();
 
@@ -32,10 +35,14 @@ app.use((_req, res, next) => {
 	next();
 });
 
+app.use(helmet);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use(helmet);
+app.use(cookieParser());
+app.use(useragent.express());
+app.use(checkauth);
 app.use(heroicon);
+
 app.use(express.static('./dist/blog/public'));
 
 // Code and dynamic routes

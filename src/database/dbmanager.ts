@@ -80,8 +80,8 @@ export const loadModels = async (sequelizeInstance: Sequelize,
 export const syncModels = async (sequelizeInstance: Sequelize,
 	NODE_ENV: allowedEnvs) => {
 	await sequelizeInstance.sync({
-		alter: NODE_ENV==='development' ? true : false,
-		force: NODE_ENV==='development' ? true : false,
+		alter: NODE_ENV==='development' ? false : false,
+		force: NODE_ENV==='development' ? false : false,
 		logging: NODE_ENV==='development' ? false : false,
 	});
 };
@@ -142,7 +142,8 @@ npm start
 			article_is_published: true,
 		});
 	} catch (err) {
-		throw err;
+		logger.warn(err);
+		logger.warn(err.stack);
 	}
 };
 

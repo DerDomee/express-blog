@@ -1,11 +1,15 @@
 import path from 'path';
 import express from 'express';
 import crypto from 'crypto';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import useragent from 'express-useragent';
 import navigation from './navigation';
 import showdownInstance from '../mean/showdown';
 import helmet from '../mean/helmet';
 import heroicon from '../mean/heroicon';
 import dynamicImage from '../mean/dynamicImage';
+import checkauth from '../mean/auth/checkauth';
 
 const app = express();
 
@@ -23,7 +27,13 @@ app.use((_req, res, next) => {
 });
 
 app.use(helmet);
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(useragent.express());
+app.use(checkauth);
 app.use(heroicon);
+
 app.use(express.static('./dist/cloudcenter/public'));
 
 // Code and dynamic routes

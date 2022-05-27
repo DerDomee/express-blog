@@ -170,6 +170,15 @@ if (route == '/register') {
 		});
 	};
 
+	const dismissClickEvent = (ev: MouseEvent) => {
+		if (!strengthInfoContainer.contains(ev.target as Node) &&
+			    !(ev.target as Node).contains(password1Input)) {
+			window.removeEventListener('mousedown', dismissClickEvent);
+			strengthInfoContainer.classList.toggle('invisible');
+			strengthInfoIcon.classList.toggle('invisible');
+		}
+	};
+
 	const score = calculatePasswordScore(password1Input.value, maxScore);
 	renderTips(score, strengthInfoContainer);
 
@@ -190,13 +199,6 @@ if (route == '/register') {
 	strengthInfoIcon.addEventListener('mousedown', (ev) => {
 		ev.preventDefault();
 		ev.stopPropagation();
-		const dismissClickEvent = (ev: MouseEvent) => {
-			if (!strengthInfoContainer.contains(ev.target as Node)) {
-				window.removeEventListener('mousedown', dismissClickEvent);
-				strengthInfoContainer.classList.toggle('invisible');
-				strengthInfoIcon.classList.toggle('invisible');
-			}
-		};
 		window.addEventListener('mousedown', dismissClickEvent);
 
 		strengthInfoContainer.classList.toggle('invisible');

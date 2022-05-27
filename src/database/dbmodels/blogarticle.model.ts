@@ -1,4 +1,5 @@
 import {DataTypes, Model, Sequelize} from 'sequelize';
+import {Revision} from './revision.model';
 
 /**
  *
@@ -9,6 +10,7 @@ export class BlogArticle extends Model {
 	declare article_original_publication_time: Date;
 	declare article_last_update_time: Date;
 	declare article_is_published: Boolean;
+	declare Revision?: Revision;
 }
 
 export const initModel = (sequelize: Sequelize) => {

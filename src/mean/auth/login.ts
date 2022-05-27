@@ -1,17 +1,30 @@
 import {NextFunction, Request, Response} from 'express';
-import {User} from '../../database/dbmodels/user.model';
 import bcrypt from 'bcrypt';
+import crypto from 'crypto';
+import {User} from '../../database/dbmodels/user.model';
+import {LoginSession} from '../../database/dbmodels/loginsession.model';
+import logger from '../../logger';
 
 export default {
 
 	get: (req: Request, res: Response, _next: NextFunction) => {
+		if (res.locals.auth.isAuthed) {
+			res.redirect('/');
+			return;
+		}
 		res.locals.wrongCredentials = false;
 		res.render('login', {...req.app.locals, ...res.locals});
 	},
 
-	post: async (req: Request, res: Response, next: NextFunction) => {
+	post: async (req: Request, res: Response, _next: NextFunction) => {
+		if (res.locals.auth.isAuthed) {
+			res.redirect('/');
+			return;
+		}
+
 		const username = req.body.username;
 		const password = req.body.password;
+		const persistent = req.body.isPersistent;
 
 		res.locals.wrongCredentials = false;
 
@@ -32,9 +45,40 @@ export default {
 			return;
 		}
 
-		// TODO: Generate session cookie based on requested cookie lifetime
-		//       provided with 'persistentLogin' form field.
-		res.status(200).redirect('/');
+		let loginSession = null;
+		try {
+			loginSession = await LoginSession.create({
+				session_cookie: crypto.randomBytes(128).toString('hex'),
+				session_created_datetime: Date.now(),
+				session_is_persistent: persistent ? true : false,
+				session_lastused_datetime: Date.now(),
+				session_expires_datetime: persistent ? Date.now() +
+					(1000 * 60 * 60 * 12) : Date.now() + (1000 * 60 * 60 * 24 * 30),
+				session_original_useragent: req.useragent.source,
+				session_current_useragent: req.useragent.source,
+				session_original_ip: req.ip,
+				session_current_ip: req.ip,
+				UserUserId: user.user_id,
+			});
+		} catch (err) {
+			logger.verbose(err);
+			logger.verbose(err.stack);
+		}
+		if (loginSession === null) {
+			res.status(500).render('login', {...req.app.locals, ...res.locals});
+			res.end();
+			return;
+		}
+
+		console.dir(loginSession);
+
+		res.cookie('dd_user_sess_id', loginSession.session_cookie, {
+			expires: loginSession.session_expires_datetime,
+			secure: true,
+			httpOnly: true,
+		});
+		res.redirect('/');
+		return;
 	},
 
 };
