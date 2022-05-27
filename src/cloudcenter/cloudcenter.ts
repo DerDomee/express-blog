@@ -36,6 +36,15 @@ app.use(heroicon);
 
 app.use(express.static('./dist/cloudcenter/public'));
 
+app.use((_req, res, next) => {
+	const returnPath = app.get('blogAbsPath');
+	if (!res.locals.auth.isAuthed) {
+		res.redirect(`${returnPath}/login`);
+		return;
+	}
+	next();
+});
+
 // Code and dynamic routes
 
 app.get('/', (_req, res) => {

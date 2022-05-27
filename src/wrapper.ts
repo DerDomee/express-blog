@@ -15,9 +15,16 @@ const blogEnabled = process.env.DD_BLOG_ENABLED ?? true;
 const cmsEnabled = process.env.DD_CMS_ENABLED ?? true;
 const cloudcenterEnabled = process.env.DD_CLOUDCENTER_ENABLED ?? true;
 
+const blogPath = `http://localhost:${blogPort}`;
+const cmsPath = `http://localhost:${cmsPort}`;
+const cloudcenterPath = `http://localhost:${cloudcenterPort}`;
+
 dbInit(process.env.NODE_ENV as allowedEnvs).then((sequelize) => {
 	if (blogEnabled) {
 		blog.set('sequelizeInstance', sequelize);
+		blog.set('blogAbsPath', blogPath);
+		blog.set('cmsAbsPath', cmsPath);
+		blog.set('cloudcenterAbsPath', cloudcenterPath);
 		blog.locals.httpInstance = blog.listen(blogPort, () => {
 			logger.info(`blog | Listening on port ${blogPort}`);
 		});
@@ -25,6 +32,9 @@ dbInit(process.env.NODE_ENV as allowedEnvs).then((sequelize) => {
 
 	if (cmsEnabled) {
 		cms.set('sequelizeInstance', sequelize);
+		cms.set('blogAbsPath', blogPath);
+		cms.set('cmsAbsPath', cmsPath);
+		cms.set('cloudcenterAbsPath', cloudcenterPath);
 		cms.locals.httpInstance = cms.listen(cmsPort, () => {
 			logger.info(`cms  | Listening on port ${cmsPort}`);
 		});
@@ -32,6 +42,9 @@ dbInit(process.env.NODE_ENV as allowedEnvs).then((sequelize) => {
 
 	if (cloudcenterEnabled) {
 		cloudcenter.set('sequelizeInstance', sequelize);
+		cloudcenter.set('blogAbsPath', blogPath);
+		cloudcenter.set('cmsAbsPath', cmsPath);
+		cloudcenter.set('cloudcenterAbsPath', cloudcenterPath);
 		cloudcenter.locals.httpInstance = cloudcenter.listen(
 			cloudcenterPort,
 			() => {
