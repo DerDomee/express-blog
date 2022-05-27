@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de" class="dark motion-safe:scroll-smooth">
+	<head>
+		<%- include('../partials/head') %>
+		<title><%- htmlTitle %></title>
+	</head>
+	<body>
+		<%- include('../partials/navigation') %>
+		<div class="flex flex-col gap-8 lg:flex-row justify-center">
+			<form
+				class="ml-8 flex flex-col min-w-[40%] gap-4"
+				action=""
+				method="post">
+
+				<div class="flex flex-col">
+					<label for="blogedit-pagetitle">Seitentitel</label>
+					<input
+						class="text-redgray-800"
+						type="text"
+						name="blogeditPagetitle"
+						id="blogedit-pagetitle">
+				</div>
+
+				<div class="flex flex-col">
+					<label for="blogedit-blurb">Vorschautext</label>
+					<input
+						class="text-redgray-800"
+						type="text"
+						name="blogeditBlurb"
+						id="blogedit-blurb">
+				</div>
+				
+				<div class="flex flex-col">
+					<label for="blogedit-content">Inhalt</label>
+					<textarea
+						class="font-mono text-redgray-800"
+						type="text"
+						name="blogeditContent"
+						id="blogedit-content"></textarea>
+				</div>
+
+				<div class="flex flex-col">
+					<label for="blogedit-htmltitle">HTML Titel</label>
+					<input
+						class="text-redgray-800"
+						type="text"
+						name="blogeditHtmlTitle"
+						id="blogedit-htmltitle">
+				</div>
+				
+				<div class="flex flex-col">
+					<label for="blogedit-urlid">URL-ID</label>
+					<input
+						class="text-redgray-800"
+						type="text"
+						name="blogeditUrlId"
+						id="blogedit-urlid">
+				</div>
+
+			</form>
+			<article
+				class="min-w-[40%]
+				       prose prose-lg dark:prose-invert prose-headings:font-normal
+				       prose-p:my-1 prose-headings:my-2
+				       prose-h1:text-4xl prose-h1:border-b prose-h1:pb-3
+				       prose-h1:mb-4 prose-h1:border-gray-600">
+				<h1 id="blogpreview-title">Neuer Blogeintrag</h1>
+				<section>
+					<p>
+						Veröffentlicht
+						<span title="<%=moment().format('DD.MM:YYYY hh:mm')%>">
+							<%= moment().fromNow() %>
+						</span>
+					</p>
+				</section>
+				<section>
+					<p id="blogpreview-blurb"></p>
+				</section>
+				<div id="blogpreview-content"></div>
+			</article>
+		</div>
+		<%- include('../partials/footer') %>
+	</body>
+</html>
