@@ -70,8 +70,6 @@ export default {
 			return;
 		}
 
-		console.dir(loginSession);
-
 		res.cookie('dd_user_sess_id', loginSession.session_cookie, {
 			expires: loginSession.session_expires_datetime,
 			secure: true,
