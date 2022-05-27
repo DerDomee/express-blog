@@ -5,7 +5,6 @@ import {DataTypes, Model, Sequelize} from 'sequelize';
  */
 export class Revision extends Model {
 	declare revision_id?: String;
-	declare revision_prev_rev?: String;
 	declare revision_datetime?: Date;
 	declare revision_content?: any;
 }
@@ -21,6 +20,12 @@ export const initModel = (sequelize: Sequelize) => {
 		revision_content: {
 			type: DataTypes.TEXT,
 			allowNull: false,
+		},
+
+		revision_datetime: {
+			type: DataTypes.DATE,
+			allowNull: false,
+			defaultValue: DataTypes.NOW,
 		},
 	}, {sequelize});
 };
