@@ -32,7 +32,19 @@ export default new showdown.Converter({
 						.replace(/&amp;/g, '&')
 						.replace(/&lt;/g, '<')
 						.replace(/&gt;/g, '>');
-					return left + hljs.highlightAuto(match).value + right;
+
+					const lang = left.replace(
+						/<pre><code\s*class="([\w-]+) ([\w-]+)">/g,
+						'$1',
+					);
+
+					if (lang && lang !== '<pre><code>') {
+						match = hljs.highlight(match, {
+							language: lang,
+							ignoreIllegals: true,
+						}).value;
+					};
+					return left + match + right;
 				};
 				return showdown.helper.replaceRecursiveRegExp(
 					text,
