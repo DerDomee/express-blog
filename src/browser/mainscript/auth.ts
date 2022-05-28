@@ -1,3 +1,5 @@
+import {route} from './commonvars';
+
 interface PasswordPolicy {
 	match: (value: string) => boolean;
 
@@ -25,7 +27,6 @@ interface PasswordScore {
 	failingPolicies: PasswordPolicy[];
 }
 
-const route = location.pathname.replaceAll(/(?=\/$)\//g, '');
 /**
  *
  * @param {string} value

@@ -57,10 +57,53 @@ app.get('/', (_req, res) => {
 	res.render('home', {...app.locals, ...res.locals});
 });
 
-app.get('/articles', (_req, res) => {
+app.get('/articles', async (_req, res) => {
 	res.locals.pageTitle = 'Artikelliste /articles';
 	res.locals.htmlTitle = 'Artikelliste - CMS - Dominik Riedig';
+	res.locals.allArticles = [] as BlogArticle[];
+	(
+		await BlogArticle.findAll({
+			order: [['article_id', 'DESC']],
+			include: Revision,
+		})
+	).forEach((element) => {
+		try {
+			element.Revision.revision_content = JSON.parse(
+				element.Revision.revision_content);
+			res.locals.allArticles.push(element);
+		} catch (err) {}
+	});
 	res.render('articles', {...app.locals, ...res.locals});
+});
+
+app.post('/articles', async (req, res) => {
+	const blogid = parseInt(req.body.blogId);
+	const blogArticle = await BlogArticle.findOne({
+		where: {
+			article_id: blogid,
+		},
+	});
+
+	if (!req.body.blogMethod || blogid === NaN || blogArticle === null) {
+		res.redirect('/articles?failure');
+		return;
+	}
+	switch (req.body.blogMethod) {
+	case 'publish':
+		await blogArticle.update({
+			article_is_published: true,
+		});
+		res.redirect('/articles?success');
+		break;
+	case 'unpublish':
+		await blogArticle.update({
+			article_is_published: false,
+		});
+		res.redirect('/articles?success');
+		break;
+	default:
+		res.redirect('/articles?failure');
+	}
 });
 
 app.get('/articles/new', (_req, res) => {
@@ -90,7 +133,7 @@ app.post('/articles/new', async (req, res) => {
 		RevisionRevisionId: revision.revision_id,
 		article_original_publication_time: Date.now(),
 		article_last_update_time: Date.now(),
-		article_is_published: req.body.blogeditInstantPublish ? true: false,
+		article_is_published: req.body.blogeditPublishUnlisted ? false : true,
 	});
 	res.redirect('/articles?success');
 });

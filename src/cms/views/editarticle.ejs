@@ -57,20 +57,37 @@
 						id="blogedit-urlid">
 				</div>
 
-				<div class="flex flex-row">
+				<div class="flex flex-col gap-8">
+					<div class="inline-block align-middle">
+						<input
+							type="checkbox"
+							name="blogeditSchedulePublication"
+							id="blogedit-schedule-publication">
+						<label for="blogedit-schedule-publication">Veröffentlichung planen</label>
+					</div>
+					<div class="hidden">
+						<label for="blogedit-publish-time">Veröffentlichungszeitpunkt</label>
+						<input
+							type="datetime-local"
+							name="blogeditPublishTime"
+							id="blogedit-publish-time">
+					</div>
+				</div>
+
+				<div class="inline-block">
 					<input
 						class=""
 						type="checkbox"
-						name="blogeditInstantPublish"
-						id="blogedit-instant-publish">
-					<label for="blogedit-instant-publish">Schnellveröffentlichung</label>
+						name="blogeditPublishUnlisted"
+						id="blogedit-publish-unlisted">
+					<label for="blogedit-publish-unlisted">Ungelistet (Nur mit Direktlink abrufbar)</label>
 				</div>
 
 				<input
 					class="block mt-4 cursor-pointer py-2 px-4 bg-redgray-700 text-redgray-200 dark:bg-redgray-900"
 					id="blogedit-submit"
 					type="submit"
-					value="Blog erstellen (ungelistet)">
+					value="Blog erstellen">
 
 			</form>
 			<article

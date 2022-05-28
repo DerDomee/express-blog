@@ -1,5 +1,7 @@
 import showdownInstance from '../../mean/showdown';
+import {route} from './commonvars';
 const showdownConverter = showdownInstance.makeHtml.bind(showdownInstance);
+
 
 const inElems = {
 	pageTitle: {
@@ -62,17 +64,26 @@ const inElems = {
 			);
 		},
 	},
-	instantPublish: {
+	schedulePublication: {
 		elem: document.getElementById(
-			'blogedit-instant-publish') as HTMLInputElement,
+			'blogedit-schedule-publication') as HTMLInputElement,
 		onChange: (ev: Event, key: string) => {
-			if (!inElems.instantPublish.elem.checked) {
-				outElems.submit.elem.value = 'Blog erstellen (ungelistet)';
-				return;
-			}
-
-			outElems.submit.elem.value = 'Blog erstellen (öffentlich)';
+			inElems.publicationTime.elem.parentElement.classList.toggle('hidden');
 		},
+		onInput: (ev: InputEvent, key: string) => {},
+		onKeydown: (ev: KeyboardEvent, key: string) => {},
+	},
+	publicationTime: {
+		elem: document.getElementById(
+			'blogedit-publish-time') as HTMLInputElement,
+		onChange: (ev: Event, key: string) => {},
+		onInput: (ev: InputEvent, key: string) => {},
+		onKeydown: (ev: KeyboardEvent, key: string) => {},
+	},
+	publishUnlisted: {
+		elem: document.getElementById(
+			'blogedit-publish-unlisted') as HTMLInputElement,
+		onChange: (ev: Event, key: string) => {},
 		onInput: (ev: InputEvent, key: string) => {},
 		onKeydown: (ev: KeyboardEvent, key: string) => {},
 	},
@@ -93,16 +104,20 @@ const outElems = {
 	},
 };
 
-for (const [key, value] of Object.entries(inElems)) {
-	// When input changes are committed (usually when losing focus after editing)
-	value.elem.addEventListener('change',
-		(ev: Event) => value.onChange(ev, key));
-	// When pressing down a key
-	value.elem.addEventListener('keydown',
-		(ev: KeyboardEvent) => value.onKeydown(ev, key));
-	// After every input directly after changing content
-	value.elem.addEventListener('input',
-		(ev: InputEvent) => value.onInput(ev, key));
-}
 
-outElems.content.elem.innerHTML = showdownConverter(inElems.content.elem.value);
+if (route === '/articles/new') {
+	for (const [key, value] of Object.entries(inElems)) {
+	// When input changes are committed (usually when losing focus after editing)
+		value.elem.addEventListener('change',
+			(ev: Event) => value.onChange(ev, key));
+		// When pressing down a key
+		value.elem.addEventListener('keydown',
+			(ev: KeyboardEvent) => value.onKeydown(ev, key));
+		// After every input directly after changing content
+		value.elem.addEventListener('input',
+			(ev: InputEvent) => value.onInput(ev, key));
+	}
+
+	outElems.content.elem.innerHTML = showdownConverter(
+		inElems.content.elem.value);
+}
