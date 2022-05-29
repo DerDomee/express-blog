@@ -9,7 +9,9 @@ import showdownInstance from '../mean/showdown';
 import helmet from '../mean/helmet';
 import heroicon from '../mean/heroicon';
 import dynamicImage from '../mean/dynamicImage';
-import checkauth from '../mean/auth/checkauth';
+import checkauth from '../mean/checkauth';
+
+import routes from './routes/_routes';
 
 const app = express();
 
@@ -45,20 +47,24 @@ app.use((_req, res, next) => {
 	next();
 });
 
-// Code and dynamic routes
-
-app.get('/', (_req, res) => {
-	res.locals.pageTitle = 'Cloudcenter /';
-	res.locals.htmlTitle = 'Dominik Riedig - Cloudcenter';
-	res.render('home', {...app.locals, ...res.locals});
-});
-
 app.get('/images/:pictureid.:type', dynamicImage);
 
-// All other GET routes return a 404
-app.get('*', (_req, res) => {
-	res.status(404);
-	res.render('404', {...app.locals, ...res.locals});
-});
+for (const route of routes) {
+	if (typeof(route.routeMatcher) === 'string') {
+		route.routeMatcher = [route.routeMatcher];
+	}
+	for (const match of route.routeMatcher) {
+		if (route.get) app.get(match, route.get);
+		if (route.head) app.head(match, route.head);
+		if (route.post) app.post(match, route.post);
+		if (route.put) app.put(match, route.put);
+		if (route.delete) app.delete(match, route.delete);
+		if (route.connect) app.connect(match, route.connect);
+		if (route.options) app.options(match, route.options);
+		if (route.trace) app.trace(match, route.trace);
+		if (route.patch) app.patch(match, route.patch);
+	}
+}
+
 
 export default app;

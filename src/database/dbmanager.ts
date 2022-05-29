@@ -1,5 +1,5 @@
 import {Sequelize} from 'sequelize';
-import logger from '../logger';
+import logger from '../mean/logger';
 import crypto from 'crypto';
 
 import {

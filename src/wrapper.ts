@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import blog from './blog/blog';
 import cms from './cms/cms';
 import cloudcenter from './cloudcenter/cloudcenter';
-import logger from './logger';
+import logger from './mean/logger';
 import dbInit, {allowedEnvs} from './database/dbmanager';
 
 dotenv.config();
