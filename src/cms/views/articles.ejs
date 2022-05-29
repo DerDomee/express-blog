@@ -7,7 +7,14 @@
 	<body>
 		<%- include('../partials/navigation') %>
 		<div class="max-w-[75ch] px-4 mx-auto text-lg w-full">
-			<h1 class="text-4xl border-b border-gray-600 mb-4 pb-3"><%- pageTitle %></h1>
+			<h1 class="text-4xl border-b border-gray-600 mb-4 pb-3">
+				<%- pageTitle %>
+				<a
+					class="float-right text-lg bg-redgray-500 dark:bg-redgray-900 px-4 py-2 mb-4"
+					href="/articles/new">
+					Neuer Artikel
+				</a>
+			</h1>
 			<div class="prose prose-lg dark:prose-invert w-full max-w-[72ch]">
 				<table>
 					<thead>
@@ -47,6 +54,15 @@
 										data-blog-id="<%= article.article_id %>">
 										<%-	heroicon({
 											icon: 'lock-open',
+											classes: 'self-center inline h-6'
+										}) %>
+									</button>
+									<button
+										class=""
+										data-blog-function="delete"
+										data-blog-id="<%= article.article_id %>">
+										<%- heroicon({
+											icon: 'trash',
 											classes: 'self-center inline h-6'
 										}) %>
 									</button>

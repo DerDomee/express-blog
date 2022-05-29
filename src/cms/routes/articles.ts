@@ -59,6 +59,10 @@ async function post(req: Request, res: Response, next: NextFunction) {
 		});
 		res.redirect('/articles?success');
 		break;
+	case 'delete':
+		await blogArticle.destroy();
+		res.redirect('/articles?success');
+		break;
 	default:
 		res.redirect('/articles?failure');
 	}

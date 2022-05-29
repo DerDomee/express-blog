@@ -95,6 +95,20 @@ if (route === '/articles') {
 						},
 					);
 					break;
+				case 'delete':
+					showModal(
+						modalObject,
+						'!!! Blog unwiderruflich löschen !!!',
+						`ACHTUNG! Das wird Blog ${blogid} löschen! Das lässt sich NICHT ` +
+						'rückgängig machen!',
+						(ev) => {
+							postToPage('', {
+								blogMethod: 'delete',
+								blogId: blogid,
+							});
+						},
+					);
+					break;
 				case 'edit':
 					showModal(
 						modalObject,
