@@ -4,13 +4,15 @@
 	"description": "",
 	"main": "dist/wrapper.js",
 	"scripts": {
+		"dev": "npm-run-all --parallel dev:serve dev:js-webpack dev:js-move dev:tailwind-blog dev:tailwind-cms dev:tailwind-cloudcenter dev:assets",
+		"test": "NODE_ENV=test jest",
+		"coverage": "NODE_EVN=test jest --coverage",
+		"build": "npm-run-all clean lint tsc tailwind-blog tailwind-cms tailwind-cloudcenter copy-assets js-wrapper",
+		"start": "node .",
 		"clean": "rimraf dist/*",
 		"copy-assets": "ts-node tools/copyAssets",
 		"lint": "eslint src/**/*{.js,.jsx,.ts,.tsx}",
-		"test": "NODE_ENV=test jest",
 		"tsc": "tsc",
-		"build": "npm-run-all clean lint tsc tailwind-blog tailwind-cms tailwind-cloudcenter copy-assets js-wrapper",
-		"start": "node .",
 		"tailwind-blog": "TW_COMPILE_SUBAPP_NAME=blog tailwindcss -i ./src/blog/blog.css -o ./dist/blog/public/blog.css --minify",
 		"tailwind-cms": "TW_COMPILE_SUBAPP_NAME=cms tailwindcss -i ./src/cms/cms.css -o ./dist/cms/public/cms.css --minify",
 		"tailwind-cloudcenter": "TW_COMPILE_SUBAPP_NAME=cloudcenter tailwindcss -i ./src/cloudcenter/cloudcenter.css -o ./dist/cms/public/cloudcenter.css --minify",
@@ -23,8 +25,7 @@
 		"dev:js-move": "nodemon --watch 'dist/public/**/*' --exec ts-node tools/jsBrowserAfterCompile",
 		"dev:tailwind-blog": "TW_COMPILE_SUBAPP_NAME=blog tailwindcss -i ./src/blog/blog.css -o ./dist/blog/public/blog.css --watch",
 		"dev:tailwind-cms": "TW_COMPILE_SUBAPP_NAME=cms tailwindcss -i ./src/cms/cms.css -o ./dist/cms/public/cms.css --watch",
-		"dev:tailwind-cloudcenter": "TW_COMPILE_SUBAPP_NAME=cloudcenter tailwindcss -i ./src/cloudcenter/cloudcenter.css -o ./dist/cloudcenter/public/cloudcenter.css --watch",
-		"dev": "npm-run-all --parallel dev:serve dev:js-webpack dev:js-move dev:tailwind-blog dev:tailwind-cms dev:tailwind-cloudcenter dev:assets"
+		"dev:tailwind-cloudcenter": "TW_COMPILE_SUBAPP_NAME=cloudcenter tailwindcss -i ./src/cloudcenter/cloudcenter.css -o ./dist/cloudcenter/public/cloudcenter.css --watch"
 	},
 	"keywords": [],
 	"author": "",
