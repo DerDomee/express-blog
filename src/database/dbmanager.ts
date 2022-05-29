@@ -1,6 +1,5 @@
 import {Sequelize} from 'sequelize';
 import logger from '../mean/logger';
-import crypto from 'crypto';
 
 import {
 	Revision,
@@ -86,72 +85,10 @@ export const syncModels = async (sequelizeInstance: Sequelize,
 	});
 };
 
-const doSomeTests = async (sequelize: Sequelize) => {
-	try {
-		const revision = await Revision.create({
-			revision_id: crypto.pseudoRandomBytes(8).toString('hex'),
-			revision_prev_revision: null,
-			revision_content: JSON.stringify({
-				title: 'Blogtitel',
-				htmlTitle: 'HTML-Titel des Blogs',
-				blurb: 'Vorschautext (zu Testzwecken)',
-				content:
-`
-# First Markdown content
-
-Testing the integrated markdown parser
-
-| col1          |   col2       |    col3       |    col4         |    col5 |
-|:-----:        |:-------:     |:-------:      |:-------:        |:-------:|
-| 100           | [a][1]       | ![b][2]       | ![b][2]         | ![b][2] |
-| *Langer Text* | **Fooooooo** | ~~Baaaaaaar~~ | ~~Bazzzzzzzzz~~ | YIKES   |
-
-## Integrated code block renderer with code highlighting
-
-\`\`\`python
-#!/bin/python3
-
-# This is a very important comment.
-this = 'Hello, world!'
-print(this, end='')
-result = foo(start=None, end={key1:'value1', key2: [0, 1, 2, 3], key3: 2})
-if result == bar('test'):
-    baz()
-
-def main():
-    baz();
-
-if __name__ == "__main__":
-    main()
-
-\`\`\`
-
-\`\`\`bash
-npm i
-npm run build
-npm start
-\`\`\`
-`,
-			}),
-		});
-		await BlogArticle.create({
-			article_url_id: 'first-blog-hello-world',
-			RevisionRevisionId: revision.revision_id,
-			article_original_publication_time: Date.now() - (60 * 1000),
-			article_last_update_time: Date.now(),
-			article_is_published: true,
-		});
-	} catch (err) {
-		logger.warn(err);
-		logger.warn(err.stack);
-	}
-};
-
 export default async (NODE_ENV: allowedEnvs) => {
 	const sequelize = await createInstance(NODE_ENV);
 	await loadModels(sequelize, NODE_ENV);
 	await syncModels(sequelize, NODE_ENV);
-	await doSomeTests(sequelize);
 
 	return sequelize;
 };
