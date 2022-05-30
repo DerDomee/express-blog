@@ -9,7 +9,6 @@ import bodyParser from 'body-parser';
 import showdownInstance from '../mean/showdown';
 import helmet from '../mean/helmet';
 import heroicon from '../mean/heroicon';
-import dynamicImage from '../mean/dynamicImage';
 import checkauth from '../mean/checkauth';
 
 import routes from './routes/_routes';
