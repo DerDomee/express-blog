@@ -5,8 +5,8 @@
 	"main": "dist/wrapper.js",
 	"scripts": {
 		"dev": "npm-run-all --parallel dev:serve dev:js-webpack dev:js-move dev:tailwind-blog dev:tailwind-cms dev:tailwind-cloudcenter dev:assets",
-		"test": "NODE_ENV=test jest",
-		"coverage": "NODE_ENV=test jest --coverage",
+		"test": "jest",
+		"coverage": "jest --coverage",
 		"build": "npm-run-all clean lint tsc tailwind-blog tailwind-cms tailwind-cloudcenter copy-assets js-wrapper",
 		"start": "node .",
 		"clean": "rimraf dist/*",
