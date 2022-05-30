@@ -49,8 +49,6 @@ app.use((_req, res, next) => {
 	next();
 });
 
-app.get('/images/:pictureid.:type', dynamicImage);
-
 for (const route of routes) {
 	if (typeof(route.routeMatcher) === 'string') {
 		route.routeMatcher = [route.routeMatcher];

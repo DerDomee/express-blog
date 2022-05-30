@@ -41,8 +41,6 @@ app.use(heroicon);
 
 app.use(express.static('./dist/blog/public'));
 
-app.get('/images/:pictureid.:type', dynamicImage);
-
 // Code and dynamic routes
 
 for (const route of routes) {
