@@ -4,7 +4,27 @@ This is the repository with all code for my express-managed webpages using a mon
 
 ## Table of Contents
 
+1. [Build, Start, Develop, Test, Debug](#build-start-develop-test-debug)
 1. [Environment Variables](#environment-variables)
+
+## Build, Start, Develop, Test, Debug
+
+Following core npm scripts are useful when developing:
+
+```bash
+# Build and start the app
+npm run build
+npm start
+
+# Start development environment
+npm run dev
+
+# Start debuggable development environment
+npm run debug
+
+# Run tests (Jest)
+npm test
+```
 
 ## Environment Variables
 
