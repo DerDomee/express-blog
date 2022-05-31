@@ -3,20 +3,12 @@ import {Navigation} from '../mean/types';
 const nav: Navigation = {
 	left: [
 		{
-			name: 'Dashboard',
+			name: 'Startseite',
 			route: '/',
 		},
 		{
-			name: 'Blogartikel',
-			route: '/articles',
-		},
-		{
-			name: 'Einstellungen',
-			route: '/settings',
-		},
-		{
-			name: 'Userverwaltung',
-			route: '/users',
+			name: 'Serien',
+			route: '/tv',
 		},
 	],
 	right: [

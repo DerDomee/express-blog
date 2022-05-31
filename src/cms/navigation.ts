@@ -11,18 +11,17 @@ const nav: Navigation = {
 			route: '/articles',
 		},
 		{
-			name: 'Einstellungen',
-			route: '/settings',
+			name: 'Nutzer',
+			route: '/users',
 		},
 		{
-			name: 'Userverwaltung',
-			route: '/users',
+			name: 'Gruppen',
+			route: '/groups',
 		},
 	],
 	right: [
 		{
 			preset: 'userWidget',
-			permissions: 'lol',
 		},
 	],
 
