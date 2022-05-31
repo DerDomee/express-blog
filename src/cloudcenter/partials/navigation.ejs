@@ -1,46 +1,75 @@
-<nav id="main_navbar" 
-  class="print:hidden lg:flex fixed top-0 lg:static h-16 w-full lg:mb-8
-         text-neutral-900 bg-neutral-300 dark:text-neutral-100 dark:bg-neutral-900 
-         border-b z-10 border-neutral-400 dark:border-neutral-700
-         overflow-x-hidden overflow-y-hidden">
-	<div class="container lg:flex h-full mx-auto">
-		<div class="flex flex-row h-16 items-center justify-between lg:mr-10">
-			<a href="/" class="cursor-pointer">
-				<%-
-					heroicon({
-						icon: 'cloud',
-						classes: 'self-center inline h-6 mr-2'
-					});
-				%> 
-				<span class="text-xl font-semibold tracking-tight">Cloudcenter</span>
+<% function renderUserWidget(entry) {
+	if(auth.isAuthed) {
+		%>
+		<li
+			class="relative flex h-full z-[1] text-center
+			       before:absolute before:bottom-auto before:m-auto
+			       before:h-full lg:before:w-full before:w-0 lg:before:h-0
+			       before:transparent before:-z-[1] before:duration-[0ms]
+			       motion-safe:before:transition-all hover:before:bg-neutral-700
+			       motion-safe:before:duration-[400ms] hover:before:w-full
+			       lg:hover:before:h-full">
+			<a
+				href="#"
+				class="flex w-full h-16 lg:h-full px-4
+				       items-center text-center align-middle">
+				<img
+					src="/images/placeholder-40x40.jpeg"
+					alt="Profilbild: <%=auth.authedUser.user_username%>"
+					class="aspect-square h-full w-auto p-3 -ml-3">
+				<span><%=auth.authedUser.user_username%></span>
 			</a>
-			<button id="main_navbar_toggle" aria-label="Navigationsmenü öffnen"
-			     class="right-0 h-full px-3 lg:hidden">
-				<%-
-					heroicon({
-						icon: 'menu',
-						classes: 'self-center inline h-6 mr-2'
-					});
-				%>
-			</button>
-		</div>
-		<ul class="lg:flex items-center lg:h-full lg:align-middle lg:items-center">
-			<% for (let item of navigation) { %>
-				<li class="relative flex h-full z-[1] text-center
-				           before:absolute before:bottom-auto before:m-auto
-				           before:h-full lg:before:w-full before:w-0 lg:before:h-0
-				           before:transparent before:-z-[1] before:duration-[0ms]
-				           motion-safe:before:transition-all hover:before:bg-neutral-700
-				           motion-safe:before:duration-[400ms] hover:before:w-full
-				           lg:hover:before:h-full">
-				<a href="<%-item.route%>"
-				  class="flex w-full h-16 lg:h-full px-4
-				         items-center text-center align-middle">
-					<%- item.name %>
-				</a>
-			</li>
-			<% } %>
-		</ul>
-	</div>
-</nav>
-<div class="py-10 lg:py-0"></div>
+		</li>
+		<%
+	}
+}
+
+function renderNavigationEntry(entry) {
+	if(entry.name) {
+		%>
+		<li
+			class="relative flex h-full z-[1] text-center
+			       before:absolute before:bottom-auto before:m-auto
+			       before:h-full lg:before:w-full before:w-0 lg:before:h-0
+			       before:transparent before:-z-[1] before:duration-[0ms]
+			       motion-safe:before:transition-all hover:before:bg-neutral-700
+			       motion-safe:before:duration-[400ms] hover:before:w-full
+			       lg:hover:before:h-full">
+			<a
+				href="<%-entry.route%>"
+				class="flex w-full h-16 lg:h-full px-4
+							items-center text-center align-middle">
+				<%- entry.name %>
+			</a>
+		</li>
+		<%
+	} else if (entry.preset==='userWidget' ) {
+		renderUserWidget(entry)
+	}
+} %>
+
+			<nav id="main_navbar" class="print:hidden lg:flex fixed top-0 lg:static h-16 w-full lg:mb-8
+	       text-neutral-900 bg-neutral-300 dark:text-neutral-100 dark:bg-neutral-900 
+	       border-b z-10 border-neutral-400 dark:border-neutral-700
+	       overflow-x-hidden overflow-y-hidden">
+				<div class="container lg:flex h-full mx-auto justify-between">
+					<div class="lg:flex h-full">
+						<div class="flex flex-row h-16 items-center justify-between lg:mr-10">
+							<a href="/" class="cursor-pointer">
+								<%- heroicon({ icon: 'academic-cap' , classes: 'self-center inline h-6 mr-2' }); %>
+									<span class="text-xl font-semibold tracking-tight">Dominik Riedig</span>
+							</a>
+							<button id="main_navbar_toggle" aria-label="Navigationsmenü öffnen" class="right-0 h-full px-3 lg:hidden">
+								<%- heroicon({ icon: 'menu' , classes: 'self-center inline h-6 mr-2' }); %>
+							</button>
+						</div>
+						<ul class="lg:flex items-center lg:h-full lg:align-middle lg:items-center">
+							<% for (let item of navigation.left) { renderNavigationEntry(item) } %>
+						</ul>
+					</div>
+					<ul class="lg:flex items-center lg:h-full lg:align-middle lg:items-center">
+						<% for (let item of navigation.right) { renderNavigationEntry(item) } %>
+					</ul>
+				</div>
+			</nav>
+			<div class="py-10 lg:py-0"></div>

@@ -32,3 +32,21 @@ export interface Route {
   trace?: (req: Request, res: Response, next: NextFunction) => void;
   patch?: (req: Request, res: Response, next: NextFunction) => void;
 }
+
+export interface NavigationRoute {
+  name: string,
+  route: string,
+  permissions?: string | string[],
+}
+
+export interface NavigationPreset {
+  preset: 'userWidget',
+  settings?: any,
+}
+
+export type NavigationEntry = NavigationRoute | NavigationPreset
+
+export interface Navigation {
+  left?: NavigationEntry[],
+  right?: NavigationEntry[]
+}
