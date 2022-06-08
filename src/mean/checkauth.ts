@@ -31,7 +31,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 	}
 	res.locals.auth.isAuthed = true;
 	res.locals.auth.authedUser = await loginSession.$get('session_user');
-	console.dir(res.locals.auth.authedUser);
 	next();
 	await loginSession.update({
 		session_lastused_datetime: new Date(),
