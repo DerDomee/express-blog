@@ -1,33 +1,36 @@
 import {
-	DataTypes,
+	Table,
+	Column,
 	Model,
-	Sequelize} from 'sequelize';
+	DataType,
+	BelongsToMany,
+	PrimaryKey,
+	Default,
+	AllowNull} from 'sequelize-typescript';
+import GroupPermission from './grouppermission.model';
+import Permission from './permission.model';
+import User from './user.model';
+import UserGroup from './usergroup.model';
 
+@Table
 /**
  *
  */
-export class Group extends Model {
-	declare group_id: String;
-	declare group_name: String;
-};
+export default class Group extends Model {
+	@PrimaryKey
+	@AllowNull(false)
+	@Default(DataType.UUIDV4)
+	@Column({
+		type: DataType.UUIDV4})
+		group_id: String;
 
-export const initModel = (sequelize: Sequelize) => {
-	Group.init({
+	@Column({
+		type: DataType.STRING})
+		group_name: String;
 
-		group_id: {
-			type: DataTypes.UUIDV4,
-			autoIncrement: false,
-			primaryKey: true,
-			allowNull: false,
-			defaultValue: DataTypes.UUIDV4,
-		},
+	@BelongsToMany(() => User, () => UserGroup)
+		group_users: User[];
 
-		group_name: {
-			type: DataTypes.STRING,
-			unique: true,
-			primaryKey: true,
-			allowNull: false,
-		},
-
-	}, {sequelize});
+	@BelongsToMany(() => Permission, () => GroupPermission)
+		group_permissions: Permission[];
 };

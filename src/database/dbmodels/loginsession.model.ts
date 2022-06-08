@@ -1,82 +1,61 @@
-import {DataTypes, Model, Sequelize} from 'sequelize';
-import {User} from './user.model';
+import {
+	Table,
+	Column,
+	Model,
+	DataType,
+	BelongsTo,
+	PrimaryKey,
+	ForeignKey} from 'sequelize-typescript';
+import User from './user.model';
 
+
+@Table
 /**
  *
  */
-export class LoginSession extends Model {
-	declare session_cookie: String;
-	declare session_created_datetime: Date;
-	declare session_expires_datetime: Date;
-	declare session_is_persistent: boolean;
-	declare session_lastused_datetime: Date;
-	declare session_original_useragent?: string;
-	declare session_current_useragent?: string;
-	declare session_original_ip?: string;
-	declare session_current_ip?: string;
-	declare User?: User;
-};
+export default class LoginSession extends Model {
+	@PrimaryKey
+	@Column({
+		type: DataType.STRING})
+		session_cookie: String;
 
-export const initModel = (sequelize: Sequelize) => {
-	LoginSession.init({
+	@Column({
+		type: DataType.DATE})
+		session_created_datetime: Date;
 
-		session_cookie: {
-			type: DataTypes.STRING(128),
-			autoIncrement: false,
-			primaryKey: true,
-			unique: true,
-			allowNull: false,
-		},
+	@Column({
+		type: DataType.DATE})
+		session_expires_datetime: Date;
 
-		session_created_datetime: {
-			type: DataTypes.DATE,
-			unique: false,
-			allowNull: false,
-			defaultValue: DataTypes.NOW,
-		},
+	@Column({
+		type: DataType.BOOLEAN})
+		session_is_persistent: boolean;
 
-		session_expires_datetime: {
-			type: DataTypes.DATE,
-			unique: false,
-			allowNull: false,
-		},
+	@Column({
+		type: DataType.DATE})
+		session_lastused_datetime: Date;
 
-		session_is_persistent: {
-			type: DataTypes.BOOLEAN,
-			unique: false,
-			allowNull: false,
-		},
+	@Column({
+		type: DataType.STRING})
+		session_original_useragent: string;
 
-		session_lastused_datetime: {
-			type: DataTypes.DATE,
-			unique: false,
-			allowNull: false,
-			defaultValue: DataTypes.NOW,
-		},
+	@Column({
+		type: DataType.STRING})
+		session_current_useragent: string;
 
-		session_original_useragent: {
-			type: DataTypes.STRING,
-			unique: false,
-			allowNull: true,
-		},
+	@Column({
+		type: DataType.STRING})
+		session_original_ip: string;
 
-		session_current_useragent: {
-			type: DataTypes.STRING,
-			unique: false,
-			allowNull: true,
-		},
+	@Column({
+		type: DataType.STRING})
+		session_current_ip: string;
 
-		session_original_ip: {
-			type: DataTypes.STRING,
-			unique: false,
-			allowNull: true,
-		},
+	@ForeignKey(() => User)
+	@Column({
+		type: DataType.STRING})
+		session_user_id: string;
 
-		session_current_ip: {
-			type: DataTypes.STRING,
-			unique: false,
-			allowNull: true,
-		},
-
-	}, {sequelize});
+	@BelongsTo(() => User)
+		session_user: User;
 };

@@ -1,31 +1,40 @@
-import {DataTypes, Model, Sequelize} from 'sequelize';
+import {
+	Table,
+	Column,
+	Model,
+	DataType,
+	HasOne,
+	PrimaryKey,
+	ForeignKey} from 'sequelize-typescript';
+import BlogArticle from './blogarticle.model';
 
+@Table
 /**
  *
  */
-export class Revision extends Model {
-	declare revision_id?: string;
-	declare revision_datetime?: Date;
-	declare revision_content?: any;
+export default class Revision extends Model {
+	@PrimaryKey
+	@Column({
+		type: DataType.STRING})
+		revision_id: string;
+
+	@Column({
+		type: DataType.DATE})
+		revision_datetime: Date;
+
+	@Column({
+		type: DataType.TEXT('long')})
+		revision_content: any;
+
+
+	@ForeignKey(() => Revision)
+	@Column({
+		type: DataType.STRING})
+		revision_previous_revision_id: string;
+	@HasOne(() => Revision, 'revision_previous_revision_id')
+		revision_previous_revision: Revision;
+
+
+	@HasOne(() => BlogArticle, 'article_current_revision_id')
+		revision_corresponding_article: BlogArticle;
 }
-
-export const initModel = (sequelize: Sequelize) => {
-	Revision.init({
-		revision_id: {
-			type: DataTypes.STRING(128),
-			primaryKey: true,
-			allowNull: false,
-		},
-
-		revision_content: {
-			type: DataTypes.TEXT,
-			allowNull: false,
-		},
-
-		revision_datetime: {
-			type: DataTypes.DATE,
-			allowNull: false,
-			defaultValue: DataTypes.NOW,
-		},
-	}, {sequelize});
-};

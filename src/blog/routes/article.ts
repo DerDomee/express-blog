@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
-import {Revision} from '../../database/dbmodels/revision.model';
-import {BlogArticle} from '../../database/dbmodels/blogarticle.model';
+import Revision from '../../database/dbmodels/revision.model';
+import BlogArticle from '../../database/dbmodels/blogarticle.model';
 import {Route} from '../../mean/types';
 
 /**
@@ -19,7 +19,7 @@ async function get(req: Request, res: Response, next: NextFunction) {
 	});
 	res.locals.article = article;
 	try {
-		res.locals.revision = JSON.parse(article.Revision.revision_content);
+		res.locals.revision = JSON.parse(article.article_current_revision.revision_content);
 		res.locals.metaDescription = res.locals.revision.blurb;
 	} catch (err) {
 		res.status(404);

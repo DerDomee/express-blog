@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from 'express';
 import {Route} from '../../mean/types';
-import {Revision} from '../../database/dbmodels/revision.model';
-import {BlogArticle} from '../../database/dbmodels/blogarticle.model';
+import Revision from '../../database/dbmodels/revision.model';
+import BlogArticle from '../../database/dbmodels/blogarticle.model';
 
 /**
  *
@@ -20,8 +20,8 @@ async function get(req: Request, res: Response, next: NextFunction) {
 		})
 	).forEach((element) => {
 		try {
-			element.Revision.revision_content = JSON.parse(
-				element.Revision.revision_content);
+			element.article_current_revision.revision_content = JSON.parse(
+				element.article_current_revision.revision_content);
 			res.locals.allArticles.push(element);
 		} catch (err) {}
 	});

@@ -2,8 +2,8 @@ import {NextFunction, Request, Response} from 'express';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import {Route} from '../types';
-import {User} from '../../database/dbmodels/user.model';
-import {LoginSession} from '../../database/dbmodels/loginsession.model';
+import User from '../../database/dbmodels/user.model';
+import LoginSession from '../../database/dbmodels/loginsession.model';
 import logger from '../logger';
 
 /**
@@ -69,7 +69,7 @@ async function post(req: Request, res: Response, next: NextFunction) {
 			session_current_useragent: req.useragent.source,
 			session_original_ip: req.ip,
 			session_current_ip: req.ip,
-			UserUserId: user.user_id,
+			session_user_id: user.user_id,
 		});
 	} catch (err) {
 		logger.verbose(err);

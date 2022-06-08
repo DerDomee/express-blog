@@ -1,8 +1,8 @@
 import {NextFunction, Request, Response} from 'express';
 import crypto from 'crypto';
 import {Route} from '../../mean/types';
-import {Revision} from '../../database/dbmodels/revision.model';
-import {BlogArticle} from '../../database/dbmodels/blogarticle.model';
+import Revision from '../../database/dbmodels/revision.model';
+import BlogArticle from '../../database/dbmodels/blogarticle.model';
 
 /**
  *

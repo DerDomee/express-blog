@@ -1,58 +1,65 @@
 import {
-	DataTypes,
+	Table,
+	Column,
 	Model,
-	Sequelize} from 'sequelize';
+	DataType,
+	HasMany,
+	Default,
+	BelongsToMany,
+	PrimaryKey,
+	AllowNull} from 'sequelize-typescript';
+import Group from './group.model';
+import LoginSession from './loginsession.model';
+import Permission from './permission.model';
+import UserPermission from './userpermission.model';
+import UserGroup from './usergroup.model';
+import {DataTypes} from 'sequelize';
+
+@Table
 /**
  *
  */
-export class User extends Model {
-	declare user_id: string;
-	declare user_username: string;
-	declare user_creation_time: Date;
-	declare user_disabled: boolean;
-	declare user_password_hash: string;
-	declare user_email?: string;
-};
+export default class User extends Model {
+	@PrimaryKey
+	@AllowNull(false)
+	@Default(DataType.UUIDV4)
+	@Column({
+		type: DataType.UUIDV4})
+		user_id: string;
 
-export const initModel = (sequelize: Sequelize) => {
-	User.init({
+	@AllowNull(false)
+	@Column({
+		type: DataType.STRING})
+		user_username: string;
 
-		user_id: {
-			type: DataTypes.UUIDV4,
-			autoIncrement: false,
-			primaryKey: true,
-			allowNull: false,
-			defaultValue: DataTypes.UUIDV4,
-		},
+	@AllowNull(false)
+	@Default(DataTypes.DATE)
+	@Column({
+		type: DataType.DATE})
+		user_creation_time: Date;
 
-		user_username: {
-			type: DataTypes.STRING(32),
-			unique: true,
-			allowNull: false,
-		},
+	@AllowNull(false)
+	@Default(true)
+	@Column({
+		type: DataType.BOOLEAN})
+		user_disabled: boolean;
 
-		user_email: {
-			type: DataTypes.STRING(96),
-			allowNull: true,
-		},
+	@AllowNull(false)
+	@Column({
+		type: DataType.STRING})
+		user_password_hash: string;
 
-		user_creation_time: {
-			type: DataTypes.DATE,
-			allowNull: false,
-			defaultValue: DataTypes.NOW,
-		},
+	@AllowNull(true)
+	@Column({
+		type: DataType.STRING})
+		user_email: string;
 
-		user_disabled: {
-			type: DataTypes.BOOLEAN,
-			allowNull: false,
-			defaultValue: true,
-		},
+	@BelongsToMany(() => Group, () => UserGroup)
+		user_groups: Group[];
 
-		user_password_hash: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			defaultValue: true,
-		},
+	@BelongsToMany(() => Permission, () => UserPermission)
+		user_permissions: Permission[];
 
-	}, {sequelize});
+	@HasMany(() => LoginSession)
+		user_sessions: LoginSession;
 };

@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from 'express';
 import {Route} from '../types';
-import {User} from '../../database/dbmodels/user.model';
-import {LoginSession} from '../../database/dbmodels/loginsession.model';
+import User from '../../database/dbmodels/user.model';
+import LoginSession from '../../database/dbmodels/loginsession.model';
 
 /**
  *

@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
-import {LoginSession} from '../database/dbmodels/loginsession.model';
-import {User} from '../database/dbmodels/user.model';
+import User from '../database/dbmodels/user.model';
+import LoginSession from '../database/dbmodels/loginsession.model';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
 	const sessionCookie = req.cookies.dd_user_sess_id;
@@ -30,7 +30,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 		await loginSession.destroy();
 	}
 	res.locals.auth.isAuthed = true;
-	res.locals.auth.authedUser = loginSession.User;
+	res.locals.auth.authedUser = await loginSession.$get('session_user');
+	console.dir(res.locals.auth.authedUser);
 	next();
 	await loginSession.update({
 		session_lastused_datetime: new Date(),

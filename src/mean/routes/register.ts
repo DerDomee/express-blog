@@ -2,7 +2,7 @@ import {NextFunction, Request, Response} from 'express';
 import bcrypt from 'bcrypt';
 import {v4 as uuidV4} from 'uuid';
 import {Route} from '../types';
-import {User} from '../../database/dbmodels/user.model';
+import User from '../../database/dbmodels/user.model';
 import logger from '../logger';
 
 /**

@@ -1,20 +1,24 @@
-import {DataTypes, Model, Sequelize} from 'sequelize';
+import {
+	Table,
+	Column,
+	Model,
+	DataType,
+	ForeignKey} from 'sequelize-typescript';
+import Permission from './permission.model';
+import User from './user.model';
 
+@Table
 /**
  *
  */
-export class UserPermission extends Model {
-	userpermission_id: string;
-};
+export default class UserPermission extends Model {
+	@ForeignKey(() => User)
+	@Column({
+		type: DataType.STRING})
+		userpermission_user_id: string;
 
-export const initModel = (sequelize: Sequelize) => {
-	UserPermission.init({
-		userpermission_id: {
-			type: DataTypes.UUIDV4,
-			defaultValue: DataTypes.UUIDV4,
-			primaryKey: true,
-			unique: true,
-			allowNull: false,
-		},
-	}, {sequelize});
+	@ForeignKey(() => Permission)
+	@Column({
+		type: DataType.STRING})
+		userpermission_permission_id: string;
 };

@@ -1,20 +1,24 @@
-import {DataTypes, Model, Sequelize} from 'sequelize';
+import {
+	Table,
+	Column,
+	Model,
+	DataType,
+	ForeignKey} from 'sequelize-typescript';
+import Group from './group.model';
+import Permission from './permission.model';
 
+@Table
 /**
  *
  */
-export class GroupPermission extends Model {
-	grouppermission_id: string;
-};
+export default class GroupPermission extends Model {
+	@ForeignKey(() => Group)
+	@Column({
+		type: DataType.STRING})
+		userpermission_user_id: string;
 
-export const initModel = (sequelize: Sequelize) => {
-	GroupPermission.init({
-		grouppermission_id: {
-			type: DataTypes.UUIDV4,
-			defaultValue: DataTypes.UUIDV4,
-			primaryKey: true,
-			unique: true,
-			allowNull: false,
-		},
-	}, {sequelize});
+	@ForeignKey(() => Permission)
+	@Column({
+		type: DataType.STRING})
+		userpermission_permission_id: string;
 };
