@@ -1,7 +1,7 @@
 import {Sequelize} from 'sequelize-typescript';
 import logger from '../mean/logger';
 import bcrypt from 'bcrypt';
-import util from 'util';
+import crypto from 'crypto';
 
 import Revision from './dbmodels/revision.model';
 import BlogArticle from './dbmodels/blogarticle.model';
@@ -12,6 +12,7 @@ import Permission from './dbmodels/permission.model';
 import UserGroup from './dbmodels/userpermission.model';
 import UserPermission from './dbmodels/usergroup.model';
 import GroupPermission from './dbmodels/grouppermission.model';
+import {assert} from 'console';
 
 export type allowedEnvs = 'development' | 'test' | 'production'
 
@@ -63,10 +64,25 @@ const syncModels = async (sequelizeInstance: Sequelize,
 
 const initSeeders = async (sequelizeInstance: Sequelize) => {
 	if (await User.count()) return;
+	const newPassword = crypto.randomBytes(16).toString('base64url');
+	logger.warn('#####################################');
+	logger.warn('!!! USER TABLE IS EMPTY! CREATING !!!');
+	logger.warn('!!!   NEW ADMIN USER WITH RANDOM  !!!');
+	logger.warn('!!!            PASSWORD           !!!');
+	logger.warn('#####################################');
+	logger.warn(`New username: admin`);
+	logger.warn(`New password: ${newPassword}`);
+	logger.warn('');
+	logger.warn('This password will not be shown anywhere else again.');
+	logger.warn('If you don\'t save the password now, you won\'t have access');
+	logger.warn('to this instances login and can\'t create new accounts!');
+	logger.warn('If you lose this password, you need to delete ALL data in your');
+	logger.warn('configured database!');
 	const newUser = await User.create({
 		user_username: 'admin',
 		user_disabled: false,
-		user_password_hash: await bcrypt.hash('admin', 15),
+		user_creation_time: Date.now(),
+		user_password_hash: await bcrypt.hash(newPassword, 15),
 	});
 	const newGroup = await Group.create({
 		group_name: 'admin',
@@ -76,15 +92,17 @@ const initSeeders = async (sequelizeInstance: Sequelize) => {
 		permission_description: 'This permission is virtually all permissions.',
 	});
 
-	newUser.$add('user_groups', newGroup);
 	newGroup.$add('group_permissions', newPermission);
+
+	newUser.$add('user_groups', newGroup);
 	newUser.$add('user_permissions', newPermission);
 };
 
 const checkSeeders = async (sequelizeInstance: Sequelize) => {
-	const initUser = await User.findOne({});
-
-	logger.verbose(util.format(initUser));
+	const initUser = await User.findOne({
+		include: [Group, Permission],
+	});
+	assert(initUser, 'initUser is not set');
 };
 
 export default async (NODE_ENV: allowedEnvs) => {
