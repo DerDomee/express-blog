@@ -19,7 +19,8 @@ async function get(req: Request, res: Response, next: NextFunction) {
 	});
 	res.locals.article = article;
 	try {
-		res.locals.revision = JSON.parse(article.article_current_revision.revision_content);
+		res.locals.revision = JSON.parse(
+			article.article_current_revision.revision_content);
 		res.locals.metaDescription = res.locals.revision.blurb;
 	} catch (err) {
 		res.status(404);

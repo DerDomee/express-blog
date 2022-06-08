@@ -40,8 +40,8 @@ async function post(req: Request, res: Response, next: NextFunction) {
 	});
 	await BlogArticle.create({
 		article_url_id: req.body.blogeditUrlId,
-		RevisionRevisionId: revision.revision_id,
 		article_original_publication_time: Date.now(),
+		article_current_revision_id: revision.revision_id,
 		article_last_update_time: Date.now(),
 		article_is_published: req.body.blogeditPublishUnlisted ? false : true,
 	});

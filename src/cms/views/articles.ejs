@@ -30,7 +30,7 @@
 						<tr>
 							<td><%= article.article_id %></td>
 							<td><%= article.article_url_id %></td>
-							<td><%= article.Revision.revision_content.title %></td>
+							<td><%= article.article_current_revision.revision_content.title %></td>
 							<td><%= moment(article.article_original_publication_time).format('DD.MM.YYYY hh:mm') %></td>
 							<td>
 								<% if (!article.article_is_published) { %>
