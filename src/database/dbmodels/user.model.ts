@@ -1,5 +1,7 @@
-import {DataTypes, Model, Sequelize} from 'sequelize';
-
+import {
+	DataTypes,
+	Model,
+	Sequelize} from 'sequelize';
 /**
  *
  */
@@ -16,10 +18,11 @@ export const initModel = (sequelize: Sequelize) => {
 	User.init({
 
 		user_id: {
-			type: DataTypes.STRING,
+			type: DataTypes.UUIDV4,
 			autoIncrement: false,
 			primaryKey: true,
 			allowNull: false,
+			defaultValue: DataTypes.UUIDV4,
 		},
 
 		user_username: {
@@ -36,6 +39,7 @@ export const initModel = (sequelize: Sequelize) => {
 		user_creation_time: {
 			type: DataTypes.DATE,
 			allowNull: false,
+			defaultValue: DataTypes.NOW,
 		},
 
 		user_disabled: {

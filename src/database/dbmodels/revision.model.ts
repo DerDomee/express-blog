@@ -4,7 +4,7 @@ import {DataTypes, Model, Sequelize} from 'sequelize';
  *
  */
 export class Revision extends Model {
-	declare revision_id?: String;
+	declare revision_id?: string;
 	declare revision_datetime?: Date;
 	declare revision_content?: any;
 }

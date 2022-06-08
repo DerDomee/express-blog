@@ -3,13 +3,13 @@ import {DataTypes, Model, Sequelize} from 'sequelize';
 /**
  *
  */
-export class UserGroup extends Model {
-	usergroup_id: string;
+export class GroupPermission extends Model {
+	grouppermission_id: string;
 };
 
 export const initModel = (sequelize: Sequelize) => {
-	UserGroup.init({
-		usergroup_id: {
+	GroupPermission.init({
+		grouppermission_id: {
 			type: DataTypes.UUIDV4,
 			defaultValue: DataTypes.UUIDV4,
 			primaryKey: true,
