@@ -6,7 +6,8 @@ import {
 	BelongsToMany,
 	Default,
 	PrimaryKey,
-	AllowNull} from 'sequelize-typescript';
+	AllowNull,
+	Unique} from 'sequelize-typescript';
 import Group from './group.model';
 import GroupPermission from './grouppermission.model';
 import User from './user.model';
@@ -25,10 +26,13 @@ export default class Permission extends Model {
 		type: DataType.UUIDV4})
 		permission_id: string;
 
+	@AllowNull(false)
+	@Unique
 	@Column({
 		type: DataType.STRING})
 		permission_name: string;
 
+	@AllowNull(true)
 	@Column({
 		type: DataType.STRING})
 		permission_description: string;

@@ -5,7 +5,9 @@ import {
 	DataType,
 	BelongsTo,
 	PrimaryKey,
-	ForeignKey} from 'sequelize-typescript';
+	ForeignKey,
+	Default,
+	AllowNull} from 'sequelize-typescript';
 import User from './user.model';
 
 
@@ -15,42 +17,55 @@ import User from './user.model';
  */
 export default class LoginSession extends Model {
 	@PrimaryKey
+	@AllowNull(false)
 	@Column({
 		type: DataType.STRING})
 		session_cookie: String;
 
+	@Default(DataType.NOW)
+	@AllowNull(false)
 	@Column({
 		type: DataType.DATE})
 		session_created_datetime: Date;
 
+	@AllowNull(false)
 	@Column({
 		type: DataType.DATE})
 		session_expires_datetime: Date;
 
+	@AllowNull(false)
+	@Default(false)
 	@Column({
 		type: DataType.BOOLEAN})
 		session_is_persistent: boolean;
 
+	@AllowNull(false)
+	@Default(DataType.NOW)
 	@Column({
 		type: DataType.DATE})
 		session_lastused_datetime: Date;
 
+	@AllowNull(true)
 	@Column({
 		type: DataType.STRING})
 		session_original_useragent: string;
 
+	@AllowNull(true)
 	@Column({
 		type: DataType.STRING})
 		session_current_useragent: string;
 
+	@AllowNull(true)
 	@Column({
 		type: DataType.STRING})
 		session_original_ip: string;
 
+	@AllowNull(true)
 	@Column({
 		type: DataType.STRING})
 		session_current_ip: string;
 
+	@AllowNull(false)
 	@ForeignKey(() => User)
 	@Column({
 		type: DataType.STRING})

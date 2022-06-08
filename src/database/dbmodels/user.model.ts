@@ -33,7 +33,7 @@ export default class User extends Model {
 		user_username: string;
 
 	@AllowNull(false)
-	@Default(DataTypes.DATE)
+	@Default(DataTypes.NOW)
 	@Column({
 		type: DataType.DATE})
 		user_creation_time: Date;

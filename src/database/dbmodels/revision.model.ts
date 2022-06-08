@@ -5,7 +5,8 @@ import {
 	DataType,
 	HasOne,
 	PrimaryKey,
-	ForeignKey} from 'sequelize-typescript';
+	ForeignKey,
+	AllowNull} from 'sequelize-typescript';
 import BlogArticle from './blogarticle.model';
 
 @Table
@@ -28,6 +29,7 @@ export default class Revision extends Model {
 
 
 	@ForeignKey(() => Revision)
+	@AllowNull(true)
 	@Column({
 		type: DataType.STRING})
 		revision_previous_revision_id: string;
