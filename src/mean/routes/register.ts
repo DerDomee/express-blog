@@ -45,10 +45,10 @@ async function post(req: Request, res: Response, next: NextFunction) {
 	try {
 		const newuser = User.build({
 			user_id: uuidV4(),
-			user_username: req.body.userUsername,
-			user_creation_time: Date.now(),
-			user_disabled: true,
-			user_password_hash: hashedPw,
+			username: req.body.userUsername,
+			creation_time: Date.now(),
+			disabled: true,
+			password_hash: hashedPw,
 		});
 		await newuser.save();
 	} catch (err) {

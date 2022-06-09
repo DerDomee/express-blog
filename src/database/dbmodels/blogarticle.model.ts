@@ -10,7 +10,7 @@ import {
 	AllowNull,
 	Unique,
 	Default} from 'sequelize-typescript';
-import Revision from './revision.model';
+import BlogArticleRevision from './blogarticlerevision.model';
 
 @Table
 /**
@@ -28,31 +28,31 @@ export default class BlogArticle extends Model {
 	@AllowNull(false)
 	@Column({
 		type: DataType.STRING})
-		article_url_id: String;
+		url_id: String;
 
 	@Default(DataType.NOW)
 	@AllowNull(false)
 	@Column({
 		type: DataType.DATE})
-		article_original_publication_time: Date;
+		original_publication_time: Date;
 
 	@Default(DataType.NOW)
 	@AllowNull(true)
 	@Column({
 		type: DataType.DATE})
-		article_last_update_time: Date;
+		last_update_time: Date;
 
 	@AllowNull(false)
 	@Column({
 		type: DataType.BOOLEAN})
-		article_is_published: Boolean;
+		is_published: Boolean;
 
 
-	@ForeignKey(() => Revision)
+	@ForeignKey(() => BlogArticleRevision)
 	@AllowNull(false)
 	@Column({
 		type: DataType.STRING})
-		article_current_revision_id: string;
-	@BelongsTo(() => Revision)
-		article_current_revision: Revision;
+		current_revision_id: string;
+	@BelongsTo(() => BlogArticleRevision)
+		current_revision: BlogArticleRevision;
 }

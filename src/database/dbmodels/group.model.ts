@@ -26,11 +26,11 @@ export default class Group extends Model {
 
 	@Column({
 		type: DataType.STRING})
-		group_name: String;
+		name: String;
 
 	@BelongsToMany(() => User, () => UserGroup)
-		group_users: User[];
+		users: User[];
 
 	@BelongsToMany(() => Permission, () => GroupPermission)
-		group_permissions: Permission[];
+		permissions: Permission[];
 };

@@ -30,16 +30,16 @@ export default class Permission extends Model {
 	@Unique
 	@Column({
 		type: DataType.STRING})
-		permission_name: string;
+		name: string;
 
 	@AllowNull(true)
 	@Column({
 		type: DataType.STRING})
-		permission_description: string;
+		description: string;
 
 	@BelongsToMany(() => Group, () => GroupPermission)
-		permission_groups: Group[];
+		groups: Group[];
 
 	@BelongsToMany(() => User, () => UserPermission)
-		permission_users: User[];
+		users: User[];
 };

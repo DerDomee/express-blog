@@ -30,36 +30,36 @@ export default class User extends Model {
 	@AllowNull(false)
 	@Column({
 		type: DataType.STRING})
-		user_username: string;
+		username: string;
 
 	@AllowNull(false)
 	@Default(DataTypes.NOW)
 	@Column({
 		type: DataType.DATE})
-		user_creation_time: Date;
+		creation_time: Date;
 
 	@AllowNull(false)
 	@Default(true)
 	@Column({
 		type: DataType.BOOLEAN})
-		user_disabled: boolean;
+		disabled: boolean;
 
 	@AllowNull(false)
 	@Column({
 		type: DataType.STRING})
-		user_password_hash: string;
+		password_hash: string;
 
 	@AllowNull(true)
 	@Column({
 		type: DataType.STRING})
-		user_email: string;
+		email: string;
 
 	@BelongsToMany(() => Group, () => UserGroup)
-		user_groups: Group[];
+		groups: Group[];
 
 	@BelongsToMany(() => Permission, () => UserPermission)
-		user_permissions: Permission[];
+		permissions: Permission[];
 
 	@HasMany(() => LoginSession)
-		user_sessions: LoginSession;
+		sessions: LoginSession;
 };

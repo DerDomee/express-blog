@@ -1,7 +1,8 @@
 import {NextFunction, Request, Response} from 'express';
 import crypto from 'crypto';
 import {Route} from '../../mean/types';
-import Revision from '../../database/dbmodels/revision.model';
+import BlogArticleRevision from
+	'../../database/dbmodels/blogarticlerevision.model';
 import BlogArticle from '../../database/dbmodels/blogarticle.model';
 
 /**
@@ -29,9 +30,9 @@ async function post(req: Request, res: Response, next: NextFunction) {
 		res.redirect('/articles?failure');
 		return;
 	}
-	const revision = await Revision.create({
-		revision_id: crypto.pseudoRandomBytes(16).toString('hex'),
-		revision_content: JSON.stringify({
+	const revision = await BlogArticleRevision.create({
+		blogarticlerevision_id: crypto.pseudoRandomBytes(16).toString('hex'),
+		content: JSON.stringify({
 			title: req.body.blogeditPagetitle,
 			htmlTitle: req.body.blogeditHtmlTitle,
 			blurb: req.body.blogeditBlurb,
@@ -39,11 +40,11 @@ async function post(req: Request, res: Response, next: NextFunction) {
 		}),
 	});
 	await BlogArticle.create({
-		article_url_id: req.body.blogeditUrlId,
-		article_original_publication_time: Date.now(),
-		article_current_revision_id: revision.revision_id,
-		article_last_update_time: Date.now(),
-		article_is_published: req.body.blogeditPublishUnlisted ? false : true,
+		url_id: req.body.blogeditUrlId,
+		original_publication_time: Date.now(),
+		current_revision_id: revision.blogarticlerevision_id,
+		last_update_time: Date.now(),
+		is_published: req.body.blogeditPublishUnlisted ? false : true,
 	});
 	res.redirect('/articles?success');
 }

@@ -1,5 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
-import Revision from '../../database/dbmodels/revision.model';
+import BlogArticleRevision from
+	'../../database/dbmodels/blogarticlerevision.model';
 import BlogArticle from '../../database/dbmodels/blogarticle.model';
 import {Route} from '../../mean/types';
 
@@ -13,14 +14,14 @@ async function get(req: Request, res: Response, next: NextFunction) {
 	const articleurl = req.params.articleurl;
 	const article = await BlogArticle.findOne({
 		where: {
-			article_url_id: articleurl,
+			url_id: articleurl,
 		},
-		include: Revision,
+		include: BlogArticleRevision,
 	});
 	res.locals.article = article;
 	try {
 		res.locals.revision = JSON.parse(
-			article.article_current_revision.revision_content);
+			article.current_revision.content);
 		res.locals.metaDescription = res.locals.revision.blurb;
 	} catch (err) {
 		res.status(404);

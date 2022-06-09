@@ -13,28 +13,28 @@ import BlogArticle from './blogarticle.model';
 /**
  *
  */
-export default class Revision extends Model {
+export default class BlogArticleRevision extends Model {
 	@PrimaryKey
 	@Column({
 		type: DataType.STRING})
-		revision_id: string;
+		blogarticlerevision_id: string;
 
 	@Column({
 		type: DataType.DATE})
-		revision_datetime: Date;
+		datetime: Date;
 
 	@Column({
 		type: DataType.TEXT('long')})
-		revision_content: any;
+		content: any;
 
 
-	@ForeignKey(() => Revision)
+	@ForeignKey(() => BlogArticleRevision)
 	@AllowNull(true)
 	@Column({
 		type: DataType.STRING})
-		revision_previous_revision_id: string;
-	@HasOne(() => Revision, 'revision_previous_revision_id')
-		revision_previous_revision: Revision;
+		previous_revision_id: string;
+	@HasOne(() => BlogArticleRevision, 'revision_previous_revision_id')
+		previous_revision: BlogArticleRevision;
 
 
 	@HasOne(() => BlogArticle, 'article_current_revision_id')

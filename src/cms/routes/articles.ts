@@ -1,7 +1,8 @@
 import {NextFunction, Request, Response} from 'express';
 import {Route} from '../../mean/types';
 import BlogArticle from '../../database/dbmodels/blogarticle.model';
-import Revision from '../../database/dbmodels/revision.model';
+import BlogArticleRevision from
+	'../../database/dbmodels/blogarticlerevision.model';
 
 /**
  *
@@ -16,12 +17,12 @@ async function get(req: Request, res: Response, next: NextFunction) {
 	(
 		await BlogArticle.findAll({
 			order: [['article_id', 'DESC']],
-			include: [Revision],
+			include: [BlogArticleRevision],
 		})
 	).forEach((article) => {
 		try {
-			article.article_current_revision.revision_content = JSON.parse(
-				article.article_current_revision.revision_content);
+			article.current_revision.content = JSON.parse(
+				article.current_revision.content);
 			res.locals.allArticles.push(article);
 		} catch (err) {}
 	});
@@ -49,13 +50,13 @@ async function post(req: Request, res: Response, next: NextFunction) {
 	switch (req.body.blogMethod) {
 	case 'publish':
 		await blogArticle.update({
-			article_is_published: true,
+			is_published: true,
 		});
 		res.redirect('/articles?success');
 		break;
 	case 'unpublish':
 		await blogArticle.update({
-			article_is_published: false,
+			is_published: false,
 		});
 		res.redirect('/articles?success');
 		break;

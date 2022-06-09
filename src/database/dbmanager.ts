@@ -3,7 +3,7 @@ import logger from '../mean/logger';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 
-import Revision from './dbmodels/revision.model';
+import BlogArticleRevision from './dbmodels/blogarticlerevision.model';
 import BlogArticle from './dbmodels/blogarticle.model';
 import User from './dbmodels/user.model';
 import Group from './dbmodels/group.model';
@@ -18,8 +18,8 @@ export type allowedEnvs = 'development' | 'test' | 'production'
 
 const createInstance = async (NODE_ENV: allowedEnvs) => {
 	let sequelizeInstance = undefined;
-	const models = [Revision, BlogArticle, User, LoginSession, Group, Permission,
-		UserGroup, UserPermission, GroupPermission];
+	const models = [BlogArticleRevision, BlogArticle, User, LoginSession, Group,
+		Permission, UserGroup, UserPermission, GroupPermission];
 	switch (NODE_ENV) {
 	case 'development':
 		sequelizeInstance = new Sequelize({
@@ -79,23 +79,23 @@ const initSeeders = async (sequelizeInstance: Sequelize) => {
 	logger.warn('If you lose this password, you need to delete ALL data in your');
 	logger.warn('configured database!');
 	const newUser = await User.create({
-		user_username: 'admin',
-		user_disabled: false,
-		user_creation_time: Date.now(),
-		user_password_hash: await bcrypt.hash(newPassword, 15),
+		username: 'admin',
+		disabled: false,
+		creation_time: Date.now(),
+		password_hash: await bcrypt.hash(newPassword, 15),
 	});
 	const newGroup = await Group.create({
-		group_name: 'admin',
+		name: 'admin',
 	});
 	const newPermission = await Permission.create({
-		permission_name: '*',
-		permission_description: 'This permission is virtually all permissions.',
+		name: '*',
+		description: 'This permission is virtually all permissions.',
 	});
 
-	newGroup.$add('group_permissions', newPermission);
+	newGroup.$add('permissions', newPermission);
 
-	newUser.$add('user_groups', newGroup);
-	newUser.$add('user_permissions', newPermission);
+	newUser.$add('groups', newGroup);
+	newUser.$add('permissions', newPermission);
 };
 
 const checkSeeders = async (sequelizeInstance: Sequelize) => {

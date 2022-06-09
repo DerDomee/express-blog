@@ -13,24 +13,24 @@
 	                  prose-h1:mb-4 prose-h1:border-gray-600">
 			<h1><%- pageTitle %></h1>
 			<section>
-				<% if (article.article_original_publication_time.getTime() === 
-				       article.article_last_update_time.getTime()) { %>
+				<% if (article.original_publication_time.getTime() === 
+				       article.last_update_time.getTime()) { %>
 					<p>
 						Veröffentlicht
-						<span title="<%=moment(article.article_original_publication_time).format('DD.MM:YYYY hh:mm')%>">
-							<%= moment(article.article_original_publication_time).fromNow() %>
+						<span title="<%=moment(article.original_publication_time).format('DD.MM:YYYY hh:mm')%>">
+							<%= moment(article.original_publication_time).fromNow() %>
 						</span>
 					</p>
 				<% } else { %>
 					<p>
 						Veröffentlicht
-						<span title="<%=moment(article.article_original_publication_time).format('DD.MM:YYYY hh:mm')%>">
-							<%= moment(article.article_original_publication_time).fromNow() %>
+						<span title="<%=moment(article.original_publication_time).format('DD.MM:YYYY hh:mm')%>">
+							<%= moment(article.original_publication_time).fromNow() %>
 						</span>
 						<br>
 						Letztes Update
-						<span title="<%=moment(article.article_original_publication_time).format('DD.MM:YYYY hh:mm')%>">
-							<%= moment(article.article_last_update_time).fromNow() %>
+						<span title="<%=moment(article.original_publication_time).format('DD.MM:YYYY hh:mm')%>">
+							<%= moment(article.last_update_time).fromNow() %>
 						</span>
 					</p>
 				<% } %>
