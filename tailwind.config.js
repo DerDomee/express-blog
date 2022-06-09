@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: [
 		`./src/${process.env.TW_COMPILE_SUBAPP_NAME ?? '*'}/**/*.ejs`,
