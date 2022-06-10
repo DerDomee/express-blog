@@ -62,4 +62,33 @@ export default class User extends Model {
 
 	@HasMany(() => LoginSession)
 		sessions: LoginSession;
+
+	getCumulatedPermissions = async (): Promise<Permission[]> => {
+		let allPermissions: Permission[] = await this.$get('permissions');
+		(await this.$get('groups')).forEach(async (group) => {
+			const groupPerms = (await group.$get('permissions')) as Permission[];
+			allPermissions = [...allPermissions, ...groupPerms];
+		});
+		return allPermissions;
+	};
+
+	hasPermission = async (requestedPermission: string) => {
+		const allPermissions = await this.getCumulatedPermissions();
+		return allPermissions.find(
+			(permission) => {
+				if (requestedPermission.trim() == permission.name.trim()) return true;
+				const checkedPermissionName = permission.name.trim().split('.');
+				const requestedPermissionName = requestedPermission.trim().split('.');
+				while (requestedPermissionName.length > 0) {
+					requestedPermissionName.pop();
+					requestedPermissionName.push('*');
+					if (
+						JSON.stringify(requestedPermissionName) ===
+						JSON.stringify(checkedPermissionName)) return true;
+					requestedPermissionName.pop();
+				}
+				return false;
+			},
+		) ? true : false;
+	};
 };
