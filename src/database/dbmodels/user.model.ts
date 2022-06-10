@@ -72,6 +72,11 @@ export default class User extends Model {
 		return allPermissions;
 	};
 
+	/**
+	 *
+	 * @param {string} requestedPermission Permission name to check
+	 * @return {boolean} If the user has the requested permission
+	 */
 	hasPermission = async (requestedPermission: string) => {
 		const allPermissions = await this.getCumulatedPermissions();
 		return allPermissions.find(
