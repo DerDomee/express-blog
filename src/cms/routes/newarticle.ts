@@ -31,7 +31,6 @@ async function post(req: Request, res: Response, next: NextFunction) {
 		return;
 	}
 	const revision = await BlogArticleRevision.create({
-		blogarticlerevision_id: crypto.pseudoRandomBytes(16).toString('hex'),
 		content: JSON.stringify({
 			title: req.body.blogeditPagetitle,
 			htmlTitle: req.body.blogeditHtmlTitle,

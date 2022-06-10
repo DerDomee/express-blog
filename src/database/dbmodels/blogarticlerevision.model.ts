@@ -6,7 +6,8 @@ import {
 	HasOne,
 	PrimaryKey,
 	ForeignKey,
-	AllowNull} from 'sequelize-typescript';
+	AllowNull,
+	Default} from 'sequelize-typescript';
 import BlogArticle from './blogarticle.model';
 
 @Table
@@ -15,8 +16,9 @@ import BlogArticle from './blogarticle.model';
  */
 export default class BlogArticleRevision extends Model {
 	@PrimaryKey
+	@Default(DataType.UUIDV4)
 	@Column({
-		type: DataType.STRING})
+		type: DataType.UUIDV4})
 		blogarticlerevision_id: string;
 
 	@Column({
