@@ -22,15 +22,6 @@ function get(req: Request, res: Response, next: NextFunction) {
  */
 async function post(req: Request, res: Response, next: NextFunction) {
 	res.type('json');
-
-	if (req.body.masterPassword !== 'DbPmm1Zh') {
-		res.send({
-			status: 403,
-			statusText: 'Forbidden',
-			errorReason: 'Master password does not match!',
-		});
-		return;
-	}
 	if (!req.body.userUsername ||
 				 req.body.userPassword !== req.body.userPasswordRepeat ) {
 		res.send({
