@@ -8,7 +8,7 @@
 		"debug": "npm-run-all --parallel debug:serve dev:js-webpack dev:js-move dev:tailwind-blog dev:tailwind-cms dev:tailwind-cloudcenter dev:assets",
 		"test": "jest",
 		"coverage": "jest --coverage",
-		"build": "npm-run-all clean lint tsc tailwind-blog tailwind-cms tailwind-cloudcenter copy-assets js-wrapper",
+		"build": "npm-run-all clean tsc tailwind-blog tailwind-cms tailwind-cloudcenter copy-assets js-wrapper",
 		"start": "node .",
 		"clean": "rimraf dist/*",
 		"copy-assets": "ts-node tools/copyAssets",
