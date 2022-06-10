@@ -1,5 +1,4 @@
 import {NextFunction, Request, Response} from 'express';
-import crypto from 'crypto';
 import {Route} from '../../mean/types';
 import BlogArticleRevision from
 	'../../database/dbmodels/blogarticlerevision.model';
