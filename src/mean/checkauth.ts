@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
-import {LoginSession} from '../database/dbmodels/loginsession.model';
-import {User} from '../database/dbmodels/user.model';
+import User from '../database/dbmodels/user.model';
+import LoginSession from '../database/dbmodels/loginsession.model';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
 	const sessionCookie = req.cookies.dd_user_sess_id;
@@ -25,16 +25,16 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 		return;
 	}
 
-	if (loginSession.session_expires_datetime < new Date()) {
+	if (loginSession.expires_datetime < new Date()) {
 		res.clearCookie('dd_user_sess_id');
 		await loginSession.destroy();
 	}
 	res.locals.auth.isAuthed = true;
-	res.locals.auth.authedUser = loginSession.User;
+	res.locals.auth.authedUser = await loginSession.$get('user');
 	next();
 	await loginSession.update({
 		session_lastused_datetime: new Date(),
-		session_expires_datetime: loginSession.session_is_persistent ? Date.now() +
+		session_expires_datetime: loginSession.is_persistent ? Date.now() +
 					(1000 * 60 * 60 * 12) : Date.now() + (1000 * 60 * 60 * 24 * 30),
 	});
 };

@@ -2,8 +2,8 @@ import {NextFunction, Request, Response} from 'express';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import {Route} from '../types';
-import {User} from '../../database/dbmodels/user.model';
-import {LoginSession} from '../../database/dbmodels/loginsession.model';
+import User from '../../database/dbmodels/user.model';
+import LoginSession from '../../database/dbmodels/loginsession.model';
 import logger from '../logger';
 
 /**
@@ -42,10 +42,10 @@ async function post(req: Request, res: Response, next: NextFunction) {
 	let authed = false;
 
 	const user = await User.findOne({where: {
-		user_username: username,
+		username: username,
 	}});
 
-	if (await bcrypt.compare(password, user?.user_password_hash ?? '')) {
+	if (await bcrypt.compare(password, user?.password_hash ?? '')) {
 		authed = true;
 	}
 
@@ -60,16 +60,16 @@ async function post(req: Request, res: Response, next: NextFunction) {
 	try {
 		loginSession = await LoginSession.create({
 			session_cookie: crypto.randomBytes(128).toString('hex'),
-			session_created_datetime: Date.now(),
-			session_is_persistent: persistent ? true : false,
-			session_lastused_datetime: Date.now(),
-			session_expires_datetime: persistent ? Date.now() +
+			created_datetime: Date.now(),
+			is_persistent: persistent ? true : false,
+			lastused_datetime: Date.now(),
+			expires_datetime: persistent ? Date.now() +
 					(1000 * 60 * 60 * 12) : Date.now() + (1000 * 60 * 60 * 24 * 30),
-			session_original_useragent: req.useragent.source,
-			session_current_useragent: req.useragent.source,
-			session_original_ip: req.ip,
-			session_current_ip: req.ip,
-			UserUserId: user.user_id,
+			original_useragent: req.useragent.source,
+			current_useragent: req.useragent.source,
+			original_ip: req.ip,
+			current_ip: req.ip,
+			user_id: user.user_id,
 		});
 	} catch (err) {
 		logger.verbose(err);
@@ -82,7 +82,7 @@ async function post(req: Request, res: Response, next: NextFunction) {
 	}
 
 	res.cookie('dd_user_sess_id', loginSession.session_cookie, {
-		expires: loginSession.session_expires_datetime,
+		expires: loginSession.expires_datetime,
 		secure: true,
 		httpOnly: true,
 	});

@@ -9,13 +9,11 @@ import settings from './settings';
 import catchall from './catchall';
 import login from '../../mean/routes/login';
 import logout from '../../mean/routes/logout';
-import register from '../../mean/routes/register';
 import dynamicImages from '../../mean/routes/dynamicimages';
 
 export default [
 	login,
 	logout,
-	register,
 	home,
 	articles,
 	article,

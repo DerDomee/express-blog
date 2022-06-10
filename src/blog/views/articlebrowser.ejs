@@ -11,12 +11,12 @@
 			<ul>
 				<% for (let article of allArticles) { %>
 					<li class="list-disc">
-						<a href="/a/<%- article.article_url_id %>">
+						<a href="/a/<%- article.url_id %>">
 							<span class="text-blue-600 dark:text-blue-400 hover:decoration-blue-600 dark:hover:decoration-blue-400 hover:underline font-bold">
-								<%- article.Revision.revision_content.title %>
+								<%- article.current_revision.content.title %>
 							</span>
-							vom <%- moment(article.article_original_publication_time).format('DD.MM.YYYY, hh:mmZ')%> Uhr<br>
-							<%- article.Revision.revision_content.blurb %>
+							vom <%- moment(article.original_publication_time).format('DD.MM.YYYY, hh:mmZ')%> Uhr<br>
+							<%- article.current_revision.content.blurb %>
 						</a>
 					</li>
 				<% } %>

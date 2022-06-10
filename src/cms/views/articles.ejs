@@ -29,17 +29,17 @@
 						<% for (article of allArticles ? allArticles : []) { %>
 						<tr>
 							<td><%= article.article_id %></td>
-							<td><%= article.article_url_id %></td>
-							<td><%= article.Revision.revision_content.title %></td>
-							<td><%= moment(article.article_original_publication_time).format('DD.MM.YYYY hh:mm') %></td>
+							<td><%= article.url_id %></td>
+							<td><%= article.current_revision.content.title %></td>
+							<td><%= moment(article.original_publication_time).format('DD.MM.YYYY hh:mm') %></td>
 							<td>
-								<% if (!article.article_is_published) { %>
+								<% if (!article.is_published) { %>
 									<%- heroicon({
 										icon: 'eye-off',
 										classes: 'self-center inline h-6',
 									}) %>
 								<% } %>
-								<% if (article.article_original_publication_time > Date.now()) { %>
+								<% if (article.original_publication_time > Date.now()) { %>
 									<%- heroicon({
 										icon: 'clock',
 										classes: 'self-center inline h-6',
@@ -47,7 +47,7 @@
 								<% } %>
 							</td>
 							<td>
-								<% if (!article.article_is_published) { %>
+								<% if (!article.is_published) { %>
 									<button
 										class=""
 										data-blog-function="publish"

@@ -23,5 +23,8 @@ module.exports = {
 		'new-cap': ['error', {properties: false}],
 		'no-tabs': 0,
 		'no-mixed-spaces-and-tabs': [2, 'smart-tabs'],
+		'new-cap': ['error', {
+			'capIsNew': false,
+		}],
 	},
 };

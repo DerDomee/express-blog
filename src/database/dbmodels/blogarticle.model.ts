@@ -1,50 +1,58 @@
-import {DataTypes, Model, Sequelize} from 'sequelize';
-import {Revision} from './revision.model';
+import {
+	Table,
+	Column,
+	Model,
+	DataType,
+	PrimaryKey,
+	BelongsTo,
+	ForeignKey,
+	AutoIncrement,
+	AllowNull,
+	Unique,
+	Default} from 'sequelize-typescript';
+import BlogArticleRevision from './blogarticlerevision.model';
 
+@Table
 /**
  *
  */
-export class BlogArticle extends Model {
-	declare article_id: Number;
-	declare article_url_id: String;
-	declare article_original_publication_time: Date;
-	declare article_last_update_time: Date;
-	declare article_is_published: Boolean;
-	declare Revision?: Revision;
+export default class BlogArticle extends Model {
+	@PrimaryKey
+	@AutoIncrement
+	@AllowNull(false)
+	@Column({
+		type: DataType.INTEGER})
+		article_id: number;
+
+	@Unique
+	@AllowNull(false)
+	@Column({
+		type: DataType.STRING})
+		url_id: String;
+
+	@Default(DataType.NOW)
+	@AllowNull(false)
+	@Column({
+		type: DataType.DATE})
+		original_publication_time: Date;
+
+	@Default(DataType.NOW)
+	@AllowNull(true)
+	@Column({
+		type: DataType.DATE})
+		last_update_time: Date;
+
+	@AllowNull(false)
+	@Column({
+		type: DataType.BOOLEAN})
+		is_published: Boolean;
+
+
+	@ForeignKey(() => BlogArticleRevision)
+	@AllowNull(false)
+	@Column({
+		type: DataType.STRING})
+		current_revision_id: string;
+	@BelongsTo(() => BlogArticleRevision)
+		current_revision: BlogArticleRevision;
 }
-
-export const initModel = (sequelize: Sequelize) => {
-	BlogArticle.init({
-
-		article_id: {
-			type: DataTypes.INTEGER,
-			autoIncrement: true,
-			primaryKey: true,
-			allowNull: false,
-		},
-
-		article_url_id: {
-			type: DataTypes.STRING,
-			unique: true,
-			allowNull: false,
-		},
-
-		article_original_publication_time: {
-			type: DataTypes.DATE,
-			allowNull: false,
-		},
-
-		article_last_update_time: {
-			type: DataTypes.DATE,
-			allowNull: true,
-			defaultValue: null,
-		},
-
-		article_is_published: {
-			type: DataTypes.BOOLEAN,
-			defaultValue: false,
-			allowNull: false,
-		},
-
-	}, {sequelize});
-};

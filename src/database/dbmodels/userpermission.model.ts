@@ -4,21 +4,21 @@ import {
 	Model,
 	DataType,
 	ForeignKey} from 'sequelize-typescript';
-import Group from './group.model';
+import Permission from './permission.model';
 import User from './user.model';
 
 @Table
 /**
  *
  */
-export default class UserGroup extends Model {
+export default class UserPermission extends Model {
 	@ForeignKey(() => User)
 	@Column({
 		type: DataType.STRING})
-		permission_id: string;
+		user_id: string;
 
-	@ForeignKey(() => Group)
+	@ForeignKey(() => Permission)
 	@Column({
 		type: DataType.STRING})
-		user_id: string;
+		permission_id: string;
 };

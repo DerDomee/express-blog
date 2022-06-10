@@ -1,8 +1,9 @@
 import {NextFunction, Request, Response} from 'express';
 import {Op} from 'sequelize';
 
-import {Revision} from '../../database/dbmodels/revision.model';
-import {BlogArticle} from '../../database/dbmodels/blogarticle.model';
+import BlogArticleRevision from
+	'../../database/dbmodels/blogarticlerevision.model';
+import BlogArticle from '../../database/dbmodels/blogarticle.model';
 import {Route} from '../../mean/types';
 
 /**
@@ -17,19 +18,19 @@ async function get(req: Request, res: Response, next: NextFunction) {
 	res.locals.allArticles = [] as BlogArticle[];
 	(
 		await BlogArticle.findAll({
-			order: [['article_original_publication_time', 'DESC']],
+			order: [['original_publication_time', 'DESC']],
 			where: {
-				article_is_published: true,
-				article_original_publication_time: {
+				is_published: true,
+				original_publication_time: {
 					[Op.lte]: Date.now(),
 				},
 			},
-			include: Revision,
+			include: BlogArticleRevision,
 		})
 	).forEach((element) => {
 		try {
-			element.Revision.revision_content = JSON.parse(
-				element.Revision.revision_content);
+			element.current_revision.content = JSON.parse(
+				element.current_revision.content);
 			res.locals.allArticles.push(element);
 		} catch (err) {}
 	});
