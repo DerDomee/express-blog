@@ -6,5 +6,19 @@
   "schedule": [
     "before 6am"
   ],
-  "timezone": "Europe/Berlin"
+  "timezone": "Europe/Berlin",
+  "automergeType": "branch",
+  "packageRules": [
+    {
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "matchPackagePatterns": [
+        "lint",
+        "prettier",
+        "jest"
+      ],
+      "automerge": true
+    }
+  ]
 }
