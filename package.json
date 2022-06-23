@@ -1,37 +1,16 @@
 {
 	"name": "express-blog",
-	"version": "1.0.0",
-	"description": "",
+	"version": "0.1.0",
+	"description": "The webpage dominikriedig.de including the cms and cloudcenter",
+	"private": "true",
 	"main": "dist/wrapper.js",
-	"scripts": {
-		"dev": "npm-run-all --parallel dev:serve dev:js-webpack dev:js-move dev:tailwind-blog dev:tailwind-cms dev:tailwind-cloudcenter dev:assets",
-		"debug": "npm-run-all --parallel debug:serve dev:js-webpack dev:js-move dev:tailwind-blog dev:tailwind-cms dev:tailwind-cloudcenter dev:assets",
-		"test": "jest",
-		"coverage": "jest --coverage",
-		"build": "npm-run-all clean tsc tailwind-blog tailwind-cms tailwind-cloudcenter copy-assets js-wrapper",
-		"start": "node .",
-		"clean": "rimraf dist/*",
-		"copy-assets": "ts-node tools/copyAssets",
-		"lint": "eslint src/**/*{.js,.jsx,.ts,.tsx}",
-		"tsc": "tsc",
-		"tailwind-blog": "TW_COMPILE_SUBAPP_NAME=blog tailwindcss -i ./src/blog/blog.css -o ./dist/blog/public/blog.css --minify",
-		"tailwind-cms": "TW_COMPILE_SUBAPP_NAME=cms tailwindcss -i ./src/cms/cms.css -o ./dist/cms/public/cms.css --minify",
-		"tailwind-cloudcenter": "TW_COMPILE_SUBAPP_NAME=cloudcenter tailwindcss -i ./src/cloudcenter/cloudcenter.css -o ./dist/cms/public/cloudcenter.css --minify",
-		"js-wrapper": "npm-run-all js-webpack js-move",
-		"js-webpack": "webpack-cli --devtool source-map",
-		"js-move": "ts-node tools/jsBrowserAfterCompile",
-		"debug:serve": "nodemon --inspect --watch src --ignore src/browser -e ts ./src/wrapper.ts",
-		"dev:serve": "nodemon --watch src --ignore src/browser -e ts ./src/wrapper.ts",
-		"dev:assets": "nodemon --watch 'src/blog/public/**/*' --watch 'src/cms/public/**/*' --watch 'src/cloudcenter/public/**/*' --exec ts-node tools/copyAssets",
-		"dev:js-webpack": "webpack-cli --devtool inline-source-map --watch --progress",
-		"dev:js-move": "nodemon --watch 'dist/public/**/*' --exec ts-node tools/jsBrowserAfterCompile",
-		"dev:tailwind-blog": "TW_COMPILE_SUBAPP_NAME=blog tailwindcss -i ./src/blog/blog.css -o ./dist/blog/public/blog.css --watch",
-		"dev:tailwind-cms": "TW_COMPILE_SUBAPP_NAME=cms tailwindcss -i ./src/cms/cms.css -o ./dist/cms/public/cms.css --watch",
-		"dev:tailwind-cloudcenter": "TW_COMPILE_SUBAPP_NAME=cloudcenter tailwindcss -i ./src/cloudcenter/cloudcenter.css -o ./dist/cloudcenter/public/cloudcenter.css --watch"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
+	"contributors": [
+		{
+			"name": "Dominik Riedig",
+			"email": "my-blog@dominikriedig.de",
+			"url": "https://dominikriedig.de"
+		}
+	],
 	"dependencies": {
 		"bcrypt": "5.0.1",
 		"body-parser": "1.20.0",
@@ -90,5 +69,32 @@
 		"workbox-expiration": "6.5.3",
 		"workbox-routing": "6.5.3",
 		"workbox-strategies": "6.5.3"
-	}
+	},
+	"scripts": {
+		"dev": "npm-run-all --parallel dev:serve dev:js-webpack dev:js-move dev:tailwind-blog dev:tailwind-cms dev:tailwind-cloudcenter dev:assets",
+		"debug": "npm-run-all --parallel debug:serve dev:js-webpack dev:js-move dev:tailwind-blog dev:tailwind-cms dev:tailwind-cloudcenter dev:assets",
+		"test": "jest",
+		"coverage": "jest --coverage",
+		"build": "npm-run-all clean tsc tailwind-blog tailwind-cms tailwind-cloudcenter copy-assets js-wrapper",
+		"start": "node .",
+		"clean": "rimraf dist/*",
+		"copy-assets": "ts-node tools/copyAssets",
+		"lint": "eslint src/**/*{.js,.jsx,.ts,.tsx}",
+		"tsc": "tsc",
+		"tailwind-blog": "TW_COMPILE_SUBAPP_NAME=blog tailwindcss -i ./src/blog/blog.css -o ./dist/blog/public/blog.css --minify",
+		"tailwind-cms": "TW_COMPILE_SUBAPP_NAME=cms tailwindcss -i ./src/cms/cms.css -o ./dist/cms/public/cms.css --minify",
+		"tailwind-cloudcenter": "TW_COMPILE_SUBAPP_NAME=cloudcenter tailwindcss -i ./src/cloudcenter/cloudcenter.css -o ./dist/cms/public/cloudcenter.css --minify",
+		"js-wrapper": "npm-run-all js-webpack js-move",
+		"js-webpack": "webpack-cli --devtool source-map",
+		"js-move": "ts-node tools/jsBrowserAfterCompile",
+		"debug:serve": "nodemon --inspect --watch src --ignore src/browser -e ts ./src/wrapper.ts",
+		"dev:serve": "nodemon --watch src --ignore src/browser -e ts ./src/wrapper.ts",
+		"dev:assets": "nodemon --watch 'src/blog/public/**/*' --watch 'src/cms/public/**/*' --watch 'src/cloudcenter/public/**/*' --exec ts-node tools/copyAssets",
+		"dev:js-webpack": "webpack-cli --devtool inline-source-map --watch --progress",
+		"dev:js-move": "nodemon --watch 'dist/public/**/*' --exec ts-node tools/jsBrowserAfterCompile",
+		"dev:tailwind-blog": "TW_COMPILE_SUBAPP_NAME=blog tailwindcss -i ./src/blog/blog.css -o ./dist/blog/public/blog.css --watch",
+		"dev:tailwind-cms": "TW_COMPILE_SUBAPP_NAME=cms tailwindcss -i ./src/cms/cms.css -o ./dist/cms/public/cms.css --watch",
+		"dev:tailwind-cloudcenter": "TW_COMPILE_SUBAPP_NAME=cloudcenter tailwindcss -i ./src/cloudcenter/cloudcenter.css -o ./dist/cloudcenter/public/cloudcenter.css --watch"
+	},
+	"license": "GPLv3"
 }
