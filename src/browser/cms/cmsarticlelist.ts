@@ -1,4 +1,4 @@
-import {route} from './commonvars';
+import {route} from '../shared/commonvars';
 
 interface ModalElements {
 	actionModal: HTMLElement,

@@ -1,4 +1,4 @@
-import './mainscript/theming';
-import './mainscript/navbar';
-import './mainscript/swutils';
-import './mainscript/auth';
+import './shared/theming';
+import './shared/navbar';
+import './serviceworker/swutils';
+import './shared/auth';

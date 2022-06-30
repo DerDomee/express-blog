@@ -1,5 +1,5 @@
 import showdownInstance from '../../mean/showdown';
-import {route} from './commonvars';
+import {route} from './../shared/commonvars';
 const showdownConverter = showdownInstance.makeHtml.bind(showdownInstance);
 
 

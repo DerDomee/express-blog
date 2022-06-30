@@ -2,7 +2,8 @@
 module.exports = {
 	content: [
 		`./src/${process.env.TW_COMPILE_SUBAPP_NAME ?? '*'}/**/*.ejs`,
-		'./src/browser/**/*.{ts,js}',
+		`./src/browser/${process.env.TW_COMPILE_SUBAPP_NAME}/*.{ts,js}`,
+		'./src/browser/shared/*.ts',
 		'./src/mean/**/showdown.ts',
 	],
 	safelist: function(environment) {

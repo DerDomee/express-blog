@@ -1,5 +1,5 @@
-import './mainscript/theming';
-import './mainscript/navbar';
-import './mainscript/cmsblogedit';
-import './mainscript/cmsarticlelist';
-import './mainscript/swutils';
+import './shared/theming';
+import './shared/navbar';
+import './cms/cmsblogedit';
+import './cms/cmsarticlelist';
+import './serviceworker/swutils';

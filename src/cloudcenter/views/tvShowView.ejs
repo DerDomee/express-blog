@@ -9,7 +9,22 @@
 		
 		<script nonce="<%-cspNonce%>">var tvShowData = JSON.parse('<%- JSON.stringify(tvShowData) %>');</script>
 		<div class="px-4 mx-auto text-lg max-w-[75ch]">
-			<h1 class="text-4xl border-b border-gray-600 mb-4 pb-3"><%- pageTitle %></h1>
+			<h1 class="text-4xl border-b border-neutral-600 mb-4 pb-3"><%= pageTitle %></h1>
+			<select
+				class="bg-neutral-400 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-300
+				       p-3"
+				name="seasonSelector"
+				id="seasonSelector">
+				<% tvShowData.seasons.forEach((season)=> { %>
+					<option
+						value="<%=season.seasonId%>">
+						<%= season.name %>
+					</option>
+				<% }) %>
+			</select>
+			<div id="episodeWrapper">
+
+			</div>
 		</div>
 		<%- include('../partials/footer') %>
 	</body>
