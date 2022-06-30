@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="de" class="dark motion-safe:scroll-smooth">
+	<head>
+		<%- include('../partials/head') %>
+		<title><%- htmlTitle %></title>
+	</head>
+	<body>
+		<%- include('../partials/navigation') %>
+		<div class="px-4 mx-auto text-lg max-w-[75ch]">
+			<h1 class="text-4xl border-b border-gray-600 mb-4 pb-3"><%- pageTitle %></h1>
+			<% allTvShows.forEach((tvShow) => { %>
+				<p><a href="/tv/<%-tvShow.tvShowId%>"><%- tvShow.name %></a></p>
+			<% }) %>
+		</div>
+		<%- include('../partials/footer') %>
+	</body>
+</html>

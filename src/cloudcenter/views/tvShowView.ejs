@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="de" class="dark motion-safe:scroll-smooth">
+	<head>
+		<%- include('../partials/head') %>
+		<title><%- htmlTitle %></title>
+	</head>
+	<body>
+		<%- include('../partials/navigation') %>
+		
+		<script nonce="<%-cspNonce%>">var tvShowData = JSON.parse('<%- JSON.stringify(tvShowData) %>');</script>
+		<div class="px-4 mx-auto text-lg max-w-[75ch]">
+			<h1 class="text-4xl border-b border-gray-600 mb-4 pb-3"><%- pageTitle %></h1>
+		</div>
+		<%- include('../partials/footer') %>
+	</body>
+</html>
