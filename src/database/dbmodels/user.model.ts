@@ -61,7 +61,7 @@ export default class User extends Model {
 		permissions: Permission[];
 
 	@HasMany(() => LoginSession)
-		sessions: LoginSession;
+		sessions: LoginSession[];
 
 	getCumulatedPermissions = async (): Promise<Permission[]> => {
 		let allPermissions: Permission[] = await this.$get('permissions');

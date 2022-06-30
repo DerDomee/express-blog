@@ -12,6 +12,9 @@ import Permission from './dbmodels/permission.model';
 import UserGroup from './dbmodels/userpermission.model';
 import UserPermission from './dbmodels/usergroup.model';
 import GroupPermission from './dbmodels/grouppermission.model';
+import TvShow from './dbmodels/tvshow.model';
+import TvSeason from './dbmodels/tvseason.model';
+import TvEpisode from './dbmodels/tvepisode.model';
 import {assert} from 'console';
 
 export type allowedEnvs = 'development' | 'test' | 'production'
@@ -19,7 +22,8 @@ export type allowedEnvs = 'development' | 'test' | 'production'
 const createInstance = async (NODE_ENV: allowedEnvs) => {
 	let sequelizeInstance = undefined;
 	const models = [BlogArticleRevision, BlogArticle, User, LoginSession, Group,
-		Permission, UserGroup, UserPermission, GroupPermission];
+	                Permission, UserGroup, UserPermission, GroupPermission,
+	                TvShow, TvSeason, TvEpisode];
 	switch (NODE_ENV) {
 	case 'development':
 		sequelizeInstance = new Sequelize({
