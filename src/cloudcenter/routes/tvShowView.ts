@@ -1,4 +1,5 @@
 import {NextFunction, Request, Response} from 'express';
+import logger from '../../mean/logger';
 import TvEpisode from '../../database/dbmodels/tvepisode.model';
 import TvSeason from '../../database/dbmodels/tvseason.model';
 import TvShow from '../../database/dbmodels/tvshow.model';
@@ -11,6 +12,7 @@ import {Route} from '../../mean/types';
  * @param {NextFunction} next
  */
 async function get(req: Request, res: Response, next: NextFunction) {
+	const showSeason = req.query.s ?? false;
 	const currentShow = await TvShow.findOne({
 		where: {
 			tvShowId: req.params.showId,
@@ -33,37 +35,36 @@ async function get(req: Request, res: Response, next: NextFunction) {
 		],
 	});
 
-	const allSeasons = [] as any;
-
-	currentShow.seasons.forEach((season) => {
-		allSeasons.push({
-			seasonId: season.seasonId,
-			seasonNumberInShow: season.seasonNumberInShow,
-			name: season.name,
-			episodes: [],
-		});
-
-		season.episodes.forEach((episode) => {
-			allSeasons.find(
-				(thisSeason: any) => thisSeason.seasonId == season.seasonId,
-			).episodes.push({
-				episodeId: episode.episodeId,
-				episodeNumberInSeason: episode.episodeNumberInSeason,
-				name: episode.name,
-				slug: episode.slug,
-				firstAired: episode.firstAired,
-			});
-		});
+	let currentSeason = currentShow.seasons.find((season) => {
+		return season.seasonId == showSeason;
 	});
+	if (!currentSeason) {
+		currentSeason = currentShow.seasons.find((season) => {
+			return season.seasonNumberInShow = 1;
+		});
+	}
+	if (!currentSeason && currentShow.seasons.length >= 1) {
+		currentSeason = currentShow.seasons[0];
+	}
+
+	const videoLengths: Promise<number>[] = [];
+	currentSeason.episodes.forEach((episode) => {
+		videoLengths.push(episode.getVideoLength());
+	});
+	const actualLengths = (await Promise.allSettled(videoLengths)).map(
+		(promise) => (promise as any).value);
+
+	currentSeason.episodes.map((episode) => {
+		episode.videoLength = actualLengths[
+			currentSeason.episodes.indexOf(episode)];
+	});
+
+	logger.verbose(JSON.stringify(currentSeason.episodes, null, 2));
 
 	res.locals.pageTitle = `${currentShow.name}`;
 	res.locals.htmlTitle = `${currentShow.name} - Cloudcenter - Dominik Riedig`;
-	res.locals.tvShowData = {
-		name: currentShow.name,
-		tvShowId: currentShow.tvShowId,
-		description: currentShow.description,
-		seasons: allSeasons,
-	};
+	res.locals.currentShow = currentShow;
+	res.locals.currentSeason = currentSeason;
 	res.render('tvShowView', {...req.app.locals, ...res.locals});
 }
 
