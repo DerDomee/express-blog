@@ -10,6 +10,8 @@ import {
 	ForeignKey} from 'sequelize-typescript';
 import TvSeason from './tvseason.model';
 import TvShow from './tvshow.model';
+import ffprobe from 'ffprobe';
+import ffprobeStatic from 'ffprobe-static';
 
 
 @Table
@@ -56,4 +58,17 @@ export default class TvEpisode extends Model {
 
 	@BelongsTo(() => TvShow)
 		tvShow: TvShow;
+
+	getVideoLength = async () => {
+		try {
+			const videoMeta = await ffprobe(`./data/videos/${this.episodeId}.mp4`,
+				{path: ffprobeStatic.path});
+			return Math.ceil(videoMeta.streams[0].duration / 60) || null;
+		} catch (err) {
+			return null;
+		}
+	};
+	@Column({
+		type: DataType.VIRTUAL})
+		videoLength: number;
 };
