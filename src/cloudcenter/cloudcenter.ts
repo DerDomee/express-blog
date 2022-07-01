@@ -9,11 +9,13 @@ import showdownInstance from '../mean/showdown';
 import helmet from '../mean/helmet';
 import heroicon from '../mean/heroicon';
 import checkauth from '../mean/checkauth';
+import moment from 'moment';
 
 import routes from './routes/_routes';
 
 const app = express();
-
+moment.locale('de');
+app.locals.moment = moment;
 app.locals.navigation = navigation;
 app.locals.currentyear = new Date().getUTCFullYear();
 app.locals.showdownConverter = showdownInstance.makeHtml.bind(showdownInstance);
