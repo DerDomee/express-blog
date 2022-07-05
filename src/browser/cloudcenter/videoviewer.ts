@@ -134,7 +134,7 @@ if (route.startsWith('/watch')) {
 			videoelem.pause();
 		} else {
 			videoelem.currentTime = percent * videoelem.duration;
-			if (!wasPaused) videoelem.play().catch();
+			if (!wasPaused) videoelem.play().catch((reason) => {});
 		}
 	};
 
@@ -184,7 +184,7 @@ if (route.startsWith('/watch')) {
 		if (!videoelem.paused) {
 			videoelem.pause();
 		} else {
-			videoelem.play().catch();
+			videoelem.play().catch((reason) => {});
 		}
 	};
 
