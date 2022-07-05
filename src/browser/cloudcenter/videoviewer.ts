@@ -37,8 +37,6 @@ if (route.startsWith('/watch')) {
 		'videotime-total') as HTMLSpanElement;
 	const timelineContainer: HTMLDivElement = document.getElementById(
 		'timeline-container') as HTMLDivElement;
-	const timeline: HTMLDivElement = document.getElementById(
-		'timeline') as HTMLDivElement;
 
 	const updatePlayPauseBtn = () => {
 		if (!videoelem.paused) {
