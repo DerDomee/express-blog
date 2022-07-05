@@ -65,6 +65,35 @@ if (route.startsWith('/watch')) {
 		volumeSlider.value = `${videoelem.volume}`;
 	};
 
+	const debounce = (callback: CallableFunction, delay: number = 2000) => {
+		let timeout: number;
+
+		return (...args: any[]) => {
+			window.clearTimeout(timeout);
+			timeout = window.setTimeout(() => {
+				callback(...args);
+			}, delay);
+		};
+	};
+
+
+	const debounceMouseMovement = debounce((ev: MouseEvent) => {
+		controlsOverlay.classList.remove(
+			'hover:opacity-100',
+			'focus-within:opacity-100',
+		);
+		controlsOverlay.classList.add('cursor-none');
+	}, 2000);
+
+	window.addEventListener('mousemove', (ev: MouseEvent) => {
+		controlsOverlay.classList.add(
+			'hover:opacity-100',
+			'focus-within:opacity-100',
+		);
+		controlsOverlay.classList.remove('cursor-none');
+		debounceMouseMovement(ev);
+	});
+
 	const toggleFullscreen = () => {
 		if (document.fullscreenElement) {
 			document.exitFullscreen();
