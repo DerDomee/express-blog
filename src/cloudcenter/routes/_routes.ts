@@ -4,13 +4,13 @@ import tvShowBrowser from './tvShowBrowser';
 import tvShowView from './tvShowView';
 import catchall from './catchall';
 import dynamicImages from '../../mean/routes/dynamicimages';
-import videoViewer from './videoViewer';
+import tvShowVideo from './tvShowVideo';
 
 export default [
 	home,
 	tvShowBrowser,
 	tvShowView,
-	videoViewer,
+	tvShowVideo,
 	dynamicImages,
 	catchall,
 ] as Route[];

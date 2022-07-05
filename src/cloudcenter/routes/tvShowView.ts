@@ -1,5 +1,4 @@
 import {NextFunction, Request, Response} from 'express';
-import logger from '../../mean/logger';
 import TvEpisode from '../../database/dbmodels/tvepisode.model';
 import TvSeason from '../../database/dbmodels/tvseason.model';
 import TvShow from '../../database/dbmodels/tvshow.model';
@@ -58,8 +57,6 @@ async function get(req: Request, res: Response, next: NextFunction) {
 		episode.videoLength = actualLengths[
 			currentSeason.episodes.indexOf(episode)];
 	});
-
-	logger.verbose(JSON.stringify(currentSeason.episodes, null, 2));
 
 	res.locals.pageTitle = `${currentShow.name}`;
 	res.locals.htmlTitle = `${currentShow.name} - Cloudcenter - Dominik Riedig`;

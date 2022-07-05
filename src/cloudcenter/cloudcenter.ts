@@ -38,6 +38,7 @@ app.use(checkauth);
 app.use(heroicon);
 
 app.use(express.static('./dist/cloudcenter/public'));
+app.use('/videos', express.static('./data/videos'));
 
 app.use((_req, res, next) => {
 	const returnPath = app.get('blogAbsPath');
