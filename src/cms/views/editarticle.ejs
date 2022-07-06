@@ -12,51 +12,56 @@
 				action=""
 				method="post">
 
+				<div>
+					<input type="hidden" name="creationType" id="creation-type" value="<%= creationType %>"/>
+				</div>
+
 				<div class="flex flex-col">
 					<label for="blogedit-pagetitle">Seitentitel</label>
-					<input
-						class="text-redgray-800"
-						type="text"
-						name="blogeditPagetitle"
-						id="blogedit-pagetitle">
+					<% if (creationType === 'create') { %>
+						<input class="text-redgray-800" type="text" name="blogeditPagetitle" id="blogedit-pagetitle">
+					<% } else { %>
+						<input class="text-redgray-800" type="text" name="blogeditPagetitle" id="blogedit-pagetitle" value="<%= articleContent.title %>">
+					<% } %>
 				</div>
 
 				<div class="flex flex-col">
 					<label for="blogedit-blurb">Vorschautext</label>
-					<input
-						class="text-redgray-800"
-						type="text"
-						name="blogeditBlurb"
-						id="blogedit-blurb">
+					<% if (creationType === 'create') { %>
+						<input class="text-redgray-800" type="text" name="blogeditBlurb" id="blogedit-blurb">
+					<% } else { %>
+						<input class="text-redgray-800" type="text" name="blogeditBlurb" id="blogedit-blurb" value="<%= articleContent.blurb %>">
+					<% } %>
 				</div>
 				
 				<div class="flex flex-col">
 					<label for="blogedit-content">Inhalt</label>
-					<textarea
-						class="font-mono text-redgray-800"
-						type="text"
-						name="blogeditContent"
-						id="blogedit-content"></textarea>
+					<% if (creationType === 'create') { %>
+						<textarea class="font-mono text-redgray-800" type="text" name="blogeditContent" id="blogedit-content"></textarea>
+					<% } else { %>
+						<textarea class="font-mono text-redgray-800" type="text" name="blogeditContent" id="blogedit-content"><%= articleContent.content %></textarea>
+					<% } %>
 				</div>
 
 				<div class="flex flex-col">
 					<label for="blogedit-htmltitle">HTML Titel</label>
-					<input
-						class="text-redgray-800"
-						type="text"
-						name="blogeditHtmlTitle"
-						id="blogedit-htmltitle">
+					<% if (creationType === 'create') { %>
+						<input class="text-redgray-800" type="text" name="blogeditHtmlTitle" id="blogedit-htmltitle">
+					<% } else { %>
+						<input class="text-redgray-800" type="text" name="blogeditHtmlTitle" id="blogedit-htmltitle" value="<%= articleContent.htmlTitle %>">
+					<% } %>
 				</div>
 				
 				<div class="flex flex-col">
 					<label for="blogedit-urlid">URL-ID</label>
-					<input
-						class="text-redgray-800"
-						type="text"
-						name="blogeditUrlId"
-						id="blogedit-urlid">
+					<% if (creationType=== 'create') { %>
+						<input class="text-redgray-800" type="text" name="blogeditUrlId" id="blogedit-urlid">
+					<% } else { %>
+						<input class="cursor-not-allowed text-redgray-800 bg-redgray-300" type="text" name="blogeditUrlId" id="blogedit-urlid" value="<%= article.url_id %>" disabled>
+					<% } %>
 				</div>
 
+				<% if (creationType==='create') { %>
 				<div class="flex flex-col gap-8">
 					<div class="inline-block align-middle">
 						<input
@@ -83,11 +88,22 @@
 					<label for="blogedit-publish-unlisted">Ungelistet (Nur mit Direktlink abrufbar)</label>
 				</div>
 
-				<input
-					class="block mt-4 cursor-pointer py-2 px-4 bg-redgray-700 text-redgray-200 dark:bg-redgray-900"
-					id="blogedit-submit"
-					type="submit"
-					value="Blog erstellen">
+				<% } %>
+
+				<% if(creationType === 'create') { %>
+					<input
+						class="block mt-4 cursor-pointer py-2 px-4 bg-redgray-700 text-redgray-200 dark:bg-redgray-900"
+						id="blogedit-submit"
+						type="submit"
+						value="Artikel erstellen">
+				<% } else { %>
+					<input
+						class="block mt-4 cursor-pointer py-2 px-4 bg-redgray-700 text-redgray-200 dark:bg-redgray-900"
+						id="blogedit-submit"
+						type="submit"
+						value="Artikel aktualisieren">
+				<% } %>
+				
 
 			</form>
 			<article
@@ -96,13 +112,31 @@
 				       prose-p:my-1 prose-headings:my-2
 				       prose-h1:text-4xl prose-h1:border-b prose-h1:pb-3
 				       prose-h1:mb-4 prose-h1:border-gray-600">
-				<h1 id="blogpreview-title">Neuer Blogeintrag</h1>
+				<h1 id="blogpreview-title">
+					<% if (creationType === 'create' ) { %>
+					Neuer Blogeintrag
+					<% } else { %>
+						<%= articleContent.title %>
+					<% } %>
+				</h1>
 				<section>
 					<p>
-						Veröffentlicht
-						<span title="<%=moment().format('DD.MM:YYYY hh:mm')%>">
-							<%= moment().fromNow() %>
-						</span>
+						<% if (creationType === 'create') { %>
+							Veröffentlicht
+							<span title="<%=moment().format('DD.MM.YYYY hh:mm') %>">
+								<%= moment().fromNow() %>
+							</span>
+						<% } else { %>
+							Veröffentlicht
+							<span title="<%=  moment(article.original_publication_time).format('DD.MM.YYYY hh:mm') %>">
+								<%= moment(article.original_publication_time).fromNow() %>
+							</span><br>
+							Zuletzt aktualisiert
+							<span title="<%= moment().format('DD.MM.YYYY hh:mm') %>">
+								<%= moment().fromNow() %>
+							</span>
+						<% } %>
+						
 					</p>
 				</section>
 				<section>

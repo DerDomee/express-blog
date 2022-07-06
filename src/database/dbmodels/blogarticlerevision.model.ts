@@ -27,7 +27,7 @@ export default class BlogArticleRevision extends Model {
 
 	@Column({
 		type: DataType.TEXT('long')})
-		content: any;
+		content: string;
 
 
 	@ForeignKey(() => BlogArticleRevision)

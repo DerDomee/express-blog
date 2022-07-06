@@ -13,6 +13,7 @@ import BlogArticle from '../../database/dbmodels/blogarticle.model';
 async function get(req: Request, res: Response, next: NextFunction) {
 	res.locals.pageTitle = 'Neues Blog /blogedit';
 	res.locals.htmlTitle = 'Neues Blog - CMS - Dominik Riedig';
+	res.locals.creationType = 'create';
 	res.render('editarticle', {...req.app.locals, ...res.locals});
 }
 
