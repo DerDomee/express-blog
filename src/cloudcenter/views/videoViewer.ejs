@@ -5,17 +5,14 @@
 		<title><%- htmlTitle %></title>
 	</head>
 	<body class="bg-black h-[100vh] overflow-y-auto">
-		<video
-			id="the-video"
+		<video id="the-video"
 			class="h-full mx-auto z-10"
 			autoplay>
 			<source src="/videos/<%= videoname %>">
 		</video>
-		<div
-			id="video-controls-wrapper"
+		<div id="video-controls-wrapper"
 			class="absolute inset-0 content-center align-middle z-50 opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity">
-			<div
-				id="upper-video-controls"
+			<div id="upper-video-controls"
 				class="absolute flex justify-between w-full top-0 text-4xl p-8
 				       bg-gradient-to-b from-black/60">
 				<div><a href="<%= backlink %>"><%- heroicon({icon: 'arrow-left', classes: 'self-center inline h-12'}) %></a></div>
@@ -29,14 +26,23 @@
 				<span class="absolute hidden">Pause icon</span>
 				<span class="absolute hidden">Loading...</span>
 			</div>
-			<div
-				id="lower-video-controls"
+			<div id="lower-video-controls"
 				class="absolute bottom-0 text-4xl w-full p-8 flex flex-col bg-gradient-to-t
 				       from-black/60">
 				<div>
-					<div
-						id="timeline-container"
-						class="flex gap-6 mb-4 h-3 w-full group cursor-pointer">
+					<div id="lower-action-buttons"
+						class="flex flex-row justify-between align-middle mb-6">
+						<div></div>
+						<div></div>
+						<div>
+							<button id="skip-current-section"
+								class="bg-neutral-700 text-neutral-100 rounded-lg p-2 text-xl hidden">
+								Skip section
+							</button>
+						</div>
+					</div>
+					<div id="timeline-container"
+						class="flex gap-6 h-3 w-full group cursor-pointer mb-4">
 						<div id="timeline"
 							class="relative w-full h-1.5 mt-0.5 group-hover:mt-0 group-hover:h-3 bg-neutral-100/50 transition-all
 							       before:content before:left-0 before:top-0 before:bottom-0 before:absolute
@@ -53,7 +59,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="flex flex-row justify-between align-middle">
+					<div id="lower-ctl-buttons" 
+						class="flex flex-row justify-between align-middle">
 						<div class="flex gap-6">
 							<button id="btn-playpause">
 								<span id="playpause-play">
