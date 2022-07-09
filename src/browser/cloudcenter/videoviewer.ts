@@ -261,5 +261,6 @@ if (route.startsWith('/watch')) {
 	videoelem.volume = setVolume;
 	originalVolume = setVolume;
 	volumeSlider.value = `${setVolume}`;
+	updateVolumeBtn();
 }
 
