@@ -19,18 +19,16 @@ async function get(req: Request, res: Response, next: NextFunction) {
 		include: [
 			{
 				model: TvSeason,
-				order: [
-					['seasonNumberInShow', 'ASC'],
-				],
 				include: [
 					{
 						model: TvEpisode,
-						order: [
-							['episodeNumberInSeason', 'ASC'],
-						],
 					},
 				],
 			},
+		],
+		order: [
+			['seasons', 'seasonNumberInShow', 'ASC'],
+			['seasons', 'episodes', 'episodeNumberInSeason', 'ASC'],
 		],
 	});
 
