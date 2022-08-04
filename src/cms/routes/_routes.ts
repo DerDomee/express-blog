@@ -5,6 +5,7 @@ import articles from './articles';
 import newarticle from './newarticle';
 import editarticle from './editarticle';
 import dynamicImages from '../../mean/routes/dynamicimages';
+import imageCtl from './imagectl';
 import userCtl from './userctl';
 
 export default [
@@ -13,6 +14,7 @@ export default [
 	newarticle,
 	editarticle,
 	userCtl,
+	imageCtl,
 	dynamicImages,
 	catchall,
 ] as Route[];

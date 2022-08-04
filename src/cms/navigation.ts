@@ -15,8 +15,8 @@ const nav: Navigation = {
 			route: '/userctl',
 		},
 		{
-			name: 'Gruppen',
-			route: '/groups',
+			name: 'Bilder',
+			route: '/imagectl',
 		},
 	],
 	right: [
