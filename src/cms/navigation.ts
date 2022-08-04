@@ -12,7 +12,7 @@ const nav: Navigation = {
 		},
 		{
 			name: 'Nutzer',
-			route: '/users',
+			route: '/userctl',
 		},
 		{
 			name: 'Gruppen',

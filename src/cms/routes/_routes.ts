@@ -5,12 +5,14 @@ import articles from './articles';
 import newarticle from './newarticle';
 import editarticle from './editarticle';
 import dynamicImages from '../../mean/routes/dynamicimages';
+import userCtl from './userctl';
 
 export default [
 	home,
 	articles,
 	newarticle,
 	editarticle,
+	userCtl,
 	dynamicImages,
 	catchall,
 ] as Route[];
