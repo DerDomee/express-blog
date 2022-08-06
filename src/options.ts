@@ -13,6 +13,10 @@ export default {
 	cmsEnabled: !!process.env.DD_CMS_ENABLED ?? true,
 	cloudcenterEnabled: !!process.env.DD_CLOUDCENTER_ENABLED ?? true,
 
+	blogHostname: process.env.DD_BLOG_HOST,
+	cmsHostname: process.env.DD_CMS_HOST,
+	cloudcenterHostname: process.env.DD_CLOUDCENTER_HOST,
+
 	dbName: process.env.DD_DBNAME,
 	dbUser: process.env.DD_DBUSER,
 	dbPass: process.env.DD_DBPASS,
