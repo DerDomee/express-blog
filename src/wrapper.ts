@@ -3,13 +3,13 @@ import blog from './blog/blog';
 import cms from './cms/cms';
 import cloudcenter from './cloudcenter/cloudcenter';
 import logger from './mean/logger';
-import dbInit, {allowedEnvs} from './database/dbmanager';
+import dbInit from './database/dbmanager';
 
 const blogPath = `http://localhost:${options.blogPort}`;
 const cmsPath = `http://localhost:${options.cmsPort}`;
 const cloudcenterPath = `http://localhost:${options.cloudcenterPort}`;
 
-dbInit(process.env.NODE_ENV as allowedEnvs).then((sequelize) => {
+dbInit(options).then((sequelize) => {
 	if (options.blogEnabled) {
 		blog.set('sequelizeInstance', sequelize);
 		blog.set('blogAbsPath', blogPath);

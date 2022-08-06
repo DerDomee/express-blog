@@ -19,12 +19,12 @@ import {assert} from 'console';
 
 export type allowedEnvs = 'development' | 'test' | 'production'
 
-const createInstance = async (NODE_ENV: allowedEnvs) => {
+const createInstance = async (options: any) => {
 	let sequelizeInstance = undefined;
 	const models = [BlogArticleRevision, BlogArticle, User, LoginSession, Group,
 	                Permission, UserGroup, UserPermission, GroupPermission,
 	                TvShow, TvSeason, TvEpisode];
-	switch (NODE_ENV) {
+	switch (options.nodeEnv) {
 	case 'development':
 		sequelizeInstance = new Sequelize({
 			dialect: 'sqlite',
@@ -43,26 +43,27 @@ const createInstance = async (NODE_ENV: allowedEnvs) => {
 		break;
 	case 'production':
 		sequelizeInstance = new Sequelize(
-			process.env.DD_DBNAME,
-			process.env.DD_DBUSER,
-			process.env.DD_DBPASS,
+			options.dbName,
+			options.dbUser,
+			options.dbPass,
 			{
 				dialect: 'mysql',
 				logging: false,
 			});
 		break;
 	default:
-		throw new RangeError(`NODE_ENV is of an invalid state: '${NODE_ENV}'`);
+		throw new RangeError(
+			`NODE_ENV is of an invalid state: '${options.nodeEnv}'`);
 	}
 	return sequelizeInstance;
 };
 
 const syncModels = async (sequelizeInstance: Sequelize,
-	NODE_ENV: allowedEnvs) => {
+	options: any) => {
 	await sequelizeInstance.sync({
-		alter: NODE_ENV==='development' ? false : false,
-		force: NODE_ENV==='development' ? false : false,
-		logging: NODE_ENV==='development' ? false : false,
+		alter: options.nodeEnv ==='development' ? false : false,
+		force: options.nodeEnv ==='development' ? false : false,
+		logging: options.nodeEnv ==='development' ? false : false,
 	});
 };
 
@@ -109,9 +110,9 @@ const checkSeeders = async (sequelizeInstance: Sequelize) => {
 	assert(initUser, 'initUser is not set');
 };
 
-export default async (NODE_ENV: allowedEnvs) => {
-	const sequelize = await createInstance(NODE_ENV);
-	await syncModels(sequelize, NODE_ENV);
+export default async (options: any) => {
+	const sequelize = await createInstance(options);
+	await syncModels(sequelize, options);
 
 	await initSeeders(sequelize);
 	await checkSeeders(sequelize);

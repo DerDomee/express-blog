@@ -1,4 +1,5 @@
 import helmet from 'helmet';
+import options from '../options';
 
 export default helmet({
 	contentSecurityPolicy: {
@@ -6,7 +7,7 @@ export default helmet({
 		directives: {
 			scriptSrc: [
 				'\'self\'',
-				process.env.NODE_ENV === 'development' ? '\'unsafe-eval\'' : '',
+				options.nodeEnv === 'development' ? '\'unsafe-eval\'' : '',
 				(_req, res: any) => `'nonce-${res.locals.cspNonce}'`,
 			],
 			workerSrc: ['\'self\''],
