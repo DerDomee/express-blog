@@ -1,3 +1,4 @@
+/* eslint-disable node/no-process-env */
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: [
