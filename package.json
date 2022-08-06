@@ -4,6 +4,9 @@
 	"description": "The webpage dominikriedig.de including the cms and cloudcenter",
 	"private": "true",
 	"main": "dist/wrapper.js",
+	"engines": {
+		"node": ">=16.15.0"
+	},
 	"contributors": [
 		{
 			"name": "Dominik Riedig",
@@ -75,6 +78,9 @@
 		"workbox-routing": "6.5.4",
 		"workbox-strategies": "6.5.4"
 	},
+	"files": [
+		"all"
+	],
 	"scripts": {
 		"dev": "npm-run-all --parallel dev:serve dev:js-webpack dev:js-move dev:tailwind-blog dev:tailwind-cms dev:tailwind-cloudcenter dev:assets",
 		"debug": "npm-run-all --parallel debug:serve dev:js-webpack dev:js-move dev:tailwind-blog dev:tailwind-cms dev:tailwind-cloudcenter dev:assets",
