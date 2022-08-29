@@ -6,12 +6,33 @@ import {NextFunction, Request, Response} from 'express';
 
 export const readHeroIcon = (icon: HeroIcon): string => {
 	if (!icon.icon) icon.icon = 'null';
+	// Set icon specification defaults for style and classes to prevent undefined
 	icon.style = icon.style ?? 'outline';
 	icon.classes = icon.classes ?? '';
+	// Generate subpaths within heroicon for svg location depending on
+	// the icon style of the icon specification
+	let iconPath = '';
+	switch (icon.style) {
+	case 'outline':
+		iconPath = '24/outline';
+		break;
+	case 'solid-24':
+	case 'solid':
+		iconPath = '24/solid';
+		break;
+	case 'solid-20':
+	case 'small':
+		iconPath = '20/solid';
+		break;
+	}
+
+	// Read svg file from node_modules folder of heroicons,
+	// Return the svg file contents when icon was found,
+	// Return error string when icon wasn't found.
 	const filepath = path.join(
 		'node_modules',
 		'heroicons',
-		icon.style,
+		iconPath,
 		`${icon.icon}.svg`,
 	);
 	try {
@@ -23,6 +44,13 @@ export const readHeroIcon = (icon: HeroIcon): string => {
 	}
 };
 
+/**
+ *
+ * @param {string} svg a heroicon SVG file
+ * @param {HeroIcon} icon the heroicon specification
+ * @return {string} the heroicon SVG with added css-classes from icon
+ *                  specification
+ */
 export const populateClasses = (svg: string, icon: HeroIcon) => {
 	const $ = cheerioLoad(svg, {}, false);
 	$('svg').addClass(icon.classes);
