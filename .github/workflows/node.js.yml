@@ -26,6 +26,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: postlint
+          path: ${{ github.workspace }}
     
   test:
     needs: lint
@@ -38,6 +39,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: posttest
+          path: ${{ github.workspace }}
 
   build:
     needs: test
