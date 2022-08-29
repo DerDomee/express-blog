@@ -16,7 +16,7 @@ export interface Article {
 
 export interface HeroIcon {
   icon: string;
-  style?: 'outline' | 'solid';
+  style?: 'outline' | 'solid-20' | 'solid-24' | 'solid' | 'small';
   classes?: string;
 };
 
