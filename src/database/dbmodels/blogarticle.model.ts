@@ -28,7 +28,7 @@ export default class BlogArticle extends Model {
 	@AllowNull(false)
 	@Column({
 		type: DataType.STRING})
-		url_id: String;
+		url_id: string;
 
 	@Default(DataType.NOW)
 	@AllowNull(false)
@@ -45,7 +45,7 @@ export default class BlogArticle extends Model {
 	@AllowNull(false)
 	@Column({
 		type: DataType.BOOLEAN})
-		is_published: Boolean;
+		is_published: boolean;
 
 
 	@ForeignKey(() => BlogArticleRevision)

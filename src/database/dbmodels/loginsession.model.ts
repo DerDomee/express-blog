@@ -20,7 +20,7 @@ export default class LoginSession extends Model {
 	@AllowNull(false)
 	@Column({
 		type: DataType.STRING})
-		session_cookie: String;
+		session_cookie: string;
 
 	@Default(DataType.NOW)
 	@AllowNull(false)
@@ -73,4 +73,4 @@ export default class LoginSession extends Model {
 
 	@BelongsTo(() => User)
 		user: User;
-};
+}

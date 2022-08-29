@@ -42,4 +42,4 @@ export default class Permission extends Model {
 
 	@BelongsToMany(() => User, () => UserPermission)
 		users: User[];
-};
+}

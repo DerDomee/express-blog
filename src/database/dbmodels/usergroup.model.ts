@@ -21,4 +21,4 @@ export default class UserGroup extends Model {
 	@Column({
 		type: DataType.STRING})
 		user_id: string;
-};
+}

@@ -21,7 +21,7 @@ export default class TvShow extends Model {
 	@Default(DataType.UUIDV4)
 	@Column({
 		type: DataType.UUIDV4})
-		tvShowId: String;
+		tvShowId: string;
 
 	@AllowNull(false)
 	@Unique
@@ -47,4 +47,4 @@ export default class TvShow extends Model {
 
 	@HasMany(() => TvSeason)
 		seasons: TvSeason[];
-};
+}

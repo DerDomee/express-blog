@@ -22,15 +22,15 @@ export default class Group extends Model {
 	@Default(DataType.UUIDV4)
 	@Column({
 		type: DataType.UUIDV4})
-		group_id: String;
+		group_id: string;
 
 	@Column({
 		type: DataType.STRING})
-		name: String;
+		name: string;
 
 	@BelongsToMany(() => User, () => UserGroup)
 		users: User[];
 
 	@BelongsToMany(() => Permission, () => GroupPermission)
 		permissions: Permission[];
-};
+}

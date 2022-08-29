@@ -19,7 +19,7 @@ export default class Group extends Model {
 	@Default(DataType.UUIDV4)
 	@Column({
 		type: DataType.UUIDV4})
-		image_id: String;
+		image_id: string;
 
 	@AllowNull(false)
 	@Column({
@@ -40,4 +40,4 @@ export default class Group extends Model {
 	@Column({
 		type: DataType.STRING})
 		extension: string;
-};
+}

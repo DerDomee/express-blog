@@ -21,4 +21,4 @@ export default class UserPermission extends Model {
 	@Column({
 		type: DataType.STRING})
 		permission_id: string;
-};
+}
