@@ -10,21 +10,38 @@ on:
     branches: ["main"]
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x]
-
-    steps:
+    
+    steps: 
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16
           cache: "npm"
       - run: npm ci
       - run: npm run lint
+      - name: Save post-lint artifact for later use
+        uses: actions/upload-artifact@v3
+        with:
+          name: postlint
+    
+  test:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/download-artifact@v3
+        with:
+          name: postlint
       - run: npm test
+      - uses: actions/upload-artifact@v3
+        with:
+          name: posttest
+
+  build:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/download-artifact@v3
+        with:
+          name: posttest
       - run: npm run build
