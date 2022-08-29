@@ -13,7 +13,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     
-    steps: 
+    steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -22,30 +22,27 @@ jobs:
           cache: "npm"
       - run: npm ci
       - run: npm run lint
-      - name: Save post-lint artifact for later use
-        uses: actions/upload-artifact@v3
-        with:
-          name: postlint
-          path: ${{ github.workspace }}
-    
+
   test:
-    needs: lint
     runs-on: ubuntu-latest
-    steps: 
-      - uses: actions/download-artifact@v3
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          name: postlint
+          node-version: 16
+          cache: "npm"
+      - run: npm ci
       - run: npm test
-      - uses: actions/upload-artifact@v3
-        with:
-          name: posttest
-          path: ${{ github.workspace }}
 
   build:
-    needs: test
     runs-on: ubuntu-latest
-    steps: 
-      - uses: actions/download-artifact@v3
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          name: posttest
+          node-version: 16
+          cache: "npm"
+      - run: npm ci
       - run: npm run build
