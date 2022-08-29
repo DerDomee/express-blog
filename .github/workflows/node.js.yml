@@ -28,6 +28,7 @@ jobs:
           name: postlint
     
   test:
+    needs: lint
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/download-artifact@v3
@@ -39,6 +40,7 @@ jobs:
           name: posttest
 
   build:
+    needs: test
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/download-artifact@v3
