@@ -11,7 +11,19 @@ describe('readHeroIcon reads icon file from node_modules', () => {
 			{icon: 'academic-cap', style: 'solid'},
 		)).toMatch(validSvgRegex);
 		expect(heroicon.readHeroIcon(
+			{icon: 'academic-cap', style: 'solid-20'},
+		)).toMatch(validSvgRegex);
+		expect(heroicon.readHeroIcon(
+			{icon: 'academic-cap', style: 'solid-24'},
+		)).toMatch(validSvgRegex);
+		expect(heroicon.readHeroIcon(
+			{icon: 'academic-cap', style: 'small'},
+		)).toMatch(validSvgRegex);
+		expect(heroicon.readHeroIcon(
 			{icon: 'academic-cap', style: 'outline', classes: 'foo'},
+		)).toMatch(validSvgRegex);
+		expect(heroicon.readHeroIcon(
+			{icon: 'academic-cap', style: 'outline', classes: 'foo bar'},
 		)).toMatch(validSvgRegex);
 		expect(heroicon.readHeroIcon(
 			{icon: 'academic-cap', style: 'outline', classes: 'foo bar'},
