@@ -7,6 +7,7 @@ module.exports = {
 	'extends': [
 		'google',
 		'plugin:node/recommended',
+		'plugin:@typescript-eslint/recommended',
 	],
 	'parser': '@typescript-eslint/parser',
 	'parserOptions': {
@@ -37,11 +38,18 @@ module.exports = {
 		'node/no-unsupported-features/es-syntax': ['error', {
 			'ignores': ['modules'],
 		}],
+		'no-unused-vars': 'off',
+		'@typescript-eslint/no-unused-vars': ['warn', {
+			'vars': 'all',
+			'args': 'none',
+		}],
 		'node/no-missing-import': ['error', {
 			'allowModules': [],
 			'resolvePaths': [],
 			'tryExtensions': ['.js', '.ts'],
 		}],
 		'node/no-unpublished-import': 'error',
+
+		'@typescript-eslint/no-empty-function': 'off',
 	},
 };

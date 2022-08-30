@@ -16,10 +16,11 @@ import TvShow from './dbmodels/tvshow.model';
 import TvSeason from './dbmodels/tvseason.model';
 import TvEpisode from './dbmodels/tvepisode.model';
 import {assert} from 'console';
+import {DatabaseOptions} from '../mean/types';
 
 export type allowedEnvs = 'development' | 'test' | 'production'
 
-const createInstance = async (options: any) => {
+const createInstance = async (options: DatabaseOptions) => {
 	let sequelizeInstance = undefined;
 	const models = [BlogArticleRevision, BlogArticle, User, LoginSession, Group,
 	                Permission, UserGroup, UserPermission, GroupPermission,
@@ -59,7 +60,7 @@ const createInstance = async (options: any) => {
 };
 
 const syncModels = async (sequelizeInstance: Sequelize,
-	options: any) => {
+	options: DatabaseOptions) => {
 	await sequelizeInstance.sync({
 		alter: options.nodeEnv ==='development' ? false : false,
 		force: options.nodeEnv ==='development' ? false : false,
@@ -110,7 +111,7 @@ const checkSeeders = async (sequelizeInstance: Sequelize) => {
 	assert(initUser, 'initUser is not set');
 };
 
-export default async (options: any) => {
+export default async (options: DatabaseOptions) => {
 	const sequelize = await createInstance(options);
 	await syncModels(sequelize, options);
 

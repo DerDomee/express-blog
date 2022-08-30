@@ -65,10 +65,10 @@ if (route.startsWith('/watch')) {
 		volumeSlider.value = `${videoelem.volume}`;
 	};
 
-	const debounce = (callback: CallableFunction, delay: number = 2000) => {
+	const debounce = (callback: CallableFunction, delay = 2000) => {
 		let timeout: number;
 
-		return (...args: any[]) => {
+		return (...args: unknown[]) => {
 			window.clearTimeout(timeout);
 			timeout = window.setTimeout(() => {
 				callback(...args);
@@ -121,8 +121,8 @@ if (route.startsWith('/watch')) {
 	};
 
 	let wasPaused: boolean;
-	let isScrubbing: boolean = false;
-	let isPreviewing: boolean = false;
+	let isScrubbing = false;
+	let isPreviewing = false;
 	const toggleScrubbing = (ev: MouseEvent) => {
 		const rect = timelineContainer.getBoundingClientRect();
 		const percent = Math.min(

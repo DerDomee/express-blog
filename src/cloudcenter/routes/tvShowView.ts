@@ -49,7 +49,7 @@ async function get(req: Request, res: Response, next: NextFunction) {
 		videoLengths.push(episode.getVideoLength());
 	});
 	const actualLengths = (await Promise.allSettled(videoLengths)).map(
-		(promise) => (promise as any).value);
+		(promise) => (promise as PromiseFulfilledResult<number>).value);
 
 	currentSeason.episodes.map((episode) => {
 		episode.videoLength = actualLengths[

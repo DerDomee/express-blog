@@ -34,7 +34,7 @@ interface PasswordScore {
  * @return {object}
  */
 const calculatePasswordScore = (value: string,
-	maxScore: number = 1): PasswordScore => {
+	maxScore = 1): PasswordScore => {
 	let scorePercent = 0;
 
 	const passwordPolicies: PasswordPolicy[] = [

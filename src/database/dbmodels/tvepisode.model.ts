@@ -24,7 +24,7 @@ export default class TvEpisode extends Model {
 	@Default(DataType.UUIDV4)
 	@Column({
 		type: DataType.UUIDV4})
-		episodeId: String;
+		episodeId: string;
 
 	@AllowNull(false)
 	@Column({
@@ -34,12 +34,12 @@ export default class TvEpisode extends Model {
 	@AllowNull(false)
 	@Column({
 		type: DataType.STRING})
-		name: String;
+		name: string;
 
 	@AllowNull(true)
 	@Column({
 		type: DataType.STRING})
-		slug: String;
+		slug: string;
 
 	@AllowNull(false)
 	@Default(DataType.NOW)
@@ -48,10 +48,10 @@ export default class TvEpisode extends Model {
 		firstAired: Date;
 
 	@ForeignKey(() => TvSeason)
-		tvSeasonId: String;
+		tvSeasonId: string;
 
 	@ForeignKey(() => TvShow)
-		tvShowId: String;
+		tvShowId: string;
 
 	@BelongsTo(() => TvSeason)
 		tvSeason: TvSeason;
@@ -71,4 +71,4 @@ export default class TvEpisode extends Model {
 	@Column({
 		type: DataType.VIRTUAL})
 		videoLength: number;
-};
+}

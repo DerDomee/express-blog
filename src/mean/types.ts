@@ -1,24 +1,24 @@
 import {NextFunction, Request, Response} from 'express';
 
 export interface ArticleAuthor {
-  name: String;
-  pictureId?: String;
-};
+  name: string;
+  pictureId?: string;
+}
 
 export interface Article {
-  title: String;
-  htmlTitle?: String;
-  blurb: String;
-  content: String;
+  title: string;
+  htmlTitle?: string;
+  blurb: string;
+  content: string;
   author: ArticleAuthor;
-  pictureId?: String;
-};
+  pictureId?: string;
+}
 
 export interface HeroIcon {
   icon: string;
   style?: 'outline' | 'solid-20' | 'solid-24' | 'solid' | 'small';
   classes?: string;
-};
+}
 
 export interface Route {
   routeMatcher: string | string[];
@@ -41,7 +41,7 @@ export interface NavigationRoute {
 
 export interface NavigationPreset {
   preset: 'userWidget',
-  settings?: any,
+  settings?: unknown,
 }
 
 export type NavigationEntry = NavigationRoute | NavigationPreset
@@ -49,4 +49,12 @@ export type NavigationEntry = NavigationRoute | NavigationPreset
 export interface Navigation {
   left?: NavigationEntry[],
   right?: NavigationEntry[]
+}
+
+export interface DatabaseOptions {
+  dbName: string,
+  dbUser: string,
+  dbPass: string,
+  nodeEnv: string,
+
 }

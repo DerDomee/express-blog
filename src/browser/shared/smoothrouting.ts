@@ -13,7 +13,7 @@ function getAnchorParent(element: Node) {
 		return element as HTMLAnchorElement;
 	}
 	return null;
-};
+}
 
 // Anchor hijacking for smooth routing in forward direction
 document.addEventListener('click', async (ev) => {

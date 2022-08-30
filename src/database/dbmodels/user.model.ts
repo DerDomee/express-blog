@@ -96,4 +96,4 @@ export default class User extends Model {
 			},
 		) ? true : false;
 	};
-};
+}

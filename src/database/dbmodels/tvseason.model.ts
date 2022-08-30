@@ -23,7 +23,7 @@ export default class TvSeason extends Model {
 	@Default(DataType.UUIDV4)
 	@Column({
 		type: DataType.UUIDV4})
-		seasonId: String;
+		seasonId: string;
 
 	@AllowNull(false)
 	@Column({
@@ -33,14 +33,14 @@ export default class TvSeason extends Model {
 	@AllowNull(false)
 	@Column({
 		type: DataType.STRING})
-		name: String;
+		name: string;
 
 	@ForeignKey(() => TvShow)
-		tvShowId: String;
+		tvShowId: string;
 
 	@BelongsTo(() => TvShow)
 		tvShow: TvShow;
 
 	@HasMany(() => TvEpisode)
 		episodes: TvEpisode[];
-};
+}

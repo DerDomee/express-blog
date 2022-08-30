@@ -16,7 +16,7 @@ export default new showdown.Converter({
 			// to allow for scrolling on small screens
 			type: 'output',
 			regex: /<table>(.*\n)*<\/table>/gm,
-			replace: (text: any, _converter: any, _options: any) => {
+			replace: (text: string, _converter: string, _options: string) => {
 				return `<div class="overflow-x-auto">${text}</div>`;
 			},
 		},
@@ -27,7 +27,8 @@ export default new showdown.Converter({
 				const left = '<pre><code\\b[^>]*>';
 				const right = '</code></pre>';
 				const flags = 'g';
-				const repl = (_wholeMatch: any, match: any, left: any, right: any) => {
+				const repl = (
+					_wholeMatch: string, match: string, left: string, right: string) => {
 					match = match
 						.replace(/&amp;/g, '&')
 						.replace(/&lt;/g, '<')
@@ -43,7 +44,7 @@ export default new showdown.Converter({
 							language: lang,
 							ignoreIllegals: true,
 						}).value;
-					};
+					}
 					return left + match + right;
 				};
 				return showdown.helper.replaceRecursiveRegExp(
