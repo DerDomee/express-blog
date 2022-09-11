@@ -55,6 +55,6 @@ export interface DatabaseOptions {
   dbName: string,
   dbUser: string,
   dbPass: string,
+  dbHost: string,
   nodeEnv: string,
-
 }

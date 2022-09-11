@@ -49,7 +49,11 @@ const createInstance = async (options: DatabaseOptions) => {
 			options.dbPass,
 			{
 				dialect: 'mysql',
+				dialectOptions: {
+					host: options.dbHost,
+				},
 				logging: false,
+				models: models,
 			});
 		break;
 	default:

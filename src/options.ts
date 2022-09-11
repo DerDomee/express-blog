@@ -20,4 +20,5 @@ export default {
 	dbName: process.env.DD_DBNAME,
 	dbUser: process.env.DD_DBUSER,
 	dbPass: process.env.DD_DBPASS,
+	dbHost: process.env.DD_DBHOST,
 };
