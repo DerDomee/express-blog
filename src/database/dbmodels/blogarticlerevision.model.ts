@@ -18,7 +18,7 @@ export default class BlogArticleRevision extends Model {
 	@PrimaryKey
 	@Default(DataType.UUIDV4)
 	@Column({
-		type: DataType.UUIDV4})
+		type: DataType.UUID})
 		blogarticlerevision_id: string;
 
 	@Column({

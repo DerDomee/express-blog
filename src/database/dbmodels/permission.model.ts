@@ -23,7 +23,7 @@ export default class Permission extends Model {
 	@AllowNull(false)
 	@Default(DataType.UUIDV4)
 	@Column({
-		type: DataType.UUIDV4})
+		type: DataType.UUID})
 		permission_id: string;
 
 	@AllowNull(false)

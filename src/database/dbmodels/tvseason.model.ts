@@ -22,7 +22,7 @@ export default class TvSeason extends Model {
 	@AllowNull(false)
 	@Default(DataType.UUIDV4)
 	@Column({
-		type: DataType.UUIDV4})
+		type: DataType.UUID})
 		seasonId: string;
 
 	@AllowNull(false)

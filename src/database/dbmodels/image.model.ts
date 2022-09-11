@@ -18,7 +18,7 @@ export default class Group extends Model {
 	@AllowNull(false)
 	@Default(DataType.UUIDV4)
 	@Column({
-		type: DataType.UUIDV4})
+		type: DataType.UUID})
 		image_id: string;
 
 	@AllowNull(false)

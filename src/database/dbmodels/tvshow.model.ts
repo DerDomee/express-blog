@@ -20,7 +20,7 @@ export default class TvShow extends Model {
 	@AllowNull(false)
 	@Default(DataType.UUIDV4)
 	@Column({
-		type: DataType.UUIDV4})
+		type: DataType.UUID})
 		tvShowId: string;
 
 	@AllowNull(false)
