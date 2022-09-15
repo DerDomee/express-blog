@@ -51,7 +51,7 @@ export default class BlogArticle extends Model {
 	@ForeignKey(() => BlogArticleRevision)
 	@AllowNull(false)
 	@Column({
-		type: DataType.STRING})
+		type: DataType.UUID})
 		current_revision_id: string;
 	@BelongsTo(() => BlogArticleRevision)
 		current_revision: BlogArticleRevision;

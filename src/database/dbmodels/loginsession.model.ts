@@ -19,7 +19,7 @@ export default class LoginSession extends Model {
 	@PrimaryKey
 	@AllowNull(false)
 	@Column({
-		type: DataType.STRING})
+		type: DataType.STRING(256)})
 		session_cookie: string;
 
 	@Default(DataType.NOW)
@@ -68,7 +68,7 @@ export default class LoginSession extends Model {
 	@AllowNull(false)
 	@ForeignKey(() => User)
 	@Column({
-		type: DataType.STRING})
+		type: DataType.UUID})
 		user_id: string;
 
 	@BelongsTo(() => User)
