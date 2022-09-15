@@ -40,10 +40,11 @@ async function post(req: Request, res: Response, next: NextFunction) {
 	res.locals.wrongCredentials = false;
 
 	let authed = false;
-
-	const user = await User.findOne({where: {
-		username: username,
-	}});
+	const user = await User.findOne({
+		where: {
+			username: username,
+		},
+	});
 
 	if (await bcrypt.compare(password, user?.password_hash ?? '')) {
 		authed = true;
@@ -71,10 +72,12 @@ async function post(req: Request, res: Response, next: NextFunction) {
 			current_ip: req.ip,
 			user_id: user.user_id,
 		});
-	} catch (err) {
-		logger.verbose(err);
-		logger.verbose(err.stack);
+	 } catch (err) {
+		logger.warn('Login: Session creation failed.');
+		logger.warn(err);
+		logger.warn(err.stack);
 	}
+
 	if (loginSession === null) {
 		res.status(500).render('login', {...req.app.locals, ...res.locals});
 		res.end();

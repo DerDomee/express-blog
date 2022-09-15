@@ -14,11 +14,11 @@ import Permission from './permission.model';
 export default class GroupPermission extends Model {
 	@ForeignKey(() => Group)
 	@Column({
-		type: DataType.STRING})
+		type: DataType.UUID})
 		user_id: string;
 
 	@ForeignKey(() => Permission)
 	@Column({
-		type: DataType.STRING})
+		type: DataType.UUID})
 		permission_id: string;
 }

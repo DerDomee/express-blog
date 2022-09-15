@@ -39,6 +39,6 @@ export default class BlogArticleRevision extends Model {
 		previous_revision: BlogArticleRevision;
 
 
-	@HasOne(() => BlogArticle, 'article_current_revision_id')
+	@HasOne(() => BlogArticle, 'current_revision_id')
 		revision_corresponding_article: BlogArticle;
 }
