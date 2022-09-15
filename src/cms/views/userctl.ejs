@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="de" class="dark motion-safe:scroll-smooth">
-	<head>
-		<%- include('../partials/head') %>
-		<title><%- htmlTitle %></title>
-	</head>
-	<body>
-		<%- include('../partials/navigation') %>
+
+<head>
+	<%- include('../partials/head') %>
+		<title>
+			<%- htmlTitle %>
+		</title>
+</head>
+
+<body>
+	<%- include('../partials/navigation') %>
 		<div class="max-w-[75ch] px-4 mx-auto text-lg w-full">
 			<h1 class="text-4xl border-b border-gray-600 mb-4 pb-3">
 				<%- pageTitle %>
 					<a class="float-right text-lg bg-redgray-500 dark:bg-redgray-900 px-4 py-2 mb-4" href="/articles/new">
-						<%- heroicon({
-							icon: 'user-add',
-							classes: 'self-center inline h-6'
-						}) %>
-						Nutzer hinzufügen
+						<%- heroicon({ icon: 'user-plus' , classes: 'self-center inline h-6' }) %>
+							Nutzer hinzufügen
 					</a>
 			</h1>
 			<div class="prose prose-lg dark:prose-invert w-full max-w-[72ch]">
@@ -31,36 +32,38 @@
 					<tbody>
 						<% for (user of allUsers ? allUsers : []) { %>
 							<tr>
-								<td><%= user.username%></td>
-								<td><%= user.email ? user.email : '' %></td>
-								<td><%= moment(user.creation_time).format('DD.MM.YYYY hh.mm') %></td>
-								<td><%= user.sessions?.length ? user.sessions.length : 0 %></td>
-								<td><%= user.groups?.length > 0 ? user.groups[0].name : '' %></td>
+								<td>
+									<%= user.username%>
+								</td>
+								<td>
+									<%= user.email ? user.email : '' %>
+								</td>
+								<td>
+									<%= moment(user.creation_time).format('DD.MM.YYYY hh.mm') %>
+								</td>
+								<td>
+									<%= user.sessions?.length ? user.sessions.length : 0 %>
+								</td>
+								<td>
+									<%= user.groups?.length> 0 ? user.groups[0].name : '' %>
+								</td>
 								<td>-</td>
 								<td>
 									<a href="#inspect">
-										<%- heroicon({
-											icon: 'search',
-											classes: 'self-center inline h-6'
-										})%></a>
+										<%- heroicon({ icon: 'magnifying-glass' , classes: 'self-center inline h-6' })%>
+									</a>
 									<% if (!user.disabled) { %>
 										<a href="#ban">
-											<%- heroicon({
-												icon: 'ban',
-												classes: 'self-center inline h-6 text-red-500'
-											}) %>
+											<%- heroicon({ icon: 'no-symbol' , classes: 'self-center inline h-6 text-red-500' }) %>
 										</a>
-									<% } else { %>
-										<a href="#unban">
-											<%- heroicon({
-												icon: 'ban',
-												classes: 'self-center inline h-6 text-green-500'
-											})%>
-										</a>
-									<% } %>
+										<% } else { %>
+											<a href="#unban">
+												<%- heroicon({ icon: 'no-symbol' , classes: 'self-center inline h-6 text-green-500' })%>
+											</a>
+											<% } %>
 								</td>
 							</tr>
-						<% } %>
+							<% } %>
 					</tbody>
 				</table>
 			</div>
@@ -68,7 +71,8 @@
 		<div class="absolute hidden mx-auto w-fit max-w-[40ch] left-[50%] -translate-x-[50%] top-[35%]
 					       p-4 bg-redgray-400 dark:bg-redgray-900
 					       border-redgray-900 dark:border-redgray-300 border" id="modal-yesno">
-			<span class="block mb-4 text-lg font-bold border-b border-redgray-900 dark:border-redgray-300" id="modal-yesno_title">
+			<span class="block mb-4 text-lg font-bold border-b border-redgray-900 dark:border-redgray-300"
+				id="modal-yesno_title">
 				Aktion ausführen
 			</span>
 			<div>
@@ -86,13 +90,11 @@
 		<div class="absolute hidden mx-auto w-fit max-w-[40ch] left-[50%] -translate-x-[50%] top-[35%]
 							       p-4 bg-redgray-400 dark:bg-redgray-900
 							       border-redgray-900 dark:border-redgray-300 border" id="modal-yesno">
-			<span class="block mb-4 text-lg font-bold border-b border-redgray-900 dark:border-redgray-300" id="modal-yesno_title">
+			<span class="block mb-4 text-lg font-bold border-b border-redgray-900 dark:border-redgray-300"
+				id="modal-yesno_title">
 				Neuer Nutzer
 				<button class="float-right bg-redgray-200 dark:bg-redgray-800 p-3" id="modal-newuser_abort">
-					<%- heroicon({
-						icon: 'x',
-						classes: 'self-center inline h-6',
-					}) %>
+					<%- heroicon({ icon: 'x-mark' , classes: 'self-center inline h-6' , }) %>
 				</button>
 			</span>
 			<div>
@@ -107,5 +109,6 @@
 			</div>
 		</div>
 		<%- include('../partials/footer') %>
-	</body>
+</body>
+
 </html>
