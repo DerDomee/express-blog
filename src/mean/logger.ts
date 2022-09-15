@@ -22,12 +22,12 @@ const logger = winston.createLogger({
 if (options.nodeEnv === 'production') {
 	logger.add(new winston.transports.Console({
 		format: winston.format.cli(),
-		level: 'info',
+		level: 'verbose',
 	}));
 } else if (options.nodeEnv === 'development') {
 	logger.add(new winston.transports.Console({
 		format: winston.format.cli(),
-		level: 'debug',
+		level: 'silly',
 	}));
 }
 
