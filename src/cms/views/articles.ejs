@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="de" class="dark motion-safe:scroll-smooth">
-	<head>
-		<%- include('../partials/head') %>
-		<title><%- htmlTitle %></title>
-	</head>
-	<body>
-		<%- include('../partials/navigation') %>
+
+<head>
+	<%- include('../partials/head') %>
+		<title>
+			<%- htmlTitle %>
+		</title>
+</head>
+
+<body>
+	<%- include('../partials/navigation') %>
 		<div class="max-w-[75ch] px-4 mx-auto text-lg w-full">
 			<h1 class="text-4xl border-b border-gray-600 mb-4 pb-3">
 				<%- pageTitle %>
-				<a
-					class="float-right text-lg bg-redgray-500 dark:bg-redgray-900 px-4 py-2 mb-4"
-					href="/articles/new">
-					Neuer Artikel
-				</a>
+					<a class="float-right text-lg bg-redgray-500 dark:bg-redgray-900 px-4 py-2 mb-4" href="/articles/new">
+						Neuer Artikel
+					</a>
 			</h1>
 			<div class="prose prose-lg dark:prose-invert w-full max-w-[72ch]">
 				<table>
@@ -27,100 +29,70 @@
 					</thead>
 					<tbody>
 						<% for (article of allArticles ? allArticles : []) { %>
-						<tr>
-							<td><%= article.article_id %></td>
-							<td><%= article.url_id %></td>
-							<td><%= article.current_revision.content.title %></td>
-							<td><%= moment(article.original_publication_time).format('DD.MM.YYYY hh:mm') %></td>
-							<td>
-								<% if (!article.is_published) { %>
-									<%- heroicon({
-										icon: 'eye-off',
-										classes: 'self-center inline h-6',
-									}) %>
-								<% } %>
-								<% if (article.original_publication_time > Date.now()) { %>
-									<%- heroicon({
-										icon: 'clock',
-										classes: 'self-center inline h-6',
-									}) %>
-								<% } %>
-							</td>
-							<td>
-								<% if (!article.is_published) { %>
-									<button
-										class=""
-										data-blog-function="publish"
-										data-blog-id="<%= article.article_id %>">
-										<%-	heroicon({
-											icon: 'lock-open',
-											classes: 'self-center inline h-6'
-										}) %>
-									</button>
-									<button
-										class=""
-										data-blog-function="delete"
-										data-blog-id="<%= article.article_id %>">
-										<%- heroicon({
-											icon: 'trash',
-											classes: 'self-center inline h-6'
-										}) %>
-									</button>
-								<% } else { %>
-									<button
-										class=""
-										data-blog-function="unpublish"
-										data-blog-id="<%= article.article_id %>">
-										<%- heroicon({
-											icon: 'lock-closed',
-											classes: 'self-center inline h-6'
-											}) %>
-									</button>
-								<% } %>
-								<button
-									class=""
-										data-blog-function="edit"
-										data-blog-id="<%= article.article_id %>">
-									<%- heroicon({
-										icon: 'pencil-alt',
-										classes: 'self-center inline h-6'
-									}) %>
-								</button>
-							</td>
-						</tr>
-						<% } %>
+							<tr>
+								<td>
+									<%= article.article_id %>
+								</td>
+								<td>
+									<%= article.url_id %>
+								</td>
+								<td>
+									<%= article.current_revision.content.title %>
+								</td>
+								<td>
+									<%= moment(article.original_publication_time).format('DD.MM.YYYY hh:mm') %>
+								</td>
+								<td>
+									<% if (!article.is_published) { %>
+										<%- heroicon({ icon: 'eye-slash' , classes: 'self-center inline h-6' , }) %>
+											<% } %>
+												<% if (article.original_publication_time> Date.now()) { %>
+													<%- heroicon({ icon: 'clock' , classes: 'self-center inline h-6' , }) %>
+														<% } %>
+								</td>
+								<td>
+									<% if (!article.is_published) { %>
+										<button class="" data-blog-function="publish" data-blog-id="<%= article.article_id %>">
+											<%- heroicon({ icon: 'lock-open' , classes: 'self-center inline h-6' }) %>
+										</button>
+										<button class="" data-blog-function="delete" data-blog-id="<%= article.article_id %>">
+											<%- heroicon({ icon: 'trash' , classes: 'self-center inline h-6' }) %>
+										</button>
+										<% } else { %>
+											<button class="" data-blog-function="unpublish" data-blog-id="<%= article.article_id %>">
+												<%- heroicon({ icon: 'lock-closed' , classes: 'self-center inline h-6' }) %>
+											</button>
+											<% } %>
+												<button class="" data-blog-function="edit" data-blog-id="<%= article.article_id %>">
+													<%- heroicon({ icon: 'pencil-square' , classes: 'self-center inline h-6' }) %>
+												</button>
+								</td>
+							</tr>
+							<% } %>
 					</tbody>
 				</table>
 			</div>
 		</div>
-		<div
-			class="absolute hidden mx-auto w-fit max-w-[40ch] left-[50%] -translate-x-[50%] top-[35%]
+		<div class="absolute hidden mx-auto w-fit max-w-[40ch] left-[50%] -translate-x-[50%] top-[35%]
 			       p-4 bg-redgray-400 dark:bg-redgray-900
-			       border-redgray-900 dark:border-redgray-300 border"
-			id="modal-yesno">
-			<span
-				class="block mb-4 text-lg font-bold border-b border-redgray-900 dark:border-redgray-300"
+			       border-redgray-900 dark:border-redgray-300 border" id="modal-yesno">
+			<span class="block mb-4 text-lg font-bold border-b border-redgray-900 dark:border-redgray-300"
 				id="modal-yesno_title">
 				Aktion ausführen
 			</span>
 			<div>
-				<p
-					class="mb-4"
-					id="modal-yesno_description">
+				<p class="mb-4" id="modal-yesno_description">
 					Möchtest du diese Aktion ausführen?
 				</p>
-				<button
-					class="bg-redgray-200 dark:bg-redgray-800 p-3 mr-4"
-					id="modal-yesno_yes">
+				<button class="bg-redgray-200 dark:bg-redgray-800 p-3 mr-4" id="modal-yesno_yes">
 					Ja
 				</button>
-				<button
-					class="bg-redgray-200 dark:bg-redgray-800 p-3"
-					id="modal-yesno_no">
+				<button class="bg-redgray-200 dark:bg-redgray-800 p-3" id="modal-yesno_no">
 					Nein
 				</button>
 			</div>
 		</div>
 		<%- include('../partials/footer') %>
-	</body>
+</body>
+
 </html>
