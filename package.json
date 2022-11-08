@@ -34,7 +34,7 @@
 		"pureimage": "0.3.14",
 		"reflect-metadata": "0.1.13",
 		"sequelize": "6.25.5",
-		"sequelize-typescript": "2.1.3",
+		"sequelize-typescript": "2.1.5",
 		"showdown": "2.1.0",
 		"uuid": "9.0.0",
 		"winston": "3.8.2"
