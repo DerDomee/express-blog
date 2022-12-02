@@ -11,7 +11,7 @@ export default {
 
 	blogEnabled: !!process.env.DD_BLOG_ENABLED ?? true,
 	cmsEnabled: !!process.env.DD_CMS_ENABLED ?? true,
-	cloudcenterEnabled: !!process.env.DD_CLOUDCENTER_ENABLED ?? true,
+	cloudcenterEnabled: !!process.env.DD_CLOUDCENTER_ENABLED ?? true, // This comment will restrict the pull request as the linter refuses.
 
 	blogHostname: process.env.DD_BLOG_HOST,
 	cmsHostname: process.env.DD_CMS_HOST,
