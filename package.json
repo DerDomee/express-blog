@@ -96,7 +96,7 @@
 		"tsc": "tsc",
 		"tailwind-blog": "TW_COMPILE_SUBAPP_NAME=blog tailwindcss -i ./src/blog/blog.css -o ./dist/blog/public/blog.css --minify",
 		"tailwind-cms": "TW_COMPILE_SUBAPP_NAME=cms tailwindcss -i ./src/cms/cms.css -o ./dist/cms/public/cms.css --minify",
-		"tailwind-cloudcenter": "TW_COMPILE_SUBAPP_NAME=cloudcenter tailwindcss -i ./src/cloudcenter/cloudcenter.css -o ./dist/cms/public/cloudcenter.css --minify",
+		"tailwind-cloudcenter": "TW_COMPILE_SUBAPP_NAME=cloudcenter tailwindcss -i ./src/cloudcenter/cloudcenter.css -o ./dist/cloudcenter/public/cloudcenter.css --minify",
 		"js-wrapper": "npm-run-all js-webpack js-move",
 		"js-webpack": "webpack-cli --devtool source-map",
 		"js-move": "ts-node tools/jsBrowserAfterCompile",
