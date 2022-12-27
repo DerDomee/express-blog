@@ -3,6 +3,7 @@ import http from 'http';
 import express from 'express';
 import crypto from 'crypto';
 import bodyParser from 'body-parser';
+import {Server} from 'socket.io';
 import cookieParser from 'cookie-parser';
 import useragent from 'express-useragent';
 import navigation from './navigation';
@@ -15,6 +16,10 @@ import moment from 'moment';
 import routes from './routes/_routes';
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+	serveClient: false,
+});
 moment.locale('de');
 app.locals.moment = moment;
 app.locals.navigation = navigation;
@@ -67,7 +72,13 @@ for (const route of routes) {
 	}
 }
 
+io.on('connection', (socket) => {
+	// TODO: Add socket members and event listeners
 
+	socket.on('disconnect', () =>{
+		// TODO: Remove user associations to old socket (and from db maybe)
+	});
+});
 
 export default {
 	server,
