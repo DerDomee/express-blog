@@ -1,4 +1,5 @@
 import path from 'path';
+import http from 'http';
 import express from 'express';
 import crypto from 'crypto';
 import navigation from './navigation';
@@ -14,6 +15,7 @@ import checkauth from '../mean/checkauth';
 import routes from './routes/_routes';
 
 const app = express();
+const server = http.createServer(app);
 
 moment.locale('de');
 app.locals.navigation = navigation;
@@ -59,4 +61,7 @@ for (const route of routes) {
 	}
 }
 
-export default app;
+export default {
+	server,
+	app,
+};

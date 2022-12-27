@@ -1,4 +1,5 @@
 import path from 'path';
+import http from 'http';
 import express from 'express';
 import crypto from 'crypto';
 import bodyParser from 'body-parser';
@@ -67,4 +68,8 @@ for (const route of routes) {
 }
 
 
-export default app;
+
+export default {
+	server,
+	app,
+};

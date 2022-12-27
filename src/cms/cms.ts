@@ -1,4 +1,5 @@
 import path from 'path';
+import http from 'http';
 import express from 'express';
 import crypto from 'crypto';
 import navigation from './navigation';
@@ -14,6 +15,7 @@ import moment from 'moment';
 import routes from './routes/_routes';
 
 const app = express();
+const server = http.createServer(app);
 
 app.locals.navigation = navigation;
 app.locals.currentyear = new Date().getUTCFullYear();
@@ -65,4 +67,7 @@ for (const route of routes) {
 	}
 }
 
-export default app;
+export default {
+	server,
+	app,
+};
