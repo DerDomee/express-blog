@@ -36,6 +36,7 @@
 		"sequelize": "6.25.5",
 		"sequelize-typescript": "2.1.5",
 		"showdown": "2.1.0",
+		"socket.io": "^4.5.4",
 		"uuid": "9.0.0",
 		"winston": "3.8.2"
 	},
@@ -63,6 +64,7 @@
 		"nodemon": "2.0.20",
 		"rimraf": "3.0.2",
 		"shelljs": "0.8.5",
+		"socket.io-client": "^4.5.4",
 		"sqlite3": "5.1.2",
 		"tailwind-highlightjs": "2.0.1",
 		"tailwindcss": "3.2.2",
