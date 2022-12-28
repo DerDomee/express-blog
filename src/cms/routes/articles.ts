@@ -43,7 +43,7 @@ async function post(req: Request, res: Response, next: NextFunction) {
 		},
 	});
 
-	if (!req.body.blogMethod || blogid === NaN || blogArticle === null) {
+	if (!req.body.blogMethod || Number.isNaN(blogid) || blogArticle === null) {
 		res.redirect('/articles?failure');
 		return;
 	}
