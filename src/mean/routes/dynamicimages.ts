@@ -52,8 +52,8 @@ async function get(req: Request, res: Response, next: NextFunction) {
 	const queryWidth: number = parseInt(`${req.query.w}`);
 	const queryHeight: number = parseInt(`${req.query.h}`);
 
-	const outputWidth = isNaN(queryWidth) ? 400 : queryWidth;
-	const outputHeight = isNaN(queryHeight) ? 300 : queryHeight;
+	const outputWidth = Number.isNaN(queryWidth) ? 400 : queryWidth;
+	const outputHeight = Number.isNaN(queryHeight) ? 300 : queryHeight;
 
 	if (mimetype == undefined) {
 		res.status(415);
