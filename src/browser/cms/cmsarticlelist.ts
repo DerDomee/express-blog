@@ -67,7 +67,7 @@ if (route === '/articles') {
 		(elem: HTMLElement) => {
 			elem.addEventListener('click', (ev) => {
 				const blogid = parseInt(elem.dataset.blogId);
-				if (blogid === NaN) return;
+				if (Number.isNaN(blogid)) return;
 				switch (elem.dataset.blogFunction) {
 				case 'publish':
 					showModal(
