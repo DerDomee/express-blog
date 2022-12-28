@@ -15,10 +15,10 @@ export default class UserGroup extends Model {
 	@ForeignKey(() => User)
 	@Column({
 		type: DataType.STRING})
-		permission_id: string;
+		user_id: string;
 
 	@ForeignKey(() => Group)
 	@Column({
 		type: DataType.STRING})
-		user_id: string;
+		group_id: string;
 }
