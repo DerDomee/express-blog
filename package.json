@@ -68,7 +68,7 @@
 		"sqlite3": "5.1.4",
 		"tailwind-highlightjs": "2.0.1",
 		"tailwindcss": "3.2.4",
-		"ts-jest": "29.0.3",
+		"ts-jest": "29.0.4",
 		"ts-loader": "9.4.2",
 		"ts-node": "10.9.1",
 		"typescript": "4.9.4",
