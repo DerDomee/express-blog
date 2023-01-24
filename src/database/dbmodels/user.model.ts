@@ -65,10 +65,11 @@ export default class User extends Model {
 
 	getCumulatedPermissions = async (): Promise<Permission[]> => {
 		let allPermissions: Permission[] = await this.$get('permissions');
-		(await this.$get('groups')).forEach(async (group) => {
+
+		await Promise.all((await this.$get('groups')).map(async (group) => {
 			const groupPerms = (await group.$get('permissions')) as Permission[];
 			allPermissions = [...allPermissions, ...groupPerms];
-		});
+		}));
 		return allPermissions;
 	};
 
