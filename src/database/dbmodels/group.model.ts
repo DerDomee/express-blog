@@ -33,4 +33,8 @@ export default class Group extends Model {
 
 	@BelongsToMany(() => Permission, () => GroupPermission)
 		permissions: Permission[];
+
+	getGroupPermissions = async (): Promise<Permission[]> => {
+		return this.$get('permissions');
+	};
 }

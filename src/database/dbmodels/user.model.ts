@@ -63,6 +63,10 @@ export default class User extends Model {
 	@HasMany(() => LoginSession)
 		sessions: LoginSession[];
 
+	getUserGroups = async (): Promise <Group[]> => {
+		return this.$get('groups');
+	};
+
 	getCumulatedPermissions = async (): Promise<Permission[]> => {
 		let allPermissions: Permission[] = await this.$get('permissions');
 
