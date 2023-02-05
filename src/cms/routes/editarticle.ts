@@ -39,7 +39,7 @@ async function get(req: Request, res: Response, next: NextFunction) {
  * @param {NextFunction} next
  */
 async function post(req: Request, res: Response, next: NextFunction) {
-	res.status(501).json({}).end();
+	res.status(501).json({status: 501, reason: 'Not implemented yet!'}).end();
 }
 
 export default {
