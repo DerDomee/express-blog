@@ -49,17 +49,14 @@
 								</td>
 								<td>-</td>
 								<td>
-									<a href="#inspect">
-										<%- heroicon({ icon: 'magnifying-glass' , classes: 'self-center inline h-6' })%>
-									</a>
+									<a href="#inspect"><%- heroicon({ icon: 'magnifying-glass' , classes: 'self-center inline h-6'
+											})%></a>
 									<% if (!user.disabled) { %>
-										<a href="#ban">
-											<%- heroicon({ icon: 'no-symbol' , classes: 'self-center inline h-6 text-red-500' }) %>
-										</a>
+										<a href="#ban"><%- heroicon({ icon: 'no-symbol' , classes: 'self-center inline h-6 text-red-500' })
+												%></a>
 										<% } else { %>
-											<a href="#unban">
-												<%- heroicon({ icon: 'no-symbol' , classes: 'self-center inline h-6 text-green-500' })%>
-											</a>
+											<a href="#unban"><%- heroicon({ icon: 'no-symbol' ,
+													classes: 'self-center inline h-6 text-green-500' })%></a>
 											<% } %>
 								</td>
 							</tr>
