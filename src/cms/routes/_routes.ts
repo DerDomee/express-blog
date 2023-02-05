@@ -7,6 +7,7 @@ import editarticle from './editarticle';
 import dynamicImages from '../../mean/routes/dynamicimages';
 import imageCtl from './imagectl';
 import userCtl from './userctl';
+import perms from './perms';
 
 export default [
 	home,
@@ -16,5 +17,6 @@ export default [
 	userCtl,
 	imageCtl,
 	dynamicImages,
+	perms,
 	catchall,
 ] as Route[];

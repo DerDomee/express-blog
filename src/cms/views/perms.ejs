@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de" class="dark motion-safe:scroll-smooth">
+
+<head>
+	<%- include('../partials/head') %>
+		<title><%- htmlTitle %></title>
+</head>
+
+<body>
+	<%- include('../partials/navigation') %>
+		<div class="max-w-[75ch] px-4 mx-auto text-lg w-full">
+			<h1 class="text-4xl border-b border-gray-600 mb-4 pb-3"><%- pageTitle %></h1>
+			<p>Your User Information:</p>
+			<pre><%= JSON.stringify(auth.authedUser, null, 2); %></pre><br>
+
+			<p>Your cumulated Permission Information:</p>
+			<pre><%= JSON.stringify(auth.permissions, null, 2); %></pre><br>
+
+			<p>Your group informations:</p>
+			<% for (group of auth.groups) { %>
+				<pre><%= JSON.stringify(group, null, 2); %></pre>
+				<pre><%= JSON.stringify(auth.gp[`${group.name}`], null, 2); %></pre>
+				<% } %>
+
+
+		</div>
+		<%- include('../partials/footer') %>
+</body>
+
+</html>
