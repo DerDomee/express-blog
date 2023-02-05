@@ -101,8 +101,14 @@ const initSeeders = async (sequelizeInstance: Sequelize) => {
 		name: '*',
 		description: 'This permission is virtually all permissions.',
 	});
+	const secPermission = await Permission.create({
+		name: 'sudo',
+		description: 'This permission allows for emulating a user action as ' +
+		             'another user.',
+	});
 
 	newGroup.$add('permissions', newPermission);
+	newGroup.$add('permissions', secPermission);
 
 	newUser.$add('groups', newGroup);
 	newUser.$add('permissions', newPermission);
