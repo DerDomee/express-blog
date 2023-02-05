@@ -4,6 +4,7 @@ import Group from '../../database/dbmodels/group.model';
 import User from '../../database/dbmodels/user.model';
 import {Route} from '../../mean/types';
 import Permission from '../../database/dbmodels/permission.model';
+import logger from '../../mean/logger';
 
 /**
  * @param {Request} req
@@ -29,6 +30,7 @@ async function get(req: Request, res: Response, next: NextFunction) {
  * @param {NextFunction} next
  */
 async function post(req: Request, res: Response, next: NextFunction) {
+	logger.verbose(req.params);
 	res.json({});
 }
 

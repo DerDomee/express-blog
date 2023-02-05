@@ -13,10 +13,11 @@
 		<div class="max-w-[75ch] px-4 mx-auto text-lg w-full">
 			<h1 class="text-4xl border-b border-gray-600 mb-4 pb-3">
 				<%- pageTitle %>
-					<a class="float-right text-lg bg-redgray-500 dark:bg-redgray-900 px-4 py-2 mb-4" href="/articles/new">
+					<button class="float-right text-lg bg-redgray-500 dark:bg-redgray-900 px-4 py-2 mb-4"
+						data-user-function="add-new-user">
 						<%- heroicon({ icon: 'user-plus' , classes: 'self-center inline h-6' }) %>
 							Nutzer hinzufügen
-					</a>
+					</button>
 			</h1>
 			<div class="prose prose-lg dark:prose-invert w-full max-w-[72ch]">
 				<table>
@@ -85,10 +86,10 @@
 			</div>
 		</div>
 		<div class="absolute hidden mx-auto w-fit max-w-[40ch] left-[50%] -translate-x-[50%] top-[35%]
-							       p-4 bg-redgray-400 dark:bg-redgray-900
-							       border-redgray-900 dark:border-redgray-300 border" id="modal-yesno">
+		            p-4 bg-redgray-400 dark:bg-redgray-900
+                border-redgray-900 dark:border-redgray-300 border" id="modal-newuser">
 			<span class="block mb-4 text-lg font-bold border-b border-redgray-900 dark:border-redgray-300"
-				id="modal-yesno_title">
+				id="modal-newuser_title">
 				Neuer Nutzer
 				<button class="float-right bg-redgray-200 dark:bg-redgray-800 p-3" id="modal-newuser_abort">
 					<%- heroicon({ icon: 'x-mark' , classes: 'self-center inline h-6' , }) %>
@@ -101,7 +102,7 @@
 						<input type="text" name="newuser-username" id="newuser-username">
 					</div>
 					<p>Passwort wird automatisch angelegt</p>
-					<input type="submit" value="Nutzer anlegen">
+					<input type="submit" value="Nutzer anlegen" class="bg-redgray-200 dark:bg-redgray-800 p-3 mr-4">
 				</form>
 			</div>
 		</div>
