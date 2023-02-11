@@ -1,5 +1,0 @@
-.vscode/
-coverage/
-logs/
-*.sqlite
-.env
