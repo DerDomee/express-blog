@@ -10,13 +10,18 @@
   "automergeType": "pr",
   "packageRules": [
     {
-      "matchDepTypes": [
-        "devDependencies"
-      ],
       "matchPackagePatterns": [
         "lint",
         "prettier",
         "jest"
+      ],
+      "automerge": true
+    },
+    {
+      "matchUpdateTypes": [
+        "patch",
+        "pin",
+        "digest"
       ],
       "automerge": true
     }
