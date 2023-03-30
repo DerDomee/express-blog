@@ -1,6 +1,6 @@
 /* eslint-disable node/no-process-env */
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type {Config} from 'tailwindcss';
+export default {
 	content: [
 		`./src/${process.env.TW_COMPILE_SUBAPP_NAME ?? '*'}/**/*.ejs`,
 		`./src/browser/${process.env.TW_COMPILE_SUBAPP_NAME}/*.{ts,js}`,
@@ -52,4 +52,4 @@ module.exports = {
 			return [];
 		}
 	}(process.env.TW_COMPILE_SUBAPP_NAME),
-};
+} satisfies Config;
