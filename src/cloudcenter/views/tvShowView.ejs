@@ -26,10 +26,10 @@
 			</select>
 			<ul id="episodeWrapper" class="flex flex-col gap-3">
 				<% currentSeason.episodes.forEach((episode) => { %>
-					<li class="block w-full bg-neutral-300 dark:bg-neutral-900 group overflow-y-hidden">
+					<li class="block w-full bg-neutral-300 dark:bg-neutral-900">
 						<a
 							href="/watch/<%= currentShow.tvShowId %>/<%= currentSeason.seasonId %>/<%= episode.episodeId %>"
-							class="flex flex-row h-44 gap-2">
+							class="flex flex-row h-44 gap-2 focus-visible:outline-double focus-visible:outline-offset-2 focus-visible:outline-red-400 focus-visible:outline-2">
 							<div
 								class="bg-[linear-gradient(to_right,var(--tw-gradient-stops)),linear-gradient(to_right,var(--tw-gradient-stops)),url('/images/placeholder-40x40.jpeg')]
 									     md:bg-[linear-gradient(to_right,var(--tw-gradient-stops)),url('/images/placeholder-40x40.jpeg')]
