@@ -1,5 +1,5 @@
 import {NextFunction, Request, Response} from 'express';
-import {Route} from '../../mean/types';
+import {Route} from '../../shared/types';
 import BlogArticle from '../../database/dbmodels/blogarticle.model';
 import BlogArticleRevision from
 	'../../database/dbmodels/blogarticlerevision.model';

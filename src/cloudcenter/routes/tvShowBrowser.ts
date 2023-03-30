@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
 import TvShow from '../../database/dbmodels/tvshow.model';
-import {Route} from '../../mean/types';
+import {Route} from '../../shared/types';
 
 /**
  *

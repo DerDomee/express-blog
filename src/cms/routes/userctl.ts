@@ -2,9 +2,9 @@ import {NextFunction, Request, Response} from 'express';
 import LoginSession from '../../database/dbmodels/loginsession.model';
 import Group from '../../database/dbmodels/group.model';
 import User from '../../database/dbmodels/user.model';
-import {Route} from '../../mean/types';
+import {Route} from '../../shared/types';
 import Permission from '../../database/dbmodels/permission.model';
-import logger from '../../mean/logger';
+import logger from '../../shared/logger';
 
 /**
  * @param {Request} req

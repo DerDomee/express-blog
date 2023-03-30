@@ -7,10 +7,10 @@ import {Server} from 'socket.io';
 import cookieParser from 'cookie-parser';
 import useragent from 'express-useragent';
 import navigation from './navigation';
-import showdownInstance from '../mean/showdown';
-import helmet from '../mean/helmet';
-import heroicon from '../mean/heroicon';
-import checkauth from '../mean/checkauth';
+import showdownInstance from '../shared/showdown';
+import helmet from '../shared/helmet';
+import heroicon from '../shared/heroicon';
+import checkauth from '../shared/checkauth';
 import moment from 'moment';
 
 import routes from './routes/_routes';

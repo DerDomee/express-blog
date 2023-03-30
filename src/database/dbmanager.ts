@@ -1,5 +1,5 @@
 import {Sequelize} from 'sequelize-typescript';
-import logger from '../mean/logger';
+import logger from '../shared/logger';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 
@@ -16,7 +16,7 @@ import TvShow from './dbmodels/tvshow.model';
 import TvSeason from './dbmodels/tvseason.model';
 import TvEpisode from './dbmodels/tvepisode.model';
 import {assert} from 'console';
-import {DatabaseOptions} from '../mean/types';
+import {DatabaseOptions} from '../shared/types';
 
 export type allowedEnvs = 'development' | 'test' | 'production'
 

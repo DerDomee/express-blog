@@ -1,4 +1,4 @@
-import {Navigation} from '../mean/types';
+import {Navigation} from '../shared/types';
 
 const nav: Navigation = {
 	left: [

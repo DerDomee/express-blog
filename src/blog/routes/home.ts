@@ -1,5 +1,5 @@
 import {NextFunction, Request, Response} from 'express';
-import {Route} from '../../mean/types';
+import {Route} from '../../shared/types';
 
 /**
  *

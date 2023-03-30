@@ -1,4 +1,4 @@
-import {Route} from '../../mean/types';
+import {Route} from '../../shared/types';
 import home from './home';
 import articles from './articles';
 import article from './article';
@@ -7,9 +7,9 @@ import project from './project';
 import aboutme from './aboutme';
 import settings from './settings';
 import catchall from './catchall';
-import login from '../../mean/routes/login';
-import logout from '../../mean/routes/logout';
-import dynamicImages from '../../mean/routes/dynamicimages';
+import login from '../../shared/routes/login';
+import logout from '../../shared/routes/logout';
+import dynamicImages from '../../shared/routes/dynamicimages';
 
 export default [
 	login,

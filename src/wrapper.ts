@@ -2,7 +2,7 @@ import options from './options';
 import blog from './blog/blog';
 import cms from './cms/cms';
 import cloudcenter from './cloudcenter/cloudcenter';
-import logger from './mean/logger';
+import logger from './shared/logger';
 import dbInit from './database/dbmanager';
 
 const blogPath = `http://localhost:${options.blogPort}`;

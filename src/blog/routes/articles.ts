@@ -4,7 +4,7 @@ import {Op} from 'sequelize';
 import BlogArticleRevision from
 	'../../database/dbmodels/blogarticlerevision.model';
 import BlogArticle from '../../database/dbmodels/blogarticle.model';
-import {Route} from '../../mean/types';
+import {Route} from '../../shared/types';
 
 /**
  *

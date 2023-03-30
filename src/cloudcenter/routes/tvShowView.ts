@@ -2,7 +2,7 @@ import {NextFunction, Request, Response} from 'express';
 import TvEpisode from '../../database/dbmodels/tvepisode.model';
 import TvSeason from '../../database/dbmodels/tvseason.model';
 import TvShow from '../../database/dbmodels/tvshow.model';
-import {Route} from '../../mean/types';
+import {Route} from '../../shared/types';
 
 /**
  *
