@@ -29,7 +29,7 @@
 					<li class="block w-full bg-neutral-300 dark:bg-neutral-900 group overflow-y-hidden">
 						<a
 							href="/watch/<%= currentShow.tvShowId %>/<%= currentSeason.seasonId %>/<%= episode.episodeId %>"
-							class="flex flex-row h-40 gap-2">
+							class="flex flex-row h-44 gap-2">
 							<div
 								class="bg-[linear-gradient(to_right,var(--tw-gradient-stops)),linear-gradient(to_right,var(--tw-gradient-stops)),url('/images/placeholder-40x40.jpeg')]
 									     md:bg-[linear-gradient(to_right,var(--tw-gradient-stops)),url('/images/placeholder-40x40.jpeg')]
@@ -51,7 +51,7 @@
 									<% } %>
 									</span>
 								</div>
-								<p><%= episode.slug %></p>
+								<p class="line-clamp-3"><%= episode.slug %></p>
 							</div>
 						</a>
 					</li>
