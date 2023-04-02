@@ -80,8 +80,9 @@ unexpected behaviours!**
 			<td>
 				If <code>NODE_ENV</code> is <code>production</code>, prefixes all
 				subapp-internal and cross-subapp <code>href</code>s with
-				<code>https://&lt;HOSTNAME&gt;</code>, else prefix them with
-				<code>http://localhost:port</code>.
+				<code>https://&lt;HOSTNAME&gt;</code>, else this variable stays unused
+				and the <code>href</code>s are prefixed with
+				<code>http://localhost:port</code> instead.
 			</td>
 		</tr>
 		<tr>
