@@ -5,17 +5,17 @@ dotenv.config();
 export default {
 	nodeEnv: process.env.NODE_ENV,
 
-	blogPort: parseInt(process.env.DD_BLOG_PORT) ?? 3000,
-	cmsPort: parseInt(process.env.DD_CMS_PORT) ?? 3001,
-	cloudcenterPort: parseInt(process.env.DD_CLOUDCENTER_PORT) ?? 3002,
+	blogPort: parseInt(process.env.DD_SUBAPP_PORT_BLOG) ?? 3000,
+	cmsPort: parseInt(process.env.DD_SUBAPP_PORT_CMS) ?? 3001,
+	cloudcenterPort: parseInt(process.env.DD_SUBAPP_PORTCLOUDCENTER) ?? 3002,
 
-	blogEnabled: !!process.env.DD_BLOG_ENABLED ?? true,
-	cmsEnabled: !!process.env.DD_CMS_ENABLED ?? true,
-	cloudcenterEnabled: !!process.env.DD_CLOUDCENTER_ENABLED ?? true,
+	blogEnabled: !!process.env.DD_SUBAPP_ENABLED_BLOG ?? true,
+	cmsEnabled: !!process.env.DD_SUBAPP_ENABLED_CMS ?? true,
+	cloudcenterEnabled: !!process.env.DD_SUBAPP_ENABLED_CLOUDCENTER ?? true,
 
-	blogHostname: process.env.DD_BLOG_HOST,
-	cmsHostname: process.env.DD_CMS_HOST,
-	cloudcenterHostname: process.env.DD_CLOUDCENTER_HOST,
+	blogHostname: process.env.DD_SUBAPP_HOSTNAME_BLOG,
+	cmsHostname: process.env.DD_SUBAPP_HOSTNAME_CMS,
+	cloudcenterHostname: process.env.DD_SUBAPP_HOSTNAME_CLOUDCENTER,
 
 	dbName: process.env.DD_DBNAME,
 	dbUser: process.env.DD_DBUSER,
