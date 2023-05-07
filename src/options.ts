@@ -11,8 +11,7 @@ export default {
 
 	blogPort: parseInt(process.env.DD_SUBAPP_PORT_BLOG) ?? 3000,
 	cmsPort: parseInt(process.env.DD_SUBAPP_PORT_CMS) ?? 3001,
-	cloudcenterPort: parseInt(process.env.DD_SUBAPP_PORTCLOUDCENTER) ?? 3002,
-
+	cloudcenterPort: parseInt(process.env.DD_SUBAPP_PORT_CLOUDCENTER) ?? 3002,
 
 	blogHostname: process.env.DD_SUBAPP_HOSTNAME_BLOG,
 	cmsHostname: process.env.DD_SUBAPP_HOSTNAME_CMS,
