@@ -2,12 +2,25 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+
+/**
+ * @param {string} value The string value to convert to a boolean
+ * @return {boolean} `undefined` If value is undefined or null
+ * @return {boolean} `true` If value is defined and equals 'TRUE' or 'true'
+ * @return {boolean} `false` If value is defined and of any other value
+ */
+const asBool = (value: string) => {
+	if (value === undefined || value === null) return undefined;
+	if (value === 'true' || value ==='TRUE') return true;
+	return false;
+};
+
 export default {
 	nodeEnv: process.env.NODE_ENV,
 
-	blogEnabled: process.env.DD_SUBAPP_ENABLED_BLOG ?? true,
-	cmsEnabled: process.env.DD_SUBAPP_ENABLED_CMS ?? true,
-	cloudcenterEnabled: process.env.DD_SUBAPP_ENABLED_CLOUDCENTER ?? true,
+	blogEnabled: asBool(process.env.DD_SUBAPP_ENABLED_BLOG) ?? true,
+	cmsEnabled: asBool(process.env.DD_SUBAPP_ENABLED_CMS) ?? true,
+	cloudcenterEnabled: asBool(process.env.DD_SUBAPP_ENABLED_CLOUDCENTER) ?? true,
 
 	blogPort: parseInt(process.env.DD_SUBAPP_PORT_BLOG) ?? 3000,
 	cmsPort: parseInt(process.env.DD_SUBAPP_PORT_CMS) ?? 3001,
