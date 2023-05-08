@@ -1,136 +1,119 @@
 <!DOCTYPE html>
 <html lang="de" class="dark motion-safe:scroll-smooth">
-	<head>
-		<%- include('../partials/head') %>
+
+<head>
+	<%- include('../partials/head') %>
 		<title><%- htmlTitle %></title>
-	</head>
-	<body class="bg-black h-[100vh] overflow-y-auto">
-		<video id="the-video"
-			class="h-full mx-auto z-10"
-			autoplay>
-			<source src="/videos/<%= videoname %>">
-		</video>
+</head>
+
+<body class="bg-black text-white h-[100vh] overflow-y-auto">
+	<video id="the-video" class="h-full mx-auto z-10" autoplay>
+		<source src="/data/tv_videos/<%= videoname %>">
+	</video>
 
 
-		<div id="video-controls-wrapper"
-			class="absolute inset-0 content-center align-middle z-50 opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity">
-			<div id="upper-video-controls"
-				class="absolute flex justify-between w-full top-0 text-4xl p-8
+	<div id="video-controls-wrapper"
+		class="absolute inset-0 content-center align-middle z-50 opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity">
+		<div id="upper-video-controls" class="absolute flex justify-between w-full top-0 text-4xl p-8
 				       bg-gradient-to-b from-black/60">
-				<div><a href="<%= backlink %>"><%- heroicon({icon: 'arrow-left', classes: 'self-center inline h-12'}) %></a></div>
-				<div></div>
-				<div></div>
+			<div>
+				<a href="<%= backlink %>">
+					<%- heroicon({icon: 'arrow-left' , classes: 'self-center inline h-12' , style: 'solid' }) %></a>
 			</div>
-			<div id="center-video-overlay"
-				class="absolute top-[45%] left-[50%] -translate-x-[50%] -translate-y-[50%]">
-				<span class="absolute hidden">Play icon</span>
-				<span class="absolute hidden">Pause icon</span>
-				<span class="absolute hidden">Loading...</span>
+			<div>
+				<p id="text-video-title">
+					<%= episodename %>
+				</p>
 			</div>
-			<div id="lower-video-controls"
-				class="absolute bottom-0 text-4xl w-full p-8 flex flex-col bg-gradient-to-t
+			<div></div>
+		</div>
+		<div id="center-video-overlay" class="absolute top-[45%] left-[50%] -translate-x-[50%] -translate-y-[50%]">
+			<span class="absolute hidden">Play icon</span>
+			<span class="absolute hidden">Pause icon</span>
+			<span class="absolute hidden">Loading...</span>
+		</div>
+		<div id="lower-video-controls" class="absolute bottom-0 text-4xl w-full p-8 flex flex-col bg-gradient-to-t
 				       from-black/60">
-				<div>
-					<div id="lower-action-buttons"
-						class="flex flex-row justify-between align-middle mb-6">
-						<div></div>
-						<div></div>
-						<div>
-							<button id="skip-current-section"
-								class="bg-neutral-700 text-neutral-100 rounded-lg p-2 text-xl hidden">
-								Skip section
-							</button>
-						</div>
+			<div>
+				<div id="lower-action-buttons" class="flex flex-row justify-between align-middle mb-6">
+					<div></div>
+					<div></div>
+					<div>
+						<button id="skip-current-section" class="bg-neutral-700 text-neutral-100 rounded-lg p-2 text-xl hidden">
+							Skip section
+						</button>
 					</div>
-					<div id="timeline-container"
-						class="flex gap-6 h-3 w-full group cursor-pointer mb-4">
-						<div id="timeline"
-							class="relative w-full h-1.5 mt-0.5 group-hover:mt-0 group-hover:h-3 bg-neutral-100/50 transition-all
+				</div>
+				<div id="timeline-container" class="flex gap-6 h-3 w-full group cursor-pointer mb-4">
+					<div id="timeline" class="relative w-full h-1.5 mt-0.5 group-hover:mt-0 group-hover:h-3 bg-neutral-100/50 transition-all
 							       before:content before:left-0 before:top-0 before:bottom-0 before:absolute
 										 before:right-[calc(100%_-_var(--preview-position)_*_100%)]
 										 before:bg-neutral-100/50
 										 after:content after:left-0 after:top-0 after:bottom-0 after:absolute
 										 after:right-[calc(100%_-_var(--progress-position)_*_100%)]
 										 after:bg-neutral-100">
-							<div id="timeline-indicator"
-								class="scale-0 absolute -translate-x-[50%] h-[200%] -top-[50%]
+						<div id="timeline-indicator" class="scale-0 absolute -translate-x-[50%] h-[200%] -top-[50%]
 								       left-[calc(var(--progress-position,_0)_*_100%)]
 											 bg-neutral-100 group-hover:scale-100
 											 rounded-full aspect-square transition-transform">
-							</div>
 						</div>
 					</div>
-					<div id="lower-ctl-buttons" 
-						class="flex flex-row justify-between align-middle">
-						<div class="flex gap-6">
-							<button id="btn-playpause">
-								<span id="playpause-play">
-									<svg class="self-center inline h-12" viewBox="0 0 24 24">
-										<path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
-									</svg>
-								</span>
-								<span id="playpause-pause" class="hidden">
-									<svg class="self-center inline h-12" viewBox="0 0 24 24">
-										<path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z" />
-									</svg>
-								</span>
-							</button>
+				</div>
+				<div id="lower-ctl-buttons" class="flex flex-row justify-between align-middle">
+					<div class="flex gap-6">
+						<button id="btn-playpause">
+							<span id="playpause-play">
+								<%- heroicon({icon: 'play' , classes: 'self-center inline h-12' , style: 'solid' }) %>
+							</span>
+							<span id="playpause-pause" class="hidden">
+								<%- heroicon({icon: 'pause' , classes: 'self-center inline h-12' , style: 'solid' }) %>
+							</span>
+						</button>
 
-							<div id="volume-container"
-								class="group">
-								<button id="btn-volumectl">
-									<span id="volumectl-muted" class="hidden">
-										<svg class="self-center inline h-12" viewBox="0 0 24 24">
-											<path fill="currentColor"
-												d="M12,4L9.91,6.09L12,8.18M4.27,3L3,4.27L7.73,9H3V15H7L12,20V13.27L16.25,17.53C15.58,18.04 14.83,18.46 14,18.7V20.77C15.38,20.45 16.63,19.82 17.68,18.96L19.73,21L21,19.73L12,10.73M19,12C19,12.94 18.8,13.82 18.46,14.64L19.97,16.15C20.62,14.91 21,13.5 21,12C21,7.72 18,4.14 14,3.23V5.29C16.89,6.15 19,8.83 19,12M16.5,12C16.5,10.23 15.5,8.71 14,7.97V10.18L16.45,12.63C16.5,12.43 16.5,12.21 16.5,12Z" />
-										</svg>
-									</span>
-									<span id="volumectl-quiet" class="hidden">
-										<svg class="self-center inline h-12" viewBox="0 0 24 24">
-											<path fill="currentColor"
-												d="M5,9V15H9L14,20V4L9,9M18.5,12C18.5,10.23 17.5,8.71 16,7.97V16C17.5,15.29 18.5,13.76 18.5,12Z" />
-										</svg>
-									</span>
-									<span id="volumectl-loud" class="hidden">
-										<svg class="self-center inline h-12" viewBox="0 0 24 24">
-											<path fill="currentColor"
-												d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z" />
-										</svg>
-									</span>
-								</button><input
-									class="cursor-pointer origin-left accent-neutral-100 bg-neutral-100
+						<div id="volume-container" class="group">
+							<button id="btn-volumectl">
+								<span id="volumectl-muted" class="hidden">
+									<%- heroicon({icon: 'speaker-x-mark' , classes: 'self-center inline h-12' , style: 'solid' }) %>
+								</span>
+								<span id="volumectl-quiet" class="hidden">
+									<%- heroicon({icon: 'speaker-wave' , classes: 'self-center inline h-12' , style: 'solid' }) %>
+								</span>
+								<span id="volumectl-loud" class="hidden">
+									<%- heroicon({icon: 'speaker-wave' , classes: 'self-center inline h-12' , style: 'solid' }) %> </span>
+							</button>
+							<input class="cursor-pointer origin-left accent-neutral-100 bg-neutral-100
 												scale-x-0 group-hover:scale-x-100 group-focus-within:scale-x-100
 												w-0 group-hover:w-32 group-focus-within:w-32
 												opacity-0 group-hover:opacity-100 group-focus-within:opacity-100
-												transition-[width,_transform] ml-2"
-									type="range" id="volumectl-slider"
-									min="0" max="1" step="any" value="1">
-							</div>
+												transition-[width,_transform] ml-2" type="range" id="volumectl-slider" min="0" max="1" step="any"
+								value="1">
+						</div>
 
-							<div id="videotime-container" class="mt-1">
-								<span id="videotime-current">00:00</span>
-								/
-								<span id="videotime-total">00:00</span>
-							</div>
+						<div id="videotime-container" class="mt-1">
+							<span id="videotime-current">00:00</span>
+							/
+							<span id="videotime-total">00:00</span>
 						</div>
-						<div class="flex gap-6"></div>
-						<div class="flex gap-6">
-							<button id="btn-fullscreen">
-								<span id="fullscreen-enable">
-									<svg class="self-center inline h-12" viewBox="0 0 24 24">
-										<path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
-									</svg>
-								</span>
-								<span id="fullscreen-disable" class="hidden">
-									<svg class="self-center inline h-12" viewBox="0 0 24 24">
-										<path fill="currentColor" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z" />
-									</svg>
-								</span>
-							</button>
-						</div>
+					</div>
+					<div class="flex gap-6"></div>
+					<div class="flex gap-6">
+						<button id="btn-open-next-episode" data-next-episode="<%= JSON.stringify(nextEpisode) %>"
+							class="<% if(nextEpisode===null || nextEpisode==='null') { %>hidden<% } %>">
+							<%- heroicon({ icon: 'forward' , classes: 'self-center inline h-12' , style: 'solid' }); %>
+						</button>
+						<button id="btn-fullscreen">
+							<span id="fullscreen-enable">
+								<%- heroicon({ icon: 'arrows-pointing-out' , classes: 'self-center inline h-12' , style: 'solid' }); %>
+							</span>
+							<span id="fullscreen-disable" class="hidden">
+								<%- heroicon({ icon: 'arrows-pointing-in' , classes: 'self-center inline h-12' , style: 'solid' }); %>
+							</span>
+						</button>
 					</div>
 				</div>
 			</div>
 		</div>
-	</body>
+	</div>
+</body>
+
 </html>
