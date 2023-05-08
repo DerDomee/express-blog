@@ -60,7 +60,7 @@ async function get(req: Request, res: Response, next: NextFunction) {
 	res.locals.htmlTitle = `${currentShow.name} - Cloudcenter - Dominik Riedig`;
 	res.locals.currentShow = currentShow;
 	res.locals.currentSeason = currentSeason;
-	res.render('tvShowView', {...req.app.locals, ...res.locals});
+	res.render('tvShowEpisodeList', {...req.app.locals, ...res.locals});
 }
 
 export default {
