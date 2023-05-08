@@ -53,11 +53,19 @@ export default class TvEpisode extends Model {
 	@ForeignKey(() => TvShow)
 		tvShowId: string;
 
+	@ForeignKey(() => TvEpisode)
+		nextEpisodeId: string;
+
 	@BelongsTo(() => TvSeason)
 		tvSeason: TvSeason;
 
 	@BelongsTo(() => TvShow)
 		tvShow: TvShow;
+
+	@BelongsTo(() => TvEpisode, {
+		foreignKey: 'nextEpisodeId',
+	})
+		nextEpisode: TvEpisode;
 
 	getVideoLength = async () => {
 		try {
