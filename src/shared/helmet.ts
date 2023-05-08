@@ -6,14 +6,14 @@ export default helmet({
 	contentSecurityPolicy: {
 		useDefaults: true,
 		directives: {
-			scriptSrc: [
+			'script-src': [
 				'\'self\'',
 				options.nodeEnv === 'development' ? '\'unsafe-eval\'' : '',
 				(_req, res: Response) => `'nonce-${res.locals.cspNonce}'`,
 			],
-			workerSrc: ['\'self\''],
-			styleSrc: ['\'self\'', 'https: \'unsafe-inline\''],
-			upgradeInsecureRequests: [],
+			'worker-src': ['\'self\''],
+			'style-src': ['\'self\'', 'https: \'unsafe-inline\''],
+			'upgrade-insecure-requests': [],
 		},
 	},
 });
