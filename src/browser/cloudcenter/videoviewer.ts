@@ -5,6 +5,8 @@ if (route.startsWith('/watch')) {
 		'the-video') as HTMLVideoElement;
 	const controlsOverlay: HTMLDivElement = document.getElementById(
 		'video-controls-wrapper') as HTMLDivElement;
+	const videoTitleText: HTMLParagraphElement = document.getElementById(
+		'text-video-title') as HTMLParagraphElement;
 	const playPauseBtn: HTMLButtonElement = document.getElementById(
 		'btn-playpause') as HTMLButtonElement;
 	const playPausePlay: HTMLSpanElement = document.getElementById(
@@ -23,6 +25,8 @@ if (route.startsWith('/watch')) {
 		'volumectl-loud') as HTMLSpanElement;
 	const volumeSlider: HTMLInputElement = document.getElementById(
 		'volumectl-slider') as HTMLInputElement;
+	const nextEpisodeBtn: HTMLButtonElement = document.getElementById(
+		'btn-open-next-episode') as HTMLButtonElement;
 	const fullscreenBtn: HTMLButtonElement = document.getElementById(
 		'btn-fullscreen') as HTMLButtonElement;
 	const fullscreenEnable: HTMLSpanElement = document.getElementById(
@@ -143,7 +147,7 @@ if (route.startsWith('/watch')) {
 	};
 
 	timelineContainer.addEventListener('click', (ev) => {
-		ev.cancelBubble = true;
+		ev.stopPropagation();
 	});
 
 	timelineContainer.addEventListener('mousedown', toggleScrubbing);
@@ -189,7 +193,7 @@ if (route.startsWith('/watch')) {
 	};
 
 	volumeContainer.addEventListener('click', (ev) => {
-		ev.cancelBubble = true;
+		ev.stopPropagation();
 	});
 
 	volumeSlider.addEventListener('input', (ev) => {
@@ -197,12 +201,12 @@ if (route.startsWith('/watch')) {
 	});
 
 	window.addEventListener('dblclick', (ev: MouseEvent) => {
-		ev.cancelBubble = true;
+		ev.stopPropagation();
 		toggleFullscreen();
 	});
 
 	videotimeContainer.addEventListener('click', (ev) => {
-		ev.cancelBubble = true;
+		ev.stopPropagation();
 	});
 
 	videoelem.addEventListener('loadeddata', (ev) => {
@@ -228,18 +232,49 @@ if (route.startsWith('/watch')) {
 		fullscreenDisable.classList.add('hidden');
 	});
 
+	nextEpisodeBtn.addEventListener('click', async (ev) => {
+		ev.stopPropagation();
+		const nextEpisode = JSON.parse(nextEpisodeBtn.dataset.nextEpisode);
+		if (nextEpisode === null || nextEpisode === undefined) return;
+		videoelem.childNodes.forEach((child) => {
+			if (child.nodeName === 'SOURCE') child.remove();
+		});
+		const newSourceElement: HTMLSourceElement = document.createElement(
+			'source');
+		newSourceElement.setAttribute(
+			'src', `/data/tv_videos/${nextEpisode.episodeId}.mp4`);
+		videoelem.appendChild(newSourceElement);
+		window.history.pushState(
+			{},
+			'',
+			`/watch/${nextEpisode.tvShow.tvShowId}/` +
+			`${nextEpisode.tvSeason.seasonId}/${nextEpisode.episodeId}`,
+		);
+		videoTitleText.innerText = nextEpisode.name;
+		document.title = `${nextEpisode.name} - Dominik Riedig`;
+		videoelem.load();
+		const postResult = await (await fetch(`${nextEpisode.episodeId}`, {
+			method: 'POST',
+		})).json();
+
+		nextEpisodeBtn.dataset.nextEpisode = postResult;
+		if (postResult===null || postResult === 'null') {
+			nextEpisodeBtn.classList.add('hidden');
+		}
+	});
+
 	fullscreenBtn.addEventListener('click', (ev) => {
-		ev.cancelBubble = true;
+		ev.stopPropagation();
 		toggleFullscreen();
 	});
 
 	playPauseBtn.addEventListener('click', (ev: MouseEvent) => {
-		ev.cancelBubble = true;
+		ev.stopPropagation();
 		videoPlayPause();
 	});
 
 	controlsOverlay.addEventListener('click', (ev: MouseEvent) => {
-		ev.cancelBubble = true;
+		ev.stopPropagation();
 		videoPlayPause();
 	});
 
@@ -249,7 +284,7 @@ if (route.startsWith('/watch')) {
 		}
 	});
 
-	const setVolume = ((): number => {
+	const initialVolume = ((): number => {
 		const savedVolume = window.localStorage.getItem(
 			'video-volume') as unknown as number;
 		if (isNaN(savedVolume)) {
@@ -258,9 +293,9 @@ if (route.startsWith('/watch')) {
 		if (savedVolume <= 0) return 0.1;
 		return savedVolume;
 	})();
-	videoelem.volume = setVolume;
-	originalVolume = setVolume;
-	volumeSlider.value = `${setVolume}`;
+	videoelem.volume = initialVolume;
+	originalVolume = initialVolume;
+	volumeSlider.value = `${initialVolume}`;
 	updateVolumeBtn();
 }
 
