@@ -40,7 +40,7 @@
 									<%= user.email ? user.email : '' %>
 								</td>
 								<td>
-									<%= moment(user.creation_time).format('DD.MM.YYYY hh.mm') %>
+									<%= moment(user.creation_time).format('DD.MM.YYYY hh:mm') %>
 								</td>
 								<td>
 									<%= user.sessions?.length ? user.sessions.length : 0 %>
