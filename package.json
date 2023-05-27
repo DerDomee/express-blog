@@ -74,10 +74,10 @@
 		"typescript": "5.0.4",
 		"webpack": "5.84.1",
 		"webpack-cli": "5.1.1",
-		"workbox-cacheable-response": "6.5.4",
-		"workbox-expiration": "6.5.4",
-		"workbox-routing": "6.5.4",
-		"workbox-strategies": "6.5.4"
+		"workbox-cacheable-response": "6.6.0",
+		"workbox-expiration": "6.6.0",
+		"workbox-routing": "6.6.0",
+		"workbox-strategies": "6.6.0"
 	},
 	"files": [
 		"all"
