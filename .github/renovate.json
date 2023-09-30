@@ -8,6 +8,9 @@
   ],
   "timezone": "Europe/Berlin",
   "automergeType": "pr",
+  "labels": [
+    "dependencies"
+  ],
   "packageRules": [
     {
       "matchPackagePatterns": [
