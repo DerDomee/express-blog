@@ -71,7 +71,7 @@ export default class TvEpisode extends Model {
 		try {
 			const videoMeta = await ffprobe(`./data/videos/${this.episodeId}.mp4`,
 				{path: ffprobeStatic.path});
-			return Math.ceil(videoMeta.streams[0].duration / 60) || null;
+			return Math.ceil(parseFloat(videoMeta.streams[0].duration) / 60) || null;
 		} catch (err) {
 			return null;
 		}
