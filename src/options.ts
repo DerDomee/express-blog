@@ -9,10 +9,9 @@ dotenv.config();
  * @return {boolean} `true` If value is defined and equals 'TRUE' or 'true'
  * @return {boolean} `false` If value is defined and of any other value
  */
-const asBool = (value: string) => {
-	if (value === undefined || value === null) return undefined;
-	if (value === 'true' || value ==='TRUE') return true;
-	return false;
+const asBool = (value: string): boolean => {
+	if (value?.toLowerCase() !== 'true') return false;
+	return true;
 };
 
 export default {
