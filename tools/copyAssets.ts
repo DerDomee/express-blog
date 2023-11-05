@@ -1,7 +1,8 @@
 import * as shell from 'shelljs';
 
 console.log('Running copyAssets ...');
-
+shell.mkdir('-p', 'dist/browser');
+shell.mkdir('-p', 'dist/public');
 shell.cp('-R', 'src/blog/views', 'dist/blog/');
 shell.cp('-R', 'src/blog/partials', 'dist/blog/');
 shell.cp('-R', 'src/blog/public', 'dist/blog/');

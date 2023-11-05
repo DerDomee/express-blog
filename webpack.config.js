@@ -4,10 +4,12 @@ const path = require('path');
 
 module.exports = {
 	entry: {
-		blog: './src/browser/blog.ts',
-		cms: './src/browser/cms.ts',
-		cloudcenter: './src/browser/cloudcenter.ts',
-		serviceworker: './src/browser/serviceworker.ts',
+		'blog/public/blog': './src/browser/blog.ts',
+		'blog/public/serviceworker': './src/browser/serviceworker.ts',
+		'cms/public/cms': './src/browser/cms.ts',
+		'cms/public/serviceworker': './src/browser/serviceworker.ts',
+		'cloudcenter/public/cloudcenter': './src/browser/cloudcenter.ts',
+		'cloudcenter/public/serviceworker': './src/browser/serviceworker.ts',
 	},
 	output: {
 		path: path.resolve(__dirname, 'dist', 'public'),
