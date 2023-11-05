@@ -47,6 +47,7 @@ export default {
 				require('@tailwindcss/typography'),
 				require('@tailwindcss/forms'),
 				require('tailwind-highlightjs'),
+				require('@tailwindcss/container-queries'),
 			];
 		default:
 			return [];
