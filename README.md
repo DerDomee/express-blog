@@ -87,9 +87,9 @@ unexpected behaviours!**
 		</tr>
 		<tr>
 			<td>
-				DD_SUBAPP_HOSTNAME_<b>BLOG</b><br>
-				DD_SUBAPP_HOSTNAME_<b>CMS</b><br>
-				DD_SUBAPP_HOSTNAME_<b>CLOUDCENTER</b>
+				DD_SUBAPP_PORT_<b>BLOG</b><br>
+				DD_SUBAPP_PORT_<b>CMS</b><br>
+				DD_SUBAPP_PORT_<b>CLOUDCENTER</b>
 			</td>
 			<td>
 				<code>3000</code><br>
