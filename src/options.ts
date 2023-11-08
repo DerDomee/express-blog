@@ -34,4 +34,11 @@ export default {
 	dbUser: process.env.DD_DBUSER,
 	dbPass: process.env.DD_DBPASS,
 	dbHost: process.env.DD_DBHOST,
+
+	mailEnabled: asBool(process.env.DD_EMAIL_ENABLED) ?? false,
+	mailSmtpServer: process.env.DD_EMAIL_SMTP_SERVER ?? '',
+	mailSmtpPort: parseInt(process.env.DD_EMAIL_SMTP_PORT) ?? 465,
+	mailSmtpUser: process.env.DD_EMAIL_SMTP_USERNAME ?? 'username',
+	mailSmtpPass: process.env.DD_EMAIL_SMTP_PASSWORD ?? 'password',
+	mailFromField: process.env.DD_EMAIL_FROM ?? 'example@example.com',
 };
