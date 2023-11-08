@@ -10,7 +10,8 @@ dotenv.config();
  * @return {boolean} `false` If value is defined and of any other value
  */
 const asBool = (value: string): boolean => {
-	if (value?.toLowerCase() !== 'true') return false;
+	if (value?.toLowerCase() === 'false') return false;
+	if (value?.toLowerCase() !== 'true') return undefined;
 	return true;
 };
 
