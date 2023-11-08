@@ -150,6 +150,72 @@ unexpected behaviours!**
 			</td>
 		</tr>
 		<tr>
+			<th>Email Settings</th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+		<tr>
+			<td>
+				DD_EMAIL_ENABLED<br>
+			</td>
+			<td><code>false</code></td>
+			<td>boolean</td>
+			<td>
+				Enables email send functionality. If this is true, all other email related fields must be filled accordingly.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				DD_EMAIL_SMTP_SERVER<br>
+			</td>
+			<td>-</td>
+			<td>string</td>
+			<td>
+				Sets the SMTP Server host to send emails from.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				DD_EMAIL_SMTP_PORT<br>
+			</td>
+			<td>465</td>
+			<td>number</td>
+			<td>
+				Sets the SMTP port to connect to.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				DD_EMAIL_SMTP_USERNAME<br>
+			</td>
+			<td>-</td>
+			<td>string</td>
+			<td>
+				Set the authenticating username for the SMTP Server.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				DD_EMAIL_SMTP_PASSWORD<br>
+			</td>
+			<td>-</td>
+			<td>string</td>
+			<td>
+				Set the authentication password for the SMTP Server.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				DD_EMAIL_FROM<br>
+			</td>
+			<td>-</td>
+			<td>string</td>
+			<td>
+				Sets the default <code>From:</code> Email-Header. If not set, the SMTP Server might choose the default mail address as the <code>From</code> value or might not work at all, depending on the mail provider.
+			</td>
+		</tr>
+		<tr>
 			<th>Variables for internal use only</th>
 			<th></th>
 			<th></th>
