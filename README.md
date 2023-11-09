@@ -61,9 +61,9 @@ unexpected behaviours!**
 		</tr>
 		<tr>
 			<td>
-				DD_SUBAPP_PORT_<b>BLOG</b><br>
-				DD_SUBAPP_PORT_<b>CMS</b><br>
-				DD_SUBAPP_PORT_<b>CLOUDCENTER</b>
+				DD_SUBAPP_ENABLED_<b>BLOG</b><br>
+				DD_SUBAPP_ENABLED_<b>CMS</b><br>
+				DD_SUBAPP_ENABLED_<b>CLOUDCENTER</b>
 			</td>
 			<td><code>true</code></td>
 			<td>boolean</td>
