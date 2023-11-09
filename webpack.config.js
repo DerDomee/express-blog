@@ -12,7 +12,7 @@ module.exports = {
 		'cloudcenter/public/serviceworker': './src/browser/serviceworker.ts',
 	},
 	output: {
-		path: path.resolve(__dirname, 'dist', 'public'),
+		path: path.resolve(__dirname, 'dist'),
 		filename: '[name].js',
 	},
 	optimization: {
