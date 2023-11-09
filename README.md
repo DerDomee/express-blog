@@ -167,6 +167,26 @@ unexpected behaviours!**
 		</tr>
 		<tr>
 			<td>
+				DD_EMAIL_ADMIN_ADDRESS<br>
+			</td>
+			<td>-</td>
+			<td>string</td>
+			<td>
+				Email address of the administrator (or webmaster/hostmaster) of the running server.
+			</td>
+		</tr>
+		<tr>
+			<td>
+				DD_EMAIL_SUPPORT_ADDRESS<br>
+			</td>
+			<td>-</td>
+			<td>string</td>
+			<td>
+				Email address of a support endpoint that users can send questions to.
+			</td>
+		</tr>
+		<tr>
+			<td>
 				DD_EMAIL_SMTP_SERVER<br>
 			</td>
 			<td>-</td>
