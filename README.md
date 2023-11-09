@@ -75,7 +75,7 @@ unexpected behaviours!**
 				DD_SUBAPP_HOSTNAME_<b>CMS</b><br>
 				DD_SUBAPP_HOSTNAME_<b>CLOUDCENTER</b>
 			</td>
-			<td><code>-</code></td>
+			<td>-</td>
 			<td>string</td>
 			<td>
 				If <code>NODE_ENV</code> is <code>production</code>, prefixes all
