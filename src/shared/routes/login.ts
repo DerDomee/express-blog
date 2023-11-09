@@ -1,6 +1,7 @@
 import {NextFunction, Request, Response} from 'express';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
+import {Op} from 'sequelize';
 import {Route} from '../types';
 import User from '../../database/dbmodels/user.model';
 import LoginSession from '../../database/dbmodels/loginsession.model';
@@ -42,7 +43,7 @@ async function post(req: Request, res: Response, next: NextFunction) {
 	let authed = false;
 	const user = await User.findOne({
 		where: {
-			username: username,
+			[Op.or]: [{username: username}, {email: username}],
 		},
 	});
 
