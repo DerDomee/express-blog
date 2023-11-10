@@ -18,6 +18,10 @@ const nav: Navigation = {
 			name: 'Bilder',
 			route: '/imagectl',
 		},
+		{
+			name: 'TV Shows',
+			route: '/tvshows',
+		},
 	],
 	right: [
 		{

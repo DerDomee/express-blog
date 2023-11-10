@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de" class="dark motion-safe:scroll-smooth">
+
+<head>
+	<%- include('../partials/head') %>
+		<title><%- htmlTitle %></title>
+</head>
+
+<body>
+	<%- include('../partials/navigation') %>
+		<div class="max-w-[75ch] px-4 mx-auto text-lg w-full">
+			<h1 class="text-4xl border-b border-gray-600 mb-4 pb-3">
+				<%- pageTitle %>
+					<button class="float-right text-lg bg-redgray-500 dark:bg-redgray-900 px-4 py-2 mb-4"
+						data-tvshow-function="add-new-tvshow">
+						<%- heroicon({ icon: 'plus-circle' , classes: 'self-center inline h-6' }) %>
+							Serie hinzufügen
+					</button>
+			</h1>
+			<div class="prose prose-lg dark:prose-invert w-full max-w-[72ch]">
+				<table>
+					<thead>
+						<th>Showname</th>
+						<th>Zeitraum</th>
+						<th>Staffelzahl</th>
+						<th>Tools</th>
+					</thead>
+					<tbody>
+						<% for (tvshow of currentShows ? currentShows : []) { %>
+							<tr>
+								<td>
+									<%= tvshow.name %>
+								</td>
+								<td>
+									<%= moment(tvshow.first_produced).format('YYYY') %>
+										-
+										<%= tvshow.last_produced ? moment(tvshow.last_produced).format('YYYY') : 'jetzt' %>
+								</td>
+								<td>
+									<%= tvshow.seasons.length %>
+								</td>
+								<td>
+									Tools
+								</td>
+							</tr>
+							<% } %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="absolute hidden mx-auto w-fit max-w-[40ch] left-[50%] -translate-x-[50%] top-[35%]
+				            p-4 bg-redgray-400 dark:bg-redgray-900
+		                border-redgray-900 dark:border-redgray-300 border" id="modal-newtvshow">
+			<span class="block mb-4 text-lg font-bold border-b border-redgray-900 dark:border-redgray-300"
+				id="modal-newtvshow_title">
+				Neue TV-Show anlegen
+				<button class="float-right bg-redgray-200 dark:bg-redgray-800 p-3" id="modal-newtvshow_abort">
+					<%- heroicon({ icon: 'x-mark' , classes: 'self-center inline h-6' , }) %>
+				</button>
+			</span>
+			<div>
+				<form action="" method="post">
+					<div class="flex flex-col">
+						<label for="newshow-name">Name der Show</label>
+						<input type="text" name="newshow-name" id="newshow-name">
+
+
+						<label for="newshow-startdate">Startdatum</label>
+						<input type="date" name="newshow-startdate" id="newshow-startdate" required>
+					</div>
+					<input type="submit" value="Show anlegen" class="bg-redgray-200 dark:bg-redgray-800 p-3 mr-4" required>
+				</form>
+			</div>
+		</div>
+		<%- include('../partials/footer') %>
+</body>
+
+</html>

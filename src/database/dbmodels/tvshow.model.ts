@@ -29,7 +29,7 @@ export default class TvShow extends Model {
 		type: DataType.STRING})
 		name: string;
 
-	@AllowNull(false)
+	@AllowNull(true)
 	@Unique
 	@Column({
 		type: DataType.STRING})

@@ -15,7 +15,7 @@ export default class GroupPermission extends Model {
 	@ForeignKey(() => Group)
 	@Column({
 		type: DataType.UUID})
-		user_id: string;
+		group_id: string;
 
 	@ForeignKey(() => Permission)
 	@Column({

@@ -8,6 +8,7 @@ import dynamicImages from '../../shared/routes/dynamicimages';
 import imageCtl from './imagectl';
 import userCtl from './userctl';
 import perms from './perms';
+import tvshows from './tvshows';
 
 export default [
 	home,
@@ -18,5 +19,6 @@ export default [
 	imageCtl,
 	dynamicImages,
 	perms,
+	tvshows,
 	catchall,
 ] as Route[];
