@@ -1,7 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
 import {Route} from '../types';
 import fs from 'fs';
-import * as PImage from 'pureimage';
 
 const fileExtToMimeSubtype = {
 	bmp: 'bmp',
@@ -12,31 +11,6 @@ const fileExtToMimeSubtype = {
 	avif: 'avif',
 	gif: 'gif',
 	webp: 'webp',
-};
-
-
-const createPlaceholderImage = async (
-	pictureid: string,
-	width: number,
-	height: number,
-) => {
-	const image = PImage.make(width, height, {});
-	const ctx = image.getContext('2d');
-	ctx.fillStyle = 'red';
-	ctx.fillRect(0, 0, width, height);
-	ctx.fillStyle = 'green';
-	ctx.strokeStyle = 'green';
-	/* ctx.fillRect(0, 0, width, 3);
-		ctx.fillRect(0, 0, 3, height);
-		ctx.fillRect(width-3, 0, width, height);
-		ctx.fillRect(0, height-3, width, height);*/
-	ctx.lineWidth = 15;
-	ctx.strokeRect(0, 0, width - 4, height - 4);
-	await fs.promises.mkdir('data/images', {recursive: true});
-	await PImage.encodeJPEGToStream(
-		image,
-		fs.createWriteStream(`data/images/${pictureid}.jpeg`),
-	);
 };
 
 /**
@@ -68,15 +42,6 @@ async function get(req: Request, res: Response, next: NextFunction) {
 		res.setHeader('Content-Type', `image/${mimetype}`);
 		res.end(image);
 	} catch (err) {
-		if (type === 'jpeg') {
-			await createPlaceholderImage(pictureid, outputWidth, outputHeight);
-			const image = await fs.promises.readFile(
-				`data/images/${pictureid}.${type}`,
-			);
-			res.setHeader('Content-Type', `image/${mimetype}`);
-			res.end(image);
-			return;
-		}
 		res.setHeader('Content-Type', 'application/json');
 		res.status(404);
 		res.end();
