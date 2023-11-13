@@ -25,5 +25,28 @@ if (route === '/tvshows') {
 	});
 }
 
+const showNewSeasonModal = () => {
+	const newSeasonModal = document.getElementById(
+		'modal-newtvseason') as HTMLDivElement;
+	const abortNewSeasonBtn = document.getElementById(
+		'modal-newtvseason_abort') as HTMLButtonElement;
+
+	const handleAbort = (ev: MouseEvent) => {
+		abortNewSeasonBtn.removeEventListener('click', handleAbort);
+		newSeasonModal.classList.add('hidden');
+	};
+
+	abortNewSeasonBtn.addEventListener('click', handleAbort);
+
+	newSeasonModal.classList.remove('hidden');
+};
+
+// Match `/tvshows/:tvShowId`, where `:tvShowId` is a UUIDv4
+if (route.match(/^\/tvshows\/[a-f0-9]{8}-([a-f0-9]{4}-){3}[a-f0-9]{12}$/)) {
+	const newSeasonBtn = document.querySelector(
+		'button[data-tvshow-function="add-new-season"]') as HTMLButtonElement;
+
+	newSeasonBtn.addEventListener('click', (ev) => {
+		showNewSeasonModal();
 	});
 }

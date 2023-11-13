@@ -9,6 +9,7 @@ import imageCtl from './imagectl';
 import userCtl from './userctl';
 import perms from './perms';
 import tvshows from './tvshows';
+import editshow from './editshow';
 
 export default [
 	home,
@@ -20,5 +21,6 @@ export default [
 	dynamicImages,
 	perms,
 	tvshows,
+	editshow,
 	catchall,
 ] as Route[];
