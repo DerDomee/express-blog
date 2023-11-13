@@ -10,7 +10,7 @@ import TvSeason from '../../database/dbmodels/tvseason.model';
  * @param {NextFunction} next
  */
 async function get(req: Request, res: Response, next: NextFunction) {
-	res.locals.pageTitle = 'Your user permissions /tvshows';
+	res.locals.pageTitle = 'List of TV Shows /tvshows';
 	res.locals.htmlTitle = 'Permissions - Dominik Riedig - Blog und Projekte';
 	res.locals.currentShows = await TvShow.findAll({
 		include: [
