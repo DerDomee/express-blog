@@ -1,6 +1,6 @@
 import {route} from '../shared/commonvars';
 
-const showNewUserModal = () => {
+const showNewTvShowModal = () => {
 	const newShowModal = document.getElementById(
 		'modal-newtvshow') as HTMLDivElement;
 	const abortNewShowBtn = document.getElementById(
@@ -17,10 +17,13 @@ const showNewUserModal = () => {
 };
 
 if (route === '/tvshows') {
-	const newUserBtn = document.querySelector(
+	const newTvShowBtn = document.querySelector(
 		'button[data-tvshow-function="add-new-tvshow"]') as HTMLButtonElement;
 
-	newUserBtn.addEventListener('click', (ev) => {
-		showNewUserModal();
+	newTvShowBtn.addEventListener('click', (ev) => {
+		showNewTvShowModal();
+	});
+}
+
 	});
 }
