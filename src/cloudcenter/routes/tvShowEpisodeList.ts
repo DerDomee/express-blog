@@ -43,15 +43,18 @@ async function get(req: Request, res: Response, next: NextFunction) {
 	if (!currentSeason && currentShow.seasons.length >= 1) {
 		currentSeason = currentShow.seasons[0];
 	}
+	if (!currentSeason) {
+		currentSeason = null;
+	}
 
 	const videoLengths: Promise<number>[] = [];
-	currentSeason.episodes.forEach((episode) => {
+	currentSeason?.episodes.forEach((episode) => {
 		videoLengths.push(episode.getVideoLength());
 	});
 	const actualLengths = (await Promise.allSettled(videoLengths)).map(
 		(promise) => (promise as PromiseFulfilledResult<number>).value);
 
-	currentSeason.episodes.map((episode) => {
+	currentSeason?.episodes.map((episode) => {
 		episode.videoLength = actualLengths[
 			currentSeason.episodes.indexOf(episode)];
 	});
