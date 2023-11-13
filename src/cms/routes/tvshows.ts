@@ -2,7 +2,6 @@ import {NextFunction, Request, Response} from 'express';
 import {Route} from '../../shared/types';
 import TvShow from '../../database/dbmodels/tvshow.model';
 import TvSeason from '../../database/dbmodels/tvseason.model';
-import logger from '../../shared/logger';
 
 /**
  *
@@ -50,8 +49,6 @@ async function post(req: Request, res: Response, next: NextFunction) {
 		first_produced: tvStartDate,
 	});
 
-	logger.debug(tvShowNameField);
-	logger.debug(tvStartDateField);
 	res.redirect('/tvshows');
 }
 
