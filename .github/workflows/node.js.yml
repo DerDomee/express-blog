@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - name: Use Node.js 21
-        uses: actions/setup-node@ee36e8b5c0fdd6014a0398aed18ce9876360bd63
+        uses: actions/setup-node@5ef044f9d09786428e6e895be6be17937becee3a
         with:
           node-version: 21
           cache: "npm"
@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - name: Use Node.js 21
-        uses: actions/setup-node@ee36e8b5c0fdd6014a0398aed18ce9876360bd63
+        uses: actions/setup-node@5ef044f9d09786428e6e895be6be17937becee3a
         with:
           node-version: 21
           cache: "npm"
@@ -41,7 +41,7 @@ jobs:
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - name: Use Node.js 21
-        uses: actions/setup-node@ee36e8b5c0fdd6014a0398aed18ce9876360bd63
+        uses: actions/setup-node@5ef044f9d09786428e6e895be6be17937becee3a
         with:
           node-version: 21
           cache: "npm"
