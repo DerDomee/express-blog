@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de" class="dark motion-safe:scroll-smooth">
+
+<head>
+	<%- include('../partials/head') %>
+		<title>[E] 403 - Dominik Riedig</title>
+</head>
+
+<body>
+	<%- include('../partials/navigation') %>
+		<div class="px-4 mx-auto text-lg max-w-[75ch]">
+			<h1 class="flex gap-2 text-4xl border-b border-gray-600 mb-4 pb-3">
+				<%-heroicon({icon:"exclamation-circle", classes:"self-center inline h-8"})%>
+					403 - Keine Berechtigung!
+			</h1>
+			<p class="flex gap-3 text-xl">
+				<a class="px-3 py-3 rounded-lg bg-blue-800" href="/">Back to home</a>
+			</p>
+		</div>
+		<%- include('../partials/footer') %>
+</body>
+
+</html>

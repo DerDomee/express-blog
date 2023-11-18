@@ -10,6 +10,7 @@ import showdownInstance from '../shared/showdown';
 import helmet from '../shared/helmet';
 import heroicon from '../shared/heroicon';
 import checkauth from '../shared/checkauth';
+import requirePermission from '../shared/requirepermissionmiddleware';
 import moment from 'moment';
 
 import routes from './routes/_routes';
@@ -36,10 +37,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(useragent.express());
-app.use(checkauth);
 app.use(heroicon);
+app.use(checkauth);
 
 app.use(express.static('./dist/cms/public'));
+
+app.use(requirePermission('cms'));
 
 app.use((_req, res, next) => {
 	const returnPath = app.get('blogAbsPath');
