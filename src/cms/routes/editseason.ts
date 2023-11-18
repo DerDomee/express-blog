@@ -45,16 +45,16 @@ async function post(req: Request, res: Response, next: NextFunction) {
 	const tvEpisodeNumberField = +req.body['newepisode-number'];
 
 	if (!tvEpisodeNameField) {
-		return res.redirect(
-			`/tvshows/${
-				req.params.currentShowId}/${
-				req.params.currentSeasonId}?error=noname`);
+		return res.redirect(`/tvshows/${
+			req.params.currentShowId}/${
+			req.params.currentSeasonId}?error=noname`,
+		);
 	}
 	if (tvEpisodeNumberField?.toString() === 'NaN') {
-		return res.redirect(
-			`/tvshows/${
-				req.params.currentShowId}/${
-				req.params.currentSeasonId}?error=nonumber`);
+		return res.redirect(`/tvshows/${
+			req.params.currentShowId}/${
+			req.params.currentSeasonId}?error=nonumber`,
+		);
 	}
 	await TvEpisode.create({
 		name: tvEpisodeNameField,
