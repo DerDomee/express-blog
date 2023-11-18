@@ -10,6 +10,7 @@ import userCtl from './userctl';
 import perms from './perms';
 import tvshows from './tvshows';
 import editshow from './editshow';
+import editseason from './editseason';
 
 export default [
 	home,
@@ -22,5 +23,6 @@ export default [
 	perms,
 	tvshows,
 	editshow,
+	editseason,
 	catchall,
 ] as Route[];
