@@ -56,7 +56,6 @@ async function post(req: Request, res: Response, next: NextFunction) {
 				req.params.currentShowId}/${
 				req.params.currentSeasonId}?error=nonumber`);
 	}
-	logger.debug(`Creating new episode '${tvEpisodeNameField}' in tvShowId '${req.params.currentShowId}' and seasonId '${req.params.currentSeasonId}'`);
 	await TvEpisode.create({
 		name: tvEpisodeNameField,
 		episodeNumberInSeason: tvEpisodeNumberField,
