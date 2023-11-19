@@ -9,8 +9,8 @@ import useragent from 'express-useragent';
 import showdownInstance from '../shared/showdown';
 import helmet from '../shared/helmet';
 import heroicon from '../shared/heroicon';
-import checkauth from '../shared/checkauth';
-import requirePermission from '../shared/requirepermissionmiddleware';
+import checkauth from '../shared/middleware/checkauth';
+import requirePermission from '../shared/middleware/permissionrequire';
 import moment from 'moment';
 
 import routes from './routes/_routes';

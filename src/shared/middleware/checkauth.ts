@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
-import User from '../database/dbmodels/user.model';
-import LoginSession from '../database/dbmodels/loginsession.model';
+import User from '../../database/dbmodels/user.model';
+import LoginSession from '../../database/dbmodels/loginsession.model';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
 	const sessionCookie = req.cookies.dd_user_sess_id;

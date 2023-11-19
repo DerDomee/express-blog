@@ -10,7 +10,7 @@ import navigation from './navigation';
 import showdownInstance from '../shared/showdown';
 import helmet from '../shared/helmet';
 import heroicon from '../shared/heroicon';
-import checkauth from '../shared/checkauth';
+import checkauth from '../shared/middleware/checkauth';
 import moment from 'moment';
 
 import routes from './routes/_routes';
