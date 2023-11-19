@@ -11,12 +11,11 @@
 		<div class="max-w-[75ch] px-4 mx-auto text-lg w-full">
 			<h1 class="text-4xl border-b border-gray-600 mb-4 pb-3">
 				<%- pageTitle %>
-					<button class="float-right text-lg bg-redgray-500 dark:bg-redgray-900 px-4 py-2 mb-4"
-						data-tvshow-function="add-new-episode">
-						<%- heroicon({ icon: 'plus-circle' , classes: 'self-center inline h-6' }) %>
-							Episode hinzufügen
-					</button>
 			</h1>
+			<button class="text-lg bg-redgray-500 dark:bg-redgray-900 px-4 py-2 mb-4" data-tvshow-function="add-new-episode">
+				<%- heroicon({ icon: 'plus-circle' , classes: 'self-center inline h-6' }) %>
+					Episode hinzufügen
+			</button>
 			<div class="prose prose-lg dark:prose-invert w-full max-w-[72ch]">
 				<table>
 					<thead>

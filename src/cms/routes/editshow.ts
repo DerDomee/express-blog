@@ -11,8 +11,6 @@ import TvEpisode from '../../database/dbmodels/tvepisode.model';
  * @param {NextFunction} next
  */
 async function get(req: Request, res: Response, next: NextFunction) {
-	res.locals.pageTitle = 'Your user permissions /tvshows';
-	res.locals.htmlTitle = 'Permissions - Dominik Riedig - Blog und Projekte';
 	res.locals.currentShow = await TvShow.findOne({
 		where: {
 			tvShowId: req.params.currentShowId,
@@ -32,6 +30,9 @@ async function get(req: Request, res: Response, next: NextFunction) {
 			['seasons', 'episodes', 'episodeNumberInSeason', 'ASC'],
 		],
 	});
+	res.locals.pageTitle = `TV-Show bearbeiten: ${res.locals.currentShow.name}`;
+	res.locals.htmlTitle = `TV-Show bearbeiten - ${
+		res.locals.currentShow.name} - Dominik Riedig - Blog und Projekte`;
 	res.render('tvshow_editshow', {...req.app.locals, ...res.locals});
 }
 

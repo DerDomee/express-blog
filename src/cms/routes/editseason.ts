@@ -12,8 +12,6 @@ import logger from '../../shared/logger';
  * @param {NextFunction} next
  */
 async function get(req: Request, res: Response, next: NextFunction) {
-	res.locals.pageTitle = 'Your user permissions /tvshows';
-	res.locals.htmlTitle = 'Permissions - Dominik Riedig - Blog und Projekte';
 	res.locals.currentSeason = await TvSeason.findOne({
 		where: {
 			seasonId: req.params.currentSeasonId,
@@ -30,7 +28,12 @@ async function get(req: Request, res: Response, next: NextFunction) {
 			['episodes', 'episodeNumberInSeason', 'ASC'],
 		],
 	});
-	res.locals.currentShow;
+	res.locals.pageTitle = `Staffel bearbeiten: ${
+		res.locals.currentSeason.name} - ${
+		res.locals.currentSeason.tvShow.name}`;
+	res.locals.htmlTitle = `Staffel bearbeiten - ${
+		res.locals.currentSeason.name} - ${
+		res.locals.currentSeason.tvShow.name} - Blog und Projekte`;
 	res.render('tvshow_editseason', {...req.app.locals, ...res.locals});
 }
 
