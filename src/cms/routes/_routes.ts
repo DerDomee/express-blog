@@ -11,6 +11,7 @@ import perms from './perms';
 import tvshows from './tvshows';
 import editshow from './editshow';
 import editseason from './editseason';
+import editepisode from './editepisode';
 
 export default [
 	home,
@@ -24,5 +25,6 @@ export default [
 	tvshows,
 	editshow,
 	editseason,
+	editepisode,
 	catchall,
 ] as Route[];

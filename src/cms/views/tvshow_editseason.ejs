@@ -33,7 +33,8 @@
 									<%= episode.name %>
 								</td>
 								<td>
-									Tools
+									<a href="/tvshows/<%= episode.tvShowId %>/<%= episode.tvSeasonId %>/<%= episode.episodeId %>"><%-
+											heroicon({icon: 'pencil-square' , classes: 'self-center inline h-6' }) %></a>
 								</td>
 							</tr>
 							<% } %>
