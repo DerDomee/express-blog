@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@473055ba18d6d2da209cd46110aadb9275e3194e
       - name: Use Node.js 21
         uses: actions/setup-node@25b062c917b0c75f8b47d8469aff6c94ffd89abb
         with:
@@ -26,7 +26,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@473055ba18d6d2da209cd46110aadb9275e3194e
       - name: Use Node.js 21
         uses: actions/setup-node@25b062c917b0c75f8b47d8469aff6c94ffd89abb
         with:
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: ["test", "lint"]
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@473055ba18d6d2da209cd46110aadb9275e3194e
       - name: Use Node.js 21
         uses: actions/setup-node@25b062c917b0c75f8b47d8469aff6c94ffd89abb
         with:
