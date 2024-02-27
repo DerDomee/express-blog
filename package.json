@@ -29,7 +29,7 @@
 		"heroicons": "2.0.18",
 		"highlight.js": "11.9.0",
 		"moment": "2.30.1",
-		"mysql2": "3.9.1",
+		"mysql2": "3.9.2",
 		"nodemailer": "6.9.10",
 		"npm-run-all2": "6.1.2",
 		"reflect-metadata": "0.1.14",
