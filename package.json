@@ -33,7 +33,7 @@
 		"nodemailer": "6.9.13",
 		"npm-run-all2": "6.1.2",
 		"reflect-metadata": "0.1.14",
-		"sequelize": "6.37.2",
+		"sequelize": "6.37.3",
 		"sequelize-typescript": "2.1.6",
 		"showdown": "2.1.0",
 		"socket.io": "4.7.5",
