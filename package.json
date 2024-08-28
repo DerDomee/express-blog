@@ -32,7 +32,7 @@
 		"mysql2": "3.9.9",
 		"nodemailer": "6.9.14",
 		"npm-run-all2": "6.2.2",
-		"reflect-metadata": "0.1.14",
+		"reflect-metadata": "0.2.2",
 		"sequelize": "6.37.3",
 		"sequelize-typescript": "2.1.6",
 		"showdown": "2.1.0",
