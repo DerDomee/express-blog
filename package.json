@@ -31,7 +31,7 @@
 		"moment": "2.30.1",
 		"mysql2": "3.9.9",
 		"nodemailer": "6.9.16",
-		"npm-run-all2": "6.2.2",
+		"npm-run-all2": "6.2.6",
 		"reflect-metadata": "0.1.14",
 		"sequelize": "6.37.3",
 		"sequelize-typescript": "2.1.6",
